@@ -4,6 +4,8 @@
 
 #include "prnPrint.h"
 
+#include "someQCallThread1.h"
+
 #define  _SOMETWOTHREAD1_CPP_
 #include "someTwoThread1.h"
 
@@ -63,7 +65,7 @@ void TwoThread1::threadExitFunction()
 
 void TwoThread1::executeOnTimer (int aTimeCount)
 {
-   Prn::print(Prn::ViewRun1, "QCallThread Timer          %4d",aTimeCount);
+   Prn::print(Prn::ViewRun3, "TwoThread Timer          %4d",aTimeCount);
 }
 
 //******************************************************************************
@@ -73,7 +75,7 @@ void TwoThread1::executeOnTimer (int aTimeCount)
 
 void TwoThread1::executeDoSomething1(int aCode)
 {
-   Prn::print(Prn::ViewRun3, "QCallThread Something1     %4d",aCode);
+   Prn::print(Prn::ViewRun1, "QCallThread Something1     %4d",aCode);
 }
 
 //******************************************************************************
@@ -81,9 +83,61 @@ void TwoThread1::executeDoSomething1(int aCode)
 //******************************************************************************
 // Execute an example action. This is passed an example variable. 
 
-void TwoThread1::executeDoSomething2(int aCode)
+void TwoThread1::executeDoSomething2(int aWaitTime)
 {
-   Prn::print(Prn::ViewRun3, "QCallThread Something2                        %4d",aCode);
+   Prn::print(Prn::ViewRun1, "TwoThread::executeDoSomething2>>>>>>>>>>>END");
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Execute example sequence: send a command to the qcall thread and wait
+   // for a response.
+
+   try
+   {
+      //************************************************************************
+      //************************************************************************
+      //************************************************************************
+      // Locals.
+
+      // Completion notification.
+      Ris::Threads::TwoThreadNotify tNotify(this, 1);
+
+      //************************************************************************
+      //************************************************************************
+      //************************************************************************
+      // Show the target reference image.
+
+      // Reset thread notifications.
+      BaseClass::resetNotify();
+           
+      // Send a work request to the qcall thread.
+      gQCallThread1->mRequestSomething1QCall(aWaitTime,&tNotify);
+
+      // Wait for the notification, ten second timeout.
+      BaseClass::waitForNotify(10000,1);
+   }
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // If the preceding code section encountered errors or timeouts then 
+   // this section executes. 
+
+   catch (int aStatus)
+   {
+      Prn::print(Prn::ViewRun1, "Exception TwoThread::executeDoSomething2  ERROR %d",aStatus);
+
+      // Exit.
+      return;
+   }
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Done. 
+
+   Prn::print(Prn::ViewRun1, "TwoThread::executeDoSomething2<<<<<<<<<<<END");
 }
 
 //******************************************************************************

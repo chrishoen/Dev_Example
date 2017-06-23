@@ -20,12 +20,11 @@ QCallThread1::QCallThread1()
    // Set base class thread priority
    BaseClass::setThreadPriorityHigh();
 
-   // Set timer period
-   BaseClass::mTimerPeriod = 1000;
+   // Disable the base class timer.
+   BaseClass::mTimerExecuteFlag  = false;
 
    // Set qcall call pointers.
-   mDoSomething1QCall.bind (this,&QCallThread1::executeDoSomething1);
-   mDoSomething2QCall.bind (this,&QCallThread1::executeDoSomething2);
+   mRequestSomething1QCall.bind (this,&QCallThread1::executeRequestSomething1);
 }
 
 //******************************************************************************
@@ -53,31 +52,26 @@ void QCallThread1::threadExitFunction()
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Execute periodically. This is called by the base class timer.
+// Execute an example work request and send a notification when completed. 
+// It is passed a wait time that is used to simulate some work and a
+// notification.
 
-void QCallThread1::executeOnTimer (int aTimeCount)
+void QCallThread1::executeRequestSomething1(
+   int aWaitTime,
+   Ris::Threads::TwoThreadNotify* aCompletionNotify)
 {
-   Prn::print(Prn::ViewRun1, "QCallThread Timer          %4d",aTimeCount);
-}
+   Prn::print(Prn::ViewRun1, "QCallThread Something1 BEGIN");
 
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-// Execute an example action. This is passed an example variable. 
+   // Wait for the wait time to simulate some work.
+   BaseClass::threadSleep(aWaitTime);
 
-void QCallThread1::executeDoSomething1(int aCode)
-{
-   Prn::print(Prn::ViewRun3, "QCallThread Something1     %4d",aCode);
-}
+   // Send a completion notification.
+   if (aCompletionNotify)
+   {
+      aCompletionNotify->notify();
+   }
 
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-// Execute an example action. This is passed an example variable. 
-
-void QCallThread1::executeDoSomething2(int aCode)
-{
-   Prn::print(Prn::ViewRun3, "QCallThread Something2                        %4d",aCode);
+   Prn::print(Prn::ViewRun1, "QCallThread Something1 END");
 }
 
 //******************************************************************************

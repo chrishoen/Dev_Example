@@ -8,6 +8,7 @@ Example qcall thread.
 //******************************************************************************
 //******************************************************************************
 
+#include "risThreadsTwoThread.h"
 #include "risThreadsQCallThread.h"
 
 //******************************************************************************
@@ -52,34 +53,22 @@ public:
    //  before the thread is terminated.
    void threadExitFunction() override;
 
-   // Execute periodically. This is called by the base class timer.
-   void executeOnTimer(int aTimerCount) override;
-
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Methods: QCalls: These are used to send commands to the thread.
 
-   // Execute an example action. This is passed an example variable. 
+   // Execute an example work request and send a notification when completed. 
+   // It is passed a wait time that is used to simulate some work and a
+   // notification.
 
    // The qcall. This is a call that is queued to this thread.
-   Ris::Threads::QCall1<int> mDoSomething1QCall;
+   Ris::Threads::QCall2<int,Ris::Threads::TwoThreadNotify*> mRequestSomething1QCall;
 
-   // Execute the call in the context of this thread.
-   void executeDoSomething1(int aCode);
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Methods: QCalls: These are used to send commands to the thread.
-
-   // Execute an example action. This is passed an example variable. 
-
-   // The qcall. This is a call that is queued to this thread.
-   Ris::Threads::QCall1<int> mDoSomething2QCall;
-
-   // Execute the call in the context of this thread.
-   void executeDoSomething2(int aCode);
+   // Execution for the qcall.
+   void executeRequestSomething1(
+      int aWaitTime,
+      Ris::Threads::TwoThreadNotify* aCompletionNotify);
 
    //***************************************************************************
    //***************************************************************************

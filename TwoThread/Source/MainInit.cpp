@@ -49,6 +49,8 @@ void main_initialize(int argc,char** argv)
    Prn::setFilter(Prn::ViewRun4,    false, 2);
 
    Prn::print(0,"QCallThread Program $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$BEGIN");
+   Prn::print(Prn::ViewRun1,"QCallThread Program $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$BEGIN");
+   Prn::print(Prn::ViewRun3,"QCallThread Program $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$BEGIN");
 
 }
 
@@ -60,6 +62,8 @@ void main_initialize(int argc,char** argv)
 void main_finalize()
 {
    Prn::print(0,"QCallThread Program $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$END");
+   Prn::print(Prn::ViewRun1,"QCallThread Program $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$END");
+   Prn::print(Prn::ViewRun3,"QCallThread Program $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$END");
 
    // Close print
    Prn::finalizePrint();

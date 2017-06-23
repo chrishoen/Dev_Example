@@ -3,7 +3,7 @@
 #include "risPortableCalls.h"
 #include "risCmdLineConsole.h"
 
-#include "someQCallThread1.h"
+#include "someTwoThread1.h"
 
 #include "CmdLineExec.h"
 
@@ -27,6 +27,7 @@ CmdLineExec::CmdLineExec()
 
 void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 {
+   if(aCmd->isCmd("DO1"    ))  executeDo1(aCmd);
    if(aCmd->isCmd("DO2"    ))  executeDo2(aCmd);
 
    if(aCmd->isCmd("GO1"    ))  executeGo1(aCmd);
@@ -41,7 +42,7 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 //******************************************************************************
 //******************************************************************************
 
-void CmdLineExec::executeDo2(Ris::CmdLineCmd* aCmd)
+void CmdLineExec::executeDo1(Ris::CmdLineCmd* aCmd)
 {
    // Set defaults if no arguments were entered.
    aCmd->setArgDefault(1,101);
@@ -50,7 +51,23 @@ void CmdLineExec::executeDo2(Ris::CmdLineCmd* aCmd)
    int tCode = aCmd->argInt(1);
 
    // Send qcall to the qcall thread, pass the variables.
-   Some::gQCallThread1->mDoSomething2QCall(tCode);
+   Some::gTwoThread1->mDoSomething1QCall(tCode);
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeDo2(Ris::CmdLineCmd* aCmd)
+{
+   // Set defaults if no arguments were entered.
+   aCmd->setArgDefault(1,4000);
+
+   // Set variables from arguments.
+   int tWaitTime = aCmd->argInt(1);
+
+   // Send qcall to the qcall thread, pass the variables.
+   Some::gTwoThread1->mDoSomething2QCall(tWaitTime);
 }
 
 //******************************************************************************

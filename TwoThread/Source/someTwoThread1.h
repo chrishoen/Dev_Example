@@ -78,7 +78,7 @@ public:
    Ris::Threads::QCall1<int> mDoSomething2QCall;
 
    // Execute the call in the context of this thread.
-   void executeDoSomething2(int aCode);
+   void executeDoSomething2(int aWaitTime);
 
    //***************************************************************************
    //***************************************************************************
