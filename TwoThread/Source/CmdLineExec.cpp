@@ -29,6 +29,7 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 {
    if(aCmd->isCmd("DO1"    ))  executeDo1(aCmd);
    if(aCmd->isCmd("DO2"    ))  executeDo2(aCmd);
+   if(aCmd->isCmd("Abort"  ))  executeAbort(aCmd);
 
    if(aCmd->isCmd("GO1"    ))  executeGo1(aCmd);
    if(aCmd->isCmd("GO2"    ))  executeGo2(aCmd);
@@ -68,6 +69,16 @@ void CmdLineExec::executeDo2(Ris::CmdLineCmd* aCmd)
 
    // Send qcall to the qcall thread, pass the variables.
    Some::gTwoThread1->mDoSomething2QCall(tWaitTime);
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeAbort(Ris::CmdLineCmd* aCmd)
+{
+   // Abort the two thread notification completion.
+   Some::gTwoThread1->mShortThread->threadAbortTimerCompletion();
 }
 
 //******************************************************************************
