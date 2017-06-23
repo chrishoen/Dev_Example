@@ -1,8 +1,6 @@
 
 #include "prnPrint.h"
 #include "risThreadsProcess.h"
-#include "risCmdLineConsole.h"
-#include "CmdLineExec.h"
 
 //******************************************************************************
 //******************************************************************************
