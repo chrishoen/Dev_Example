@@ -1,7 +1,7 @@
 #pragma once
 
 /*==============================================================================
-Example qcall thread.
+Example twothread.
 ==============================================================================*/
 //******************************************************************************
 //******************************************************************************
@@ -25,7 +25,7 @@ namespace Some
 //
 // It executes periodically according to its own thread timer.
 
-class QCallThread1 : public Ris::Threads::BaseQCallThread
+class TwoThread1 : public Ris::Threads::BaseQCallThread
 {
 public:
    typedef Ris::Threads::BaseQCallThread BaseClass;
@@ -41,7 +41,7 @@ public:
    // Infastructure:
 
    // Constructor.
-   QCallThread1();
+   TwoThread1();
 
    // Thread init function. This is called by the base class immedidately 
    // after the thread starts running.
@@ -92,10 +92,10 @@ public:
 //******************************************************************************
 // Global instance
        
-#ifdef _SOMEQCALLTHREAD1_CPP_
-          QCallThread1* gQCallThread1;
+#ifdef _SOMETWOTHREAD1_CPP_
+          TwoThread1* gTwoThread1;
 #else
-   extern QCallThread1* gQCallThread1;
+   extern TwoThread1* gTwoThread1;
 #endif
 
 //******************************************************************************
