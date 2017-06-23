@@ -15,10 +15,6 @@ CmdLineExec::CmdLineExec()
 {
 }
 
-void CmdLineExec::reset()
-{
-}
-
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
@@ -31,8 +27,6 @@ void CmdLineExec::reset()
 
 void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 {
-   if(aCmd->isCmd("RESET"  ))  reset();
-
    if(aCmd->isCmd("DO2"    ))  executeDo2(aCmd);
 
    if(aCmd->isCmd("GO1"    ))  executeGo1(aCmd);
@@ -49,10 +43,13 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeDo2(Ris::CmdLineCmd* aCmd)
 {
+   // Set defaults if no arguments were entered.
    aCmd->setArgDefault(1,101);
 
+   // Set variables from arguments.
    int tCode = aCmd->argInt(1);
 
+   // Send qcall to the qcall thread, pass the variables.
    Some::gQCallThread1->mDoSomething2QCall(tCode);
 }
 
@@ -62,12 +59,15 @@ void CmdLineExec::executeDo2(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
+   // Set defaults if no arguments were entered.
    aCmd->setArgDefault(1,10);
    aCmd->setArgDefault(2,11.1);
 
+   // Set variables from arguments.
    int    tInt    = aCmd->argInt(1);
    double tDouble = aCmd->argDouble(2);
 
+   // Show variables.
    Prn::print(0,"Show2 %d %10.6f",tInt,tDouble);
 }
 
