@@ -31,7 +31,7 @@ int main(int argc,char** argv)
    Some::gQCallThread1->launchThread();
 
    Some::gTwoThread1 = new Some::TwoThread1;
-   Some::gTwoThread1->launchThread();
+   Some::gTwoThread1->launchThreads();
 
    //***************************************************************************
    //***************************************************************************
@@ -47,7 +47,7 @@ int main(int argc,char** argv)
    //***************************************************************************
    // Shutdown the program threads.
 
-   Some::gTwoThread1->shutdownThread();
+   Some::gTwoThread1->shutdownThreads();
    delete Some::gTwoThread1;
 
    Some::gQCallThread1->shutdownThread();

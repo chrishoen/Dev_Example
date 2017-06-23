@@ -18,14 +18,20 @@ namespace Some
 TwoThread1::TwoThread1()
 {
    // Set base class thread priority
-   BaseClass::setThreadPriorityHigh();
+   BaseClass::mShortThread->setThreadPriorityHigh();
+   BaseClass::mLongThread->setThreadPriorityLow();
 
    // Set timer period
-   BaseClass::mTimerPeriod = 1000;
+   BaseClass::mShortThread->mTimerPeriod = 1000;
+
+   // Set call pointers
+   BaseClass::mShortThread->mThreadInitCallPointer.bind(this, &TwoThread1::threadInitFunction);
+   BaseClass::mShortThread->mThreadExitCallPointer.bind(this, &TwoThread1::threadExitFunction);
+   BaseClass::mShortThread->mThreadExecuteOnTimerCallPointer.bind(this, &TwoThread1::executeOnTimer);
 
    // Set qcall call pointers.
-   mDoSomething1QCall.bind (this,&TwoThread1::executeDoSomething1);
-   mDoSomething2QCall.bind (this,&TwoThread1::executeDoSomething2);
+   mDoSomething1QCall.bind (this->mLongThread,this,&TwoThread1::executeDoSomething1);
+   mDoSomething2QCall.bind (this->mLongThread,this,&TwoThread1::executeDoSomething2);
 }
 
 //******************************************************************************

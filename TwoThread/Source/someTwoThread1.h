@@ -7,7 +7,7 @@ Example twothread.
 //******************************************************************************
 //******************************************************************************
 
-#include "risThreadsQCallThread.h"
+#include "risThreadsTwoThread.h"
 
 //******************************************************************************
 //******************************************************************************
@@ -25,10 +25,10 @@ namespace Some
 //
 // It executes periodically according to its own thread timer.
 
-class TwoThread1 : public Ris::Threads::BaseQCallThread
+class TwoThread1 : public Ris::Threads::BaseTwoThread
 {
 public:
-   typedef Ris::Threads::BaseQCallThread BaseClass;
+   typedef Ris::Threads::BaseTwoThread BaseClass;
 
    //***************************************************************************
    //***************************************************************************
