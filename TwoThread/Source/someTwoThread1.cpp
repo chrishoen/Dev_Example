@@ -85,7 +85,7 @@ void TwoThread1::executeDoSomething1(int aCode)
 
 void TwoThread1::executeDoSomething2(int aWaitTime)
 {
-   Prn::print(Prn::ViewRun1, "TwoThread::executeDoSomething2>>>>>>>>>>>END");
+   Prn::print(Prn::ViewRun1, "TwoThread::executeDoSomething2>>>>>>>>>>>BEGIN");
 
    //***************************************************************************
    //***************************************************************************
