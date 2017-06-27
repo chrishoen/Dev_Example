@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{24D05F40
 		Files\Example_Parms.txt = Files\Example_Parms.txt
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ByteContent", "ByteContent\ByteContent.vcxproj", "{C10E277F-8071-45C3-96DB-F677DD40A1EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -56,6 +58,14 @@ Global
 		{F4CCFBA9-7F4C-4705-A77B-ED8C467C9068}.Release|x64.Build.0 = Release|x64
 		{F4CCFBA9-7F4C-4705-A77B-ED8C467C9068}.Release|x86.ActiveCfg = Release|Win32
 		{F4CCFBA9-7F4C-4705-A77B-ED8C467C9068}.Release|x86.Build.0 = Release|Win32
+		{C10E277F-8071-45C3-96DB-F677DD40A1EA}.Debug|x64.ActiveCfg = Debug|x64
+		{C10E277F-8071-45C3-96DB-F677DD40A1EA}.Debug|x64.Build.0 = Debug|x64
+		{C10E277F-8071-45C3-96DB-F677DD40A1EA}.Debug|x86.ActiveCfg = Debug|Win32
+		{C10E277F-8071-45C3-96DB-F677DD40A1EA}.Debug|x86.Build.0 = Debug|Win32
+		{C10E277F-8071-45C3-96DB-F677DD40A1EA}.Release|x64.ActiveCfg = Release|x64
+		{C10E277F-8071-45C3-96DB-F677DD40A1EA}.Release|x64.Build.0 = Release|x64
+		{C10E277F-8071-45C3-96DB-F677DD40A1EA}.Release|x86.ActiveCfg = Release|Win32
+		{C10E277F-8071-45C3-96DB-F677DD40A1EA}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
