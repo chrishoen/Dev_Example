@@ -20,7 +20,8 @@ void main_initialize(int argc,char** argv)
 
    // Initialize print facility
    Prn::resetPrint();
-   Prn::useConsoles(3);
+   Prn::useConsole(1);
+   Prn::useConsole(2);
    Prn::initializePrint();
 
    // Initialize print filters
