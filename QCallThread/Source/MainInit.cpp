@@ -5,31 +5,20 @@
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Initialize
+// Initialize.
 
 void main_initialize(int argc,char** argv)
 {
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Enter process
-
+   // Enter process.
    Ris::Threads::enterProcessHigh();
 
-   // Initialize print facility
+   // Initialize print facility.
    Prn::resetPrint();
    Prn::useConsole(1);
    Prn::useConsole(2);
    Prn::initializePrint();
 
    // Initialize print filters
-   Prn::setFilter(Prn::SocketInit1, false);
-   Prn::setFilter(Prn::SocketInit2, true);
-   Prn::setFilter(Prn::SocketRun1,  false);
-   Prn::setFilter(Prn::SocketRun2,  false);
-   Prn::setFilter(Prn::SocketRun3,  false);
-   Prn::setFilter(Prn::SocketRun4,  false);
-
    Prn::setFilter(Prn::ThreadRun1,  true);
    Prn::setFilter(Prn::ThreadRun2,  false);
    Prn::setFilter(Prn::ThreadRun3,  true);
@@ -47,23 +36,32 @@ void main_initialize(int argc,char** argv)
    Prn::setFilter(Prn::ViewRun3,    true,  2);
    Prn::setFilter(Prn::ViewRun4,    false, 2);
 
-   Prn::print(0,"QCallThread Program $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$BEGIN");
+   Prn::setFilter(Prn::QCallInit1, true);
+   Prn::setFilter(Prn::QCallInit2, true);
+   Prn::setFilter(Prn::QCallRun1, false);
+   Prn::setFilter(Prn::QCallRun2, false);
+   Prn::setFilter(Prn::QCallRun3, false);
+   Prn::setFilter(Prn::QCallRun4, false);
 
+   Prn::print(0,"QCallThread Program $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$BEGIN");
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Finalize
+// Finalize.
 
 void main_finalize()
 {
    Prn::print(0,"QCallThread Program $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$END");
 
-   // Close print
+   // Close print facility.
    Prn::finalizePrint();
 
-   // Exit process
+   // Exit process.
    Ris::Threads::exitProcess();
 }
 
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
