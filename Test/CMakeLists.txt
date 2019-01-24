@@ -6,7 +6,7 @@ add_executable (Test ${src_files})
 my_add_compile_options (Test)
 my_add_pch (Test)
 
-find_package(RisLib CONFIG REQUIRED ${MyRisLibConfigPath})
+find_package(RisLib CONFIG REQUIRED PATHS ${MyRisLibConfigPath} NO_DEFAULT_PATH)
 target_include_directories(Test PRIVATE RisLib)
 target_link_libraries(Test RisLib)
 
