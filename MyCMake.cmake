@@ -2,6 +2,20 @@
 #*******************************************************************************
 #*******************************************************************************
 
+function(my_initialize)
+
+   if(MSVC)
+      set (CMAKE_PREFIX_PATH "C:\\MyTools\\MyLib\\lib\\cmake" PARENT_SCOPE)
+   else()
+      set (CMAKE_PREFIX_PATH "/usr/local/lib/cmake" PARENT_SCOPE)
+   endif()
+
+endfunction()
+
+#*******************************************************************************
+#*******************************************************************************
+#*******************************************************************************
+
 function(my_find_src_files _a_src_files _target)
 
    file(GLOB _src_files RELATIVE ${PROJECT_SOURCE_DIR} *.cpp)

@@ -2,8 +2,8 @@
 
 include(MyCMake.cmake)
 
-#set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "C:\\MyTools\\MyLib\\lib\\cmake")
-
 project ("Dev_Example")
+
+my_initialize()
 
 add_subdirectory ("Test")

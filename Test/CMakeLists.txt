@@ -6,11 +6,8 @@ add_executable (Test ${src_files})
 my_add_compile_options (Test)
 my_add_pch (Test)
 
-set (CMAKE_FRAMEWORK_PATH "C:\\MyTools\\MyLib\\lib\\cmake")
+#set (CMAKE_PREFIX_PATH "C:\\MyTools\\MyLib\\lib\\cmake")
 message(STATUS "CMAKE_PREFIX_PATH***********************************" ${CMAKE_PREFIX_PATH})
-message(STATUS "CMAKE_FRAMEWORK_PATH********************************" ${CMAKE_FRAMEWORK_PATH})
-message(STATUS "CMAKE_APPBUNDLE_PATH********************************" ${CMAKE_APPBUNDLE_PATH})
-
 
 find_package(RisLib CONFIG REQUIRED)
 #find_package(RisLib CONFIG REQUIRED PATHS "C:\\MyTools\\MyLib\\lib\\cmake")
