@@ -1,86 +1,90 @@
+#include "stdafx.h"
+
+#include "CmdLineExec.h"
+
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 
-#include "prnPrint.h"
-
-#define  _SOMEQCALLTHREAD1_CPP_
-#include "someQCallThread1.h"
-
-namespace Some
+CmdLineExec::CmdLineExec()
 {
+}
 
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-// Constructor.
-
-QCallThread1::QCallThread1()
+void CmdLineExec::reset()
 {
-   // Set base class thread priority
-   BaseClass::setThreadPriorityHigh();
-
-   // Set timer period
-   BaseClass::mTimerPeriod = 1000;
-
-   // Set qcall call pointers.
-   mDoSomething1QCall.bind (this,&QCallThread1::executeDoSomething1);
-   mDoSomething2QCall.bind (this,&QCallThread1::executeDoSomething2);
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Thread init function. This is called by the base class immedidately 
-// after the thread starts running.
+// This class is the program command line executive. It processes user
+// command line inputs and executes them. It inherits from the command line
+// command executive base class, which provides an interface for executing
+// command line commands. It provides an override execute function that is
+// called by a console executive when it receives a console command line input.
+// The execute function then executes the command.
 
-void QCallThread1::threadInitFunction()
+void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 {
-   Prn::print(Prn::ProcInit1, "QCallThread1::threadInitFunction");
+   if(aCmd->isCmd("RESET"  ))  reset();
+   if(aCmd->isCmd("GO1"    ))  executeGo1(aCmd);
+   if(aCmd->isCmd("GO2"    ))  executeGo2(aCmd);
+   if(aCmd->isCmd("GO3"    ))  executeGo3(aCmd);
+   if(aCmd->isCmd("GO4"    ))  executeGo4(aCmd);
+   if(aCmd->isCmd("GO5"    ))  executeGo5(aCmd);
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Thread exit function. This is called by the base class immedidately
-//  before the thread is terminated.
 
-void QCallThread1::threadExitFunction()
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
-   Prn::print(Prn::ProcInit1, "QCallThread1::threadExitFunction");
+   Prn::print(0, "IsNumber %s", my_string_from_bool(aCmd->isArgNumber(1)));
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Execute periodically. This is called by the base class timer.
 
-void QCallThread1::executeOnTimer (int aTimeCount)
+void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 {
-   Prn::print(Prn::ViewRun1, "QCallThread Timer          %4d",aTimeCount);
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Execute an example action. This is passed an example variable. 
 
-void QCallThread1::executeDoSomething1(int aCode)
+void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
 {
-   Prn::print(Prn::ViewRun3, "QCallThread Something1     %4d",aCode);
+   char tString[200];
+
+   while (true)
+   {
+      fgets(tString, 200, stdin);
+      printf("CMD %d %s", (int)strlen(tString), tString);
+      if (strcmp(tString, "e\n") == 0) break;
+   }
+
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Execute an example action. This is passed an example variable. 
 
-void QCallThread1::executeDoSomething2(int aCode)
+void CmdLineExec::executeGo4(Ris::CmdLineCmd* aCmd)
 {
-   Prn::print(Prn::ViewRun3, "QCallThread Something2                        %4d",aCode);
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-}//namespace
+
+void CmdLineExec::executeGo5(Ris::CmdLineCmd* aCmd)
+{
+}
+
