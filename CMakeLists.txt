@@ -3,6 +3,6 @@
 include(MyCMake.cmake)
 
 project ("Dev_Example")
-my_initialize()
+my_init_variables()
 
 add_subdirectory ("Test")

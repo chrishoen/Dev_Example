@@ -3,7 +3,7 @@
    {
       "name": "Dev_Example",
       "generator": "Ninja",
-      "configurationType": "RelWithDebInfo",
+      "configurationType": "Release",
       "inheritEnvironments": [
          "msvc_x64_x64"
       ],

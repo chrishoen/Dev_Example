@@ -2,12 +2,12 @@
 #*******************************************************************************
 #*******************************************************************************
 
-function(my_initialize)
+function(my_init_variables)
 
    if(MSVC)
-      set (CMAKE_PREFIX_PATH "C:\\MyTools\\MyLib\\lib\\cmake" PARENT_SCOPE)
+      set (MyRisLibConfigPath "C:\\MyTools\\MyLib\\lib\\cmake\\RisLib NO_DEFAULT_PATHS" PARENT_SCOPE)
    else()
-      set (CMAKE_PREFIX_PATH "/usr/local/lib/cmake" PARENT_SCOPE)
+      set (MyRisLibConfigPath "/usr/local/lib/cmake/RisLib NO_DEFAULT_PATHS" PARENT_SCOPE)
    endif()
 
 endfunction()
