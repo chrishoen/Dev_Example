@@ -44,7 +44,9 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
-   Prn::print(0, "IsNumber %s", my_string_from_bool(aCmd->isArgNumber(1)));
+   float tY = aCmd->argDouble(1);
+   int tN = (int)round(tY / 0.156666666666666666666);
+   Prn::print(0, "%d", tN);
 }
 
 //******************************************************************************
@@ -53,6 +55,9 @@ void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 {
+   int tN = aCmd->argInt(1);
+   float tY = (float)(tN * 0.156666666666666666666);
+   Prn::print(0, "%f", tY);
 }
 
 //******************************************************************************
@@ -61,15 +66,7 @@ void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
 {
-   char tString[200];
-
-   while (true)
-   {
-      fgets(tString, 200, stdin);
-      printf("CMD %d %s", (int)strlen(tString), tString);
-      if (strcmp(tString, "e\n") == 0) break;
-   }
-
+   Prn::print(0, "%d", 0 == '\0');
 }
 
 //******************************************************************************
