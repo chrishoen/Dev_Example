@@ -18,14 +18,13 @@ namespace Some
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// Constructor.
 
 ExamTimerThread::ExamTimerThread()
 {
    // Set base class variables.
    BaseClass::setThreadName("ExamTimer");
    BaseClass::setThreadPrintLevel(3);
-
-   // Set base class variables.
    BaseClass::setThreadPriority(Ris::Threads::gPriorities.mTimerTest);
    BaseClass::mTimerPeriod = 1000;
 }
@@ -33,6 +32,8 @@ ExamTimerThread::ExamTimerThread()
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// Base class overload. This is executed periodically, in the context
+// of the thread.
 
 void ExamTimerThread::executeOnTimer(int aTimeCount)
 {

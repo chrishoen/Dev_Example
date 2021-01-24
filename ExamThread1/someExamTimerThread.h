@@ -1,7 +1,7 @@
 #pragma once
 
 /*==============================================================================
-Timer test thread.
+Example timer thread.
 ==============================================================================*/
 
 //******************************************************************************
@@ -14,6 +14,8 @@ namespace Some
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// This is an example timer thread. It inherits from the timer thread base
+// class. It executes a function periodically.
 
 class ExamTimerThread : public Ris::Threads::BaseTimerThread
 {
@@ -33,7 +35,8 @@ public:
    // Constructor.
    ExamTimerThread();
 
-   // Base class overloads.
+   // Base class overloads. This is executed periodically, in the context
+   // of the thread.
    void executeOnTimer(int aTimeCount) override;
 };
 
