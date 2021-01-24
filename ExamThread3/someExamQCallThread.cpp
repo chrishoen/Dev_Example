@@ -62,11 +62,14 @@ void  ExamQCallThread::threadExitFunction()
 //******************************************************************************
 // Receive request qcall function. It is bound to the qcall. This is
 // invoked by the example two thread to send a request to this thread.
-// It sends a response back to the two thread.
+// It sends a delayed response back to the two thread.
 
 void ExamQCallThread::executeRxRequest(int aCount)
 {
    Prn::print(Prn::View21, "ExamQCallThread::executeRxRequest ************************ %10d", aCount);
+
+   // Sleep.
+   BaseClass::threadSleep(gExamParms.mDelay1);
 
    // Send a response back to the example two thread.
    gExamTwoThread->mRxResponseQCall(aCount);

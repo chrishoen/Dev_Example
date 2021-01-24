@@ -35,7 +35,7 @@ void ExamTwoThread::executeRunSeq1()
    // Do this first.
 
    // Initialize the synchronization objects.
-   mSeqWaitable.initialize(cSeqPeriod);
+   mSeqWaitable.initialize(gExamParms.mTimerPeriod);
    mNotify.reset();
 
    // Reset variables. 
