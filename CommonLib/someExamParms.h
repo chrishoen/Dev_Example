@@ -9,13 +9,12 @@ Parameters class whose values are read from a command file.
 //******************************************************************************
 
 #include "risCmdLineParms.h"
-#include "tsDefs.h"
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 
-namespace CX
+namespace Some
 {
 
 //******************************************************************************
@@ -47,7 +46,7 @@ namespace CX
 // structure. If so, then this class is the root.
 // 
 
-class CProcParms : public Ris::BaseCmdLineParms
+class ExamParms : public Ris::BaseCmdLineParms
 {
 public:
 
@@ -57,41 +56,6 @@ public:
    // Constants.
 
    static const int cMaxStringSize = 100;
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Members.
-
-   // If true then enable aux alarm input overrides.
-   bool mAuxOverrideEnable;
-
-   // If true then enable hlc input overrides.
-   bool mHLCOverrideEnable;
-
-   // If true then enable hlc input overrides with a simulated sinusoid.
-   bool mHLCSimSinEnable;
-
-   // Simulated sinusoid period and amplitude limits.
-   double mHLCSimSinPeriod;
-   double mHLCSimSinAmpHi;
-   double mHLCSimSinAmpLo;
-
-   // HLC measurements.
-   double mHLCOffsetESS;
-   double mHLCOffsetSA;
-   double mHLCThreshLo;
-
-   int    mHLCTimerPeriod;
-   double mHLCStepTime;
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Members.
-
-   // Test code.
-   int  mTestCode;
 
    //***************************************************************************
    //***************************************************************************
@@ -116,7 +80,7 @@ public:
 
    // Constructor,
    typedef Ris::BaseCmdLineParms BaseClass;
-   CProcParms();
+   ExamParms();
    void reset();
    void show();
 
@@ -135,10 +99,10 @@ public:
 //******************************************************************************
 // Global instance.
 
-#ifdef _CXCPROCPARMS_CPP_
-   CProcParms gCProcParms;
+#ifdef       _SOMEEXAMPARMS_CPP_
+   ExamParms gExamParms;
 #else
-   extern CProcParms gCProcParms;
+   extern ExamParms gExamParms;
 #endif
 
 //******************************************************************************
