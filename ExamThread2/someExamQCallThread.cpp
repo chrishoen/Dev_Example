@@ -43,7 +43,7 @@ ExamQCallThread::~ExamQCallThread()
 
 void ExamQCallThread::threadInitFunction()
 {
-   Prn::print(Prn::View11, "ExamQCallThread::threadInitFunction");
+   Prn::print(Prn::View21, "ExamQCallThread::threadInitFunction");
 }
 
 //******************************************************************************
@@ -53,7 +53,7 @@ void ExamQCallThread::threadInitFunction()
 
 void  ExamQCallThread::threadExitFunction()
 {
-   Prn::print(Prn::View11, "ExamQCallThread::threadExitFunction");
+   Prn::print(Prn::View21, "ExamQCallThread::threadExitFunction");
 }
 
 //******************************************************************************
