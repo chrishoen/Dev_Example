@@ -29,7 +29,7 @@ ExampleQCallThread::ExampleQCallThread()
    BaseClass::setThreadPriority(Cmn::gPriorities.mQCall);
 
    // Initialize qcalls.
-   mRxRequestQCall.bind(this, &ExampleQCallThread::executeRxRequest);
+   mRequestQCall.bind(this, &ExampleQCallThread::executeRequest);
 }
 
 ExampleQCallThread::~ExampleQCallThread()
@@ -64,15 +64,15 @@ void  ExampleQCallThread::threadExitFunction()
 // invoked by the example two thread to send a request to this thread.
 // It sends a delayed response back to the two thread.
 
-void ExampleQCallThread::executeRxRequest(int aCount)
+void ExampleQCallThread::executeRequest(int aCount)
 {
-   Prn::print(Prn::View21, "ExampleQCallThread::executeRxRequest ************************ %10d", aCount);
+   Prn::print(Prn::View21, "ExampleQCallThread::executeRequest ************************ %10d", aCount);
 
    // Sleep.
    BaseClass::threadSleep(gExampleParms.mDelay1);
 
    // Send a response back to the example two thread.
-   gExampleTwoThread->mRxResponseQCall(aCount);
+   gExampleTwoThread->mResponseQCall(aCount);
 }
 
 //******************************************************************************

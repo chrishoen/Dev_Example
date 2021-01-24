@@ -21,12 +21,12 @@ namespace Some
 // from the long thread. It executes in the context of the short thread.
 // It notifies the long thread that a response was received.
 
-void ExampleTwoThread::executeRxResponse(int aCount)
+void ExampleTwoThread::executeResponse(int aCount)
 {
    // Metrics.
    mRxCount++;
 
-   Prn::print(Prn::View21, "ExampleTwoThread::executeRxResponse %d", aCount);
+   Prn::print(Prn::View21, "ExampleTwoThread::executeResponse %d", aCount);
 
    // Notify the long thread that a response was received.
    mNotify.notify(cResponseNotifyCode);

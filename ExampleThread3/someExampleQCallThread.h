@@ -66,12 +66,12 @@ public:
    // Methods. 
 
    // Receive request callback qcall.
-   Ris::Threads::QCall1<int> mRxRequestQCall;
+   Ris::Threads::QCall1<int> mRequestQCall;
 
    // Receive request qcall function. It is bound to the qcall. This is
    // invoked by the example two thread to send a request to this thread.
    // It sends a response back to the two thread.
-   void executeRxRequest(int);
+   void executeRequest(int);
 
 };
 

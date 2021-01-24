@@ -43,7 +43,7 @@ ExampleTwoThread::ExampleTwoThread()
 
    // Set qcalls.
    mRunSeq1QCall.bind(this->mLongThread, this, &ExampleTwoThread::executeRunSeq1);
-   mRxResponseQCall.bind(this->mShortThread, this, &ExampleTwoThread::executeRxResponse);
+   mResponseQCall.bind(this->mShortThread, this, &ExampleTwoThread::executeResponse);
    mAbortQCall.bind(this->mShortThread, this, &ExampleTwoThread::executeAbort);
 
    // Set member variables.

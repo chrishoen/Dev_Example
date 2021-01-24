@@ -81,7 +81,7 @@ void ExampleTwoThread::executeRunSeq1()
             mNotify.setMaskOne("Response", cResponseNotifyCode);
 
             // Invoke the qcall thread request qcall.
-            gExampleQCallThread->mRxRequestQCall(mTxCount++);
+            gExampleQCallThread->mRequestQCall(mTxCount++);
 
          }
          catch (int aException)

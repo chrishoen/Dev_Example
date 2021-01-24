@@ -64,13 +64,13 @@ public:
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Methods.qcalls.
+   // Methods. qcalls.
 
-   // Exampleple qcall. It is invoked by the timer thread.
-   Ris::Threads::QCall1<int> mExampleple1QCall;
+   // Example qcall. It is invoked by the timer thread.
+   Ris::Threads::QCall1<int> mRequestQCall;
 
-   // Exampleple function. This is bound to the qcall.
-   void executeExampleple1 (int aCount);
+   // Example function. This is bound to the qcall. It does a print.
+   void executeRequest (int aCount);
 };
 
 //******************************************************************************

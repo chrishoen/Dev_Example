@@ -29,7 +29,7 @@ ExampleQCallThread::ExampleQCallThread()
    BaseClass::mTimerPeriod = gExampleParms.mTimerPeriod;
 
    // Initialize qcalls.
-   mExampleple1QCall.bind(this, &ExampleQCallThread::executeExampleple1);
+   mRequestQCall.bind(this, &ExampleQCallThread::executeRequest);
 }
 
 ExampleQCallThread::~ExampleQCallThread()
@@ -73,9 +73,9 @@ void ExampleQCallThread::executeOnTimer(int aTimerCount)
 // QCall registered to the mUdpMsgThread child thread. It is invoked when
 // a message is received. It process the received messages.
 
-void ExampleQCallThread::executeExampleple1(int aCount)
+void ExampleQCallThread::executeRequest(int aCount)
 {
-   Prn::print(Prn::View21, "ExampleQCallThread::executeExampleple1 ************************ %10d", aCount);
+   Prn::print(Prn::View21, "ExampleQCallThread::executeRequest ************************ %10d", aCount);
 }
 
 //******************************************************************************
