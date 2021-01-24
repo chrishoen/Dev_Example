@@ -1,7 +1,7 @@
 #pragma once
 
 /*==============================================================================
-Exam qcall thread.
+Example qcall thread.
 ==============================================================================*/
 
 //******************************************************************************
@@ -16,10 +16,12 @@ namespace Some
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// This is a test qcall thread.
-//   
-// It inherits from BaseQCallThread to obtain a call queue based thread
-// functionality.
+// This is an example qcall thread. It inherits from BaseQCallThread to obtain
+// a call queue based thread functionality.
+//
+// It is used in conjunction with the example two thread in a master/slave
+// scheme. The two thread is a master that sends request qcalls to the slave
+// qcall thread, who then sends response qcalls back to the master.
 
 class  ExamQCallThread : public Ris::Threads::BaseQCallThread
 {

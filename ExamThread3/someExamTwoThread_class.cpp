@@ -22,7 +22,7 @@ namespace Some
 // Constructor. True is tta, false is da.
 
 ExamTwoThread::ExamTwoThread()
-   : mRxMsgNotify(&mNotify, cRxMsgNotifyCode)
+   : mResponseNotify(&mNotify, cResponseNotifyCode)
 {
    using namespace std::placeholders;
 

@@ -19,11 +19,11 @@ namespace Some
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Run sequence qcall function. Execute an infinite loop sequence that
-// sends a request to the slave, waits for the response, and processes it.
-// It calls one of the process subroutines, based on the state. It executes
-// in the context of the long thread. The purpose of this is to provide
-// long thread execution context for message processing.
+// Run sequence qcall function. This is bound to the qcall. Execute an
+// infinite loop sequence that sends a request to the slave, waits for the
+// response, and processes it. It executes in the context of the long
+// thread. The purpose of this is to provide long thread execution context
+// for message processing.
 
 void ExamTwoThread::executeRunSeq1()
 {
@@ -78,7 +78,7 @@ void ExamTwoThread::executeRunSeq1()
             mNotify.testException();
 
             // Set the thread notification mask.
-            mNotify.setMaskOne("RxMsg", cRxMsgNotifyCode);
+            mNotify.setMaskOne("Response", cResponseNotifyCode);
 
             // Invoke the qcall thread request qcall.
             gExamQCallThread->mRxRequestQCall(mTxCount++);

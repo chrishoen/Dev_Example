@@ -29,7 +29,7 @@ void ExamTwoThread::executeRxResponse(int aCount)
    Prn::print(Prn::View21, "ExamTwoThread::executeRxResponse %d", aCount);
 
    // Notify the long thread that a response was received.
-   mNotify.notify(cRxMsgNotifyCode);
+   mNotify.notify(cResponseNotifyCode);
 }
 
 //******************************************************************************

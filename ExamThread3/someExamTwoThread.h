@@ -17,27 +17,23 @@ namespace Some
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// This is an example two thread. It inherits from BaseTwoThread to obtain
+// a two thread functionality.
 //
-// The base comm thread has a member that is a ris serial string thread.
-// This is used to send strings to the slave and receive strings from
-// the slave. The serial thread sends received message strings to this
-// thread via a ris qcall. The serial thread manages all of the message
-// string crlf terminators.
-//
-// The base comm thread inherits from the ris base two thread class.
-// This means that it has two threads: a long term thread and a short
-// term thread. Both are ris qcall threads.
+// It is used in conjunction with the example qcall thread in a master/slave
+// scheme. The two thread is a master that sends request qcalls to the slave
+// qcall thread, who then sends response qcalls back to the master.
 // 
-// The long thread executes the sequence qcall and it provides the execution
-// context for the message processing sequence. The sequence qcall is executed
-// at initialization and contains an infinite sequence that processes the
-// messages. The sequence only exits if it is aborted or the thread is
-// terminated.
+// The long thread executes a sequence qcall that provides the execution
+// context for the master/slave message processing sequence. The sequence
+// qcall is executed at initialization and contains an infinite loop
+// that sends requests to the slave qcall thread and waits for responses
+// from it, via the short thread. The sequence only exits if it is aborted
+// or the thread is terminated.
 //
-// The short thread executes ris qcalls sent by the ris serial receive 
-// child thread. It validates received messages and notifies the long
-// thread when messages are received. The long thread sends request
-// messages and then waits for the notification from the short thread.
+// The short thread executes a response qcall that is invoked by the slave
+// qcall thread after it receives a request. It notifies the long thread
+// when responses are received.
 //
 //******************************************************************************
 //******************************************************************************
@@ -57,10 +53,10 @@ public:
    static const int cSeqPeriod = 2000;
 
    // Wait timeouts.
-   static const int cRxMsgTimeout = 2000;
+   static const int cResponseTimeout = 2000;
 
    // Notification codes.
-   static const int cRxMsgNotifyCode = 11;
+   static const int cResponseNotifyCode = 11;
 
    // Seq exit status codes.
    static const int cSeqExitNormal = 0;
@@ -78,7 +74,7 @@ public:
    // Members.
 
    // Notifications.
-   Ris::Threads::NotifyWrapper mRxMsgNotify;
+   Ris::Threads::NotifyWrapper mResponseNotify;
 
    // Waitable timer.
    Ris::Threads::Waitable mSeqWaitable;
@@ -150,25 +146,24 @@ public:
    // Run sequence qcall. 
    Ris::Threads::QCall0 mRunSeq1QCall;
 
-   // Run sequence qcall function. Execute an infinite loop sequence that
-   // sends a request to the slave, waits for the response, and processes it.
-   // It calls one of the process subroutines, based on the state. It executes
-   // in the context of the long thread. The purpose of this is to provide
-   // long thread execution context for message processing.
+   // Run sequence qcall function. This is bound to the qcall. Execute an
+   // infinite loop sequence that sends a request to the slave, waits for the
+   // response, and processes it. It executes in the context of the long
+   // thread. The purpose of this is to provide long thread execution context
+   // for message processing.
    void executeRunSeq1();
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Methods: QCalls: These are used to send commands to the thread.
+   // Methods. qcalls.
 
-   // Abort a running sequence qcall.
-
-   // The qcall. This is a call that is queued to this thread.
+   // Abort sequence qcall.
    Ris::Threads::QCall0 mAbortQCall;
 
-   // The qcall function. Post to the waitable to abort the long thread
-   // qcall. Execute in the context of the short thread.
+   // Abort sequence qcall function. This is bound to the qcall. Post to the
+   // waitable to abort the long thread qcall. Execute in the context of the
+   // short thread.
    void executeAbort();
 
 };
