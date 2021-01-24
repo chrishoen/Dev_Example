@@ -1,26 +1,28 @@
 #pragma once
 
 /*==============================================================================
-Example timer thread.
+Program command line executive.
 ==============================================================================*/
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-#include "risThreadsTimerThread.h"
 
-namespace Some
-{
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-// This is an example timer thread. It inherits from the timer thread base
-// class. It executes a function periodically.
+#include "risCmdLineExec.h"
 
-class ExamTimerThread : public Ris::Threads::BaseTimerThread
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// This class is the program command line executive. It processes user
+// command line inputs and executes them. It inherits from the command line
+// command executive base class, which provides an interface for executing
+// command line commands. It provides an override execute function that is
+// called by a console executive when it receives a console command line input.
+// The execute function then executes the command.
+
+class CmdLineExec : public Ris::BaseCmdLineExec
 {
 public:
-   typedef Ris::Threads::BaseTimerThread BaseClass;
 
    //***************************************************************************
    //***************************************************************************
@@ -32,32 +34,34 @@ public:
    //***************************************************************************
    // Methods.
 
-   // Constructor.
-   ExamTimerThread();
+   CmdLineExec();
+   void reset();
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Methods. Thread base class overloads.
+   // Methods.
 
-   // Execute periodically. This is called by the base class timer.
-   void executeOnTimer(int aTimeCount) override;
+   // Base class override. Execute a command line command. It calls one of
+   // the following specific command execution functions. This is called by
+   // the owner of this object to pass command line commands to it. 
+   void execute(Ris::CmdLineCmd* aCmd) override;
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods.
+
+   // Execute specific commands.
+   void executeGo1     (Ris::CmdLineCmd* aCmd);
+   void executeGo2     (Ris::CmdLineCmd* aCmd);
+   void executeGo3     (Ris::CmdLineCmd* aCmd);
+   void executeGo4     (Ris::CmdLineCmd* aCmd);
+   void executeGo5     (Ris::CmdLineCmd* aCmd);
+   void executeParms   (Ris::CmdLineCmd* aCmd);
 };
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Global instance.
-
-#ifdef _SOMEXAMTIMERTHREAD_CPP_
-           ExamTimerThread* gExamTimerThread;
-#else
-   extern  ExamTimerThread* gExamTimerThread;
-#endif
-
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-}//namespace
-
 

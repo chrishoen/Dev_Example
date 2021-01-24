@@ -15,7 +15,8 @@ namespace Some
 //******************************************************************************
 //******************************************************************************
 // This is an example timer thread. It inherits from the timer thread base
-// class. It executes a function periodically.
+// class. It executes a function periodically that invokes the example qcall
+// thread qcall.
 
 class ExamTimerThread : public Ris::Threads::BaseTimerThread
 {
@@ -40,7 +41,8 @@ public:
    //***************************************************************************
    // Methods. Thread base class overloads.
 
-   // Execute periodically. This is called by the base class timer.
+   // Execute periodically. This is called by the base class timer. It
+   // invokes the example qcall thread qcall.
    void executeOnTimer(int aTimeCount) override;
 };
 
@@ -50,9 +52,9 @@ public:
 // Global instance.
 
 #ifdef _SOMEXAMTIMERTHREAD_CPP_
-           ExamTimerThread* gExamTimerThread;
+         ExamTimerThread* gExamTimerThread = 0;
 #else
-   extern  ExamTimerThread* gExamTimerThread;
+   extern ExamTimerThread* gExamTimerThread;
 #endif
 
 //******************************************************************************
