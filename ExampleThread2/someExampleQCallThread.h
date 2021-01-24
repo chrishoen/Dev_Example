@@ -1,26 +1,35 @@
 #pragma once
 
 /*==============================================================================
-Example timer thread.
+Example qcall thread.
 ==============================================================================*/
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-#include "risThreadsTimerThread.h"
+
+#include "risThreadsQCallThread.h"
 
 namespace Some
 {
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-// This is an example timer thread. It inherits from the timer thread base
-// class. It executes a function periodically.
 
-class ExamTimerThread : public Ris::Threads::BaseTimerThread
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// This is a test qcall thread.
+//   
+// It inherits from BaseQCallThread to obtain a call queue based thread
+// functionality.
+
+class  ExampleQCallThread : public Ris::Threads::BaseQCallThread
 {
 public:
-   typedef Ris::Threads::BaseTimerThread BaseClass;
+   typedef Ris::Threads::BaseQCallThread BaseClass;
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Members.
 
    //***************************************************************************
    //***************************************************************************
@@ -33,31 +42,49 @@ public:
    // Methods.
 
    // Constructor.
-   ExamTimerThread();
+   ExampleQCallThread();
+  ~ExampleQCallThread();
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Methods. Thread base class overloads.
 
+   // Thread init function. This is called by the base class immediately 
+   // after the thread starts running.
+   void threadInitFunction() override;
+
+   // Thread exit function. This is called by the base class immediately
+   // before the thread is terminated.
+   void threadExitFunction() override;
+
    // Execute periodically. This is called by the base class timer.
-   void executeOnTimer(int aTimeCount) override;
+   void executeOnTimer(int aTimerCount) override;
+  
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods.qcalls.
+
+   // Exampleple qcall. It is invoked by the timer thread.
+   Ris::Threads::QCall1<int> mExampleple1QCall;
+
+   // Exampleple function. This is bound to the qcall.
+   void executeExampleple1 (int aCount);
 };
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Global instance.
+// Global singular instance.
 
-#ifdef _SOMEXAMTIMERTHREAD_CPP_
-           ExamTimerThread* gExamTimerThread;
+#ifdef _SOMEEXAMPLEQCALLTHREAD_CPP_
+       ExampleQCallThread* gExampleQCallThread = 0;
 #else
-   extern  ExamTimerThread* gExamTimerThread;
+extern ExampleQCallThread* gExampleQCallThread;
 #endif
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 }//namespace
-
-

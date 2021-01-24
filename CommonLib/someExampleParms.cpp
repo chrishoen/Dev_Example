@@ -6,8 +6,8 @@
 
 #include "risCmdLineFile.h"
 
-#define  _SOMEEXAMPARMS_CPP_
-#include "someExamParms.h"
+#define  _SOMEEXAMPLEPARMS_CPP_
+#include "someExampleParms.h"
 
 //******************************************************************************
 //******************************************************************************
@@ -19,20 +19,17 @@ namespace Some
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
 // Constructor.
 
-ExamParms::ExamParms()
+ExampleParms::ExampleParms()
 {
    reset();
 }
 
-void ExamParms::reset()
+void ExampleParms::reset()
 {
    BaseClass::reset();
-   BaseClass::setFilePath("/opt/prime/files/Exam_Parms.txt");
+   BaseClass::setFilePath("/opt/prime/files/Example_Parms.txt");
 
    mPrintViewEnable = false;
    mPrintViewIPAddress[0] = 0;
@@ -47,10 +44,10 @@ void ExamParms::reset()
 //******************************************************************************
 // Show.
 
-void ExamParms::show()
+void ExampleParms::show()
 {
    printf("\n");
-   printf("ExamParms************************************************ %s\n", mTargetSection);
+   printf("ExampleParms************************************************ %s\n", mTargetSection);
 
    printf("\n");
    printf("TimerPeriod                %12d\n", mTimerPeriod);
@@ -69,7 +66,7 @@ void ExamParms::show()
 // member variable.  Only process commands for the target section.This is
 // called by the associated command file object for each command in the file.
 
-void ExamParms::execute(Ris::CmdLineCmd* aCmd)
+void ExampleParms::execute(Ris::CmdLineCmd* aCmd)
 {
    if (!isTargetSection(aCmd)) return;
 
@@ -87,7 +84,7 @@ void ExamParms::execute(Ris::CmdLineCmd* aCmd)
 // Calculate expanded member variables. This is called after the entire
 // section of the command file has been processed.
 
-void ExamParms::expand()
+void ExampleParms::expand()
 {
 }
 

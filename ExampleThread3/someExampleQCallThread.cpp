@@ -7,10 +7,11 @@
 #include "stdafx.h"
 
 #include "cmnPriorities.h"
-#include "someExamParms.h"
+#include "someExampleParms.h"
+#include "someExampleTwoThread.h"
 
-#define  _SOMEEXAMQCALLTHREAD_CPP_
-#include "someExamQCallThread.h"
+#define  _SOMEEXAMPLEQCALLTHREAD_CPP_
+#include "someExampleQCallThread.h"
 
 namespace Some
 {
@@ -20,19 +21,18 @@ namespace Some
 //******************************************************************************
 // Constructor.
 
-ExamQCallThread::ExamQCallThread()
+ExampleQCallThread::ExampleQCallThread()
 {
    // Set base class variables.
-   BaseClass::setThreadName("ExamQCall");
-   BaseClass::setThreadPrintLevel(gExamParms.mPrintLevel);
+   BaseClass::setThreadName("ExampleQCall");
+   BaseClass::setThreadPrintLevel(gExampleParms.mPrintLevel);
    BaseClass::setThreadPriority(Cmn::gPriorities.mQCall);
-   BaseClass::mTimerPeriod = gExamParms.mTimerPeriod;
 
    // Initialize qcalls.
-   mExample1QCall.bind(this, &ExamQCallThread::executeExample1);
+   mRxRequestQCall.bind(this, &ExampleQCallThread::executeRxRequest);
 }
 
-ExamQCallThread::~ExamQCallThread()
+ExampleQCallThread::~ExampleQCallThread()
 {
 }
 
@@ -42,9 +42,9 @@ ExamQCallThread::~ExamQCallThread()
 // Thread init function. This is called by the base class immediately 
 // after the thread starts running.
 
-void ExamQCallThread::threadInitFunction()
+void ExampleQCallThread::threadInitFunction()
 {
-   Prn::print(Prn::View21, "ExamQCallThread::threadInitFunction");
+   Prn::print(Prn::View21, "ExampleQCallThread::threadInitFunction");
 }
 
 //******************************************************************************
@@ -52,30 +52,27 @@ void ExamQCallThread::threadInitFunction()
 //******************************************************************************
 // Thread exit function, base class overload.
 
-void  ExamQCallThread::threadExitFunction()
+void  ExampleQCallThread::threadExitFunction()
 {
-   Prn::print(Prn::View21, "ExamQCallThread::threadExitFunction");
+   Prn::print(Prn::View21, "ExampleQCallThread::threadExitFunction");
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Execute periodically. This is called by the base class timer.
+// Receive request qcall function. It is bound to the qcall. This is
+// invoked by the example two thread to send a request to this thread.
+// It sends a delayed response back to the two thread.
 
-void ExamQCallThread::executeOnTimer(int aTimerCount)
+void ExampleQCallThread::executeRxRequest(int aCount)
 {
-   Prn::print(Prn::View21, "ExamQCallThread::executeOnTimer  %10d", aTimerCount);
-}
+   Prn::print(Prn::View21, "ExampleQCallThread::executeRxRequest ************************ %10d", aCount);
 
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-// QCall registered to the mUdpMsgThread child thread. It is invoked when
-// a message is received. It process the received messages.
+   // Sleep.
+   BaseClass::threadSleep(gExampleParms.mDelay1);
 
-void ExamQCallThread::executeExample1(int aCount)
-{
-   Prn::print(Prn::View21, "ExamQCallThread::executeExample1 ************************ %10d", aCount);
+   // Send a response back to the example two thread.
+   gExampleTwoThread->mRxResponseQCall(aCount);
 }
 
 //******************************************************************************

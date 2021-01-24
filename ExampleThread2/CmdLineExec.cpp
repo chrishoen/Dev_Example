@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "someExamParms.h"
+#include "someExampleParms.h"
 #include "CmdLineExec.h"
 
 //******************************************************************************
@@ -82,9 +82,9 @@ void CmdLineExec::executeGo5(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeParms(Ris::CmdLineCmd* aCmd)
 {
-   Some::gExamParms.reset();
-   Some::gExamParms.readSection("default");
-   Some::gExamParms.show();
+   Some::gExampleParms.reset();
+   Some::gExampleParms.readSection("default");
+   Some::gExampleParms.show();
 }
 
 //******************************************************************************

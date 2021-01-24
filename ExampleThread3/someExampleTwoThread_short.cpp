@@ -8,7 +8,7 @@ Detestion:
 
 #include "stdafx.h"
 
-#include "someExamTwoThread.h"
+#include "someExampleTwoThread.h"
 
 namespace Some
 {
@@ -21,12 +21,12 @@ namespace Some
 // from the long thread. It executes in the context of the short thread.
 // It notifies the long thread that a response was received.
 
-void ExamTwoThread::executeRxResponse(int aCount)
+void ExampleTwoThread::executeRxResponse(int aCount)
 {
    // Metrics.
    mRxCount++;
 
-   Prn::print(Prn::View21, "ExamTwoThread::executeRxResponse %d", aCount);
+   Prn::print(Prn::View21, "ExampleTwoThread::executeRxResponse %d", aCount);
 
    // Notify the long thread that a response was received.
    mNotify.notify(cResponseNotifyCode);

@@ -8,11 +8,10 @@ Description:
 #include "stdafx.h"
 
 #include "cmnPriorities.h"
-#include "someExamParms.h"
-#include "someExamQCallThread.h"
+#include "someExampleParms.h"
 
-#define  _SOMEXAMTIMERTHREAD_CPP_
-#include "someExamTimerThread.h"
+#define  _SOMEEXAMPLETIMERTHREAD_CPP_
+#include "someExampleTimerThread.h"
 
 namespace Some
 {
@@ -22,27 +21,23 @@ namespace Some
 //******************************************************************************
 // Constructor.
 
-ExamTimerThread::ExamTimerThread()
+ExampleTimerThread::ExampleTimerThread()
 {
    // Set base class variables.
-   BaseClass::setThreadName("ExamTimer");
-   BaseClass::setThreadPrintLevel(gExamParms.mPrintLevel);
+   BaseClass::setThreadName("ExampleTimer");
+   BaseClass::setThreadPrintLevel(gExampleParms.mPrintLevel);
    BaseClass::setThreadPriority(Cmn::gPriorities.mTimer);
-   BaseClass::mTimerPeriod = gExamParms.mTimerPeriod;
+   BaseClass::mTimerPeriod = gExampleParms.mTimerPeriod;
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Execute periodically. This is called by the base class timer. It
-// invokes the example qcall thread qcall.
+// Execute periodically. This is called by the base class timer.
 
-void ExamTimerThread::executeOnTimer(int aTimeCount)
+void ExampleTimerThread::executeOnTimer(int aTimeCount)
 {
-   Prn::print(Prn::View11, "ExamTimerThread::executeOnTimer %d", aTimeCount);
-
-   // Invoke the example qcall thread qcall.
-   gExamQCallThread->mExample1QCall(aTimeCount);
+   Prn::print(Prn::View11, "ExampleTimerThread::executeOnTimer %d", aTimeCount);
 }
 
 //******************************************************************************

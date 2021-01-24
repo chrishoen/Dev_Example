@@ -1,0 +1,19 @@
+﻿cmake_minimum_required (VERSION 3.8)
+
+project (ExampleThread3 CXX)
+my_find_src_files (src_files ExampleThread3)
+add_executable (ExampleThread3 ${src_files})
+my_add_compile_options (ExampleThread3)
+my_add_pch (ExampleThread3)
+
+my_inc_import_CommonLib(ExampleThread3)
+my_inc_import_RisLib(ExampleThread3)
+
+my_lib_import_RisLib(ExampleThread3)
+my_lib_import_CommonLib(ExampleThread3)
+
+add_custom_command(
+   TARGET  ExampleThread3
+   POST_BUILD
+   COMMAND rsync -azv --chmod=ugo=rwx ExampleThread3 rsync://debian@devtgt/prime/bin
+   WORKING_DIRECTORY C:/Users/$ENV{username}/CMakeBuilds/Dev_Example/ExampleThread3)

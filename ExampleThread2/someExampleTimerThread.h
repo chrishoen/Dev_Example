@@ -1,35 +1,27 @@
 #pragma once
 
 /*==============================================================================
-Exam qcall thread.
+Exampleple timer thread.
 ==============================================================================*/
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-
-#include "risThreadsQCallThread.h"
+#include "risThreadsTimerThread.h"
 
 namespace Some
 {
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// This is an example timer thread. It inherits from the timer thread base
+// class. It executes a function periodically that invokes the example qcall
+// thread qcall.
 
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-// This is a test qcall thread.
-//   
-// It inherits from BaseQCallThread to obtain a call queue based thread
-// functionality.
-
-class  ExamQCallThread : public Ris::Threads::BaseQCallThread
+class ExampleTimerThread : public Ris::Threads::BaseTimerThread
 {
 public:
-   typedef Ris::Threads::BaseQCallThread BaseClass;
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Members.
+   typedef Ris::Threads::BaseTimerThread BaseClass;
 
    //***************************************************************************
    //***************************************************************************
@@ -42,49 +34,32 @@ public:
    // Methods.
 
    // Constructor.
-   ExamQCallThread();
-  ~ExamQCallThread();
+   ExampleTimerThread();
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Methods. Thread base class overloads.
 
-   // Thread init function. This is called by the base class immediately 
-   // after the thread starts running.
-   void threadInitFunction() override;
-
-   // Thread exit function. This is called by the base class immediately
-   // before the thread is terminated.
-   void threadExitFunction() override;
-
-   // Execute periodically. This is called by the base class timer.
-   void executeOnTimer(int aTimerCount) override;
-  
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Methods.qcalls.
-
-   // Example qcall. It is invoked by the timer thread.
-   Ris::Threads::QCall1<int> mExample1QCall;
-
-   // Example function. This is bound to the qcall.
-   void executeExample1 (int aCount);
+   // Execute periodically. This is called by the base class timer. It
+   // invokes the example qcall thread qcall.
+   void executeOnTimer(int aTimeCount) override;
 };
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Global singular instance.
+// Global instance.
 
-#ifdef _SOMEEXAMQCALLTHREAD_CPP_
-       ExamQCallThread* gExamQCallThread = 0;
+#ifdef _SOMEEXAMPLETIMERTHREAD_CPP_
+         ExampleTimerThread* gExampleTimerThread = 0;
 #else
-extern ExamQCallThread* gExamQCallThread;
+   extern ExampleTimerThread* gExampleTimerThread;
 #endif
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 }//namespace
+
+

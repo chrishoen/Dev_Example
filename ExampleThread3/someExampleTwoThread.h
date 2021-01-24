@@ -1,7 +1,7 @@
 #pragma once
 
 /*==============================================================================
-Example two thread.
+Exampleple two thread.
 ==============================================================================*/
 
 //******************************************************************************
@@ -39,7 +39,7 @@ namespace Some
 //******************************************************************************
 //******************************************************************************
 
-class ExamTwoThread : public Ris::Threads::BaseTwoThread
+class ExampleTwoThread : public Ris::Threads::BaseTwoThread
 {
 public:
    typedef Ris::Threads::BaseTwoThread BaseClass;
@@ -105,7 +105,7 @@ public:
    // Methods.
 
    // Constructor.
-   ExamTwoThread();
+   ExampleTwoThread();
    void resetVars();
 
    //***************************************************************************
@@ -173,10 +173,10 @@ public:
 //******************************************************************************
 // Global singular instance.
 
-#ifdef _SOMEEXAMTWOTHREAD_CPP_
-ExamTwoThread* gExamTwoThread = 0;
+#ifdef _SOMEEXAMPLETWOTHREAD_CPP_
+ExampleTwoThread* gExampleTwoThread = 0;
 #else
-extern ExamTwoThread* gExamTwoThread;
+extern ExampleTwoThread* gExampleTwoThread;
 #endif
 
 //******************************************************************************

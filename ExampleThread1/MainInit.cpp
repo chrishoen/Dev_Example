@@ -2,7 +2,7 @@
 
 #include "risThreadsProcess.h"
 #include "risThreadsThreads.h"
-#include "someExamParms.h"
+#include "someExampleParms.h"
 
 //******************************************************************************
 //******************************************************************************
@@ -11,9 +11,9 @@
 
 void main_initialize(int argc,char** argv)
 {
-   printf("ExamThread1 Program********************************************BEGIN\n");
-   printf("ExamThread1 Program********************************************BEGIN\n");
-   printf("ExamThread1 Program********************************************BEGIN\n\n");
+   printf("ExampleThread1 Program********************************************BEGIN\n");
+   printf("ExampleThread1 Program********************************************BEGIN\n");
+   printf("ExampleThread1 Program********************************************BEGIN\n\n");
 
    //***************************************************************************
    //***************************************************************************
@@ -29,7 +29,7 @@ void main_initialize(int argc,char** argv)
    // Initialize thread services.
 
    TS::reset();
-   TS::setProgramName("ExamThread1");
+   TS::setProgramName("ExampleThread1");
    TS::setProgramPrintLevel(0);
    TS::initialize();
 
@@ -38,8 +38,8 @@ void main_initialize(int argc,char** argv)
    //***************************************************************************
 
    // Read parameters files.
-   Some::gExamParms.reset();
-   Some::gExamParms.readSection("default");
+   Some::gExampleParms.reset();
+   Some::gExampleParms.readSection("default");
 
    //***************************************************************************
    //***************************************************************************
@@ -53,10 +53,10 @@ void main_initialize(int argc,char** argv)
 
    // Initialize print.
    Prn::resetPrint();
-   if (Some::gExamParms.mPrintViewEnable)
+   if (Some::gExampleParms.mPrintViewEnable)
    {
       // Initialize print.
-      Prn::resetPrint(Some::gExamParms.mPrintViewIPAddress);
+      Prn::resetPrint(Some::gExampleParms.mPrintViewIPAddress);
       Prn::useConsole(1);
       Prn::useConsole(2);
       Prn::initializePrint();
@@ -74,7 +74,7 @@ void main_initialize(int argc,char** argv)
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   Prn::print(Prn::View11, "ExamThread1 Program********************************************BEGIN");
+   Prn::print(Prn::View11, "ExampleThread1 Program********************************************BEGIN");
 }
 
 //******************************************************************************
@@ -84,11 +84,11 @@ void main_initialize(int argc,char** argv)
 
 void main_finalize()
 {
-   Prn::print(Prn::View11, "ExamThread1 Program********************************************END");
+   Prn::print(Prn::View11, "ExampleThread1 Program********************************************END");
    printf("\n");
-   printf("ExamThread1 Program********************************************END\n");
-   printf("ExamThread1 Program********************************************END\n");
-   printf("ExamThread1 Program********************************************END\n");
+   printf("ExampleThread1 Program********************************************END\n");
+   printf("ExampleThread1 Program********************************************END\n");
+   printf("ExampleThread1 Program********************************************END\n");
 
    // Finalize print facility.
    Prn::finalizePrint();

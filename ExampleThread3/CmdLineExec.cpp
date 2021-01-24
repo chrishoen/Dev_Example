@@ -1,6 +1,8 @@
 #include "stdafx.h"
 
-#include "someExamParms.h"
+#include "someExampleParms.h"
+#include "someExampleTwoThread.h"
+
 #include "CmdLineExec.h"
 
 //******************************************************************************
@@ -27,6 +29,8 @@ void CmdLineExec::reset()
 
 void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 {
+   if (aCmd->isCmd("A"))        executeAbort(aCmd);
+   if (aCmd->isCmd("SEQ1"))     executeSeq1(aCmd);
    if (aCmd->isCmd("GO1"))      executeGo1(aCmd);
    if (aCmd->isCmd("GO2"))      executeGo2(aCmd);
    if (aCmd->isCmd("GO3"))      executeGo3(aCmd);
@@ -35,6 +39,23 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
    if (aCmd->isCmd("PARMS"))    executeParms(aCmd);
 }
 
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeAbort(Ris::CmdLineCmd* aCmd)
+{
+   Some::gExampleTwoThread->mAbortQCall();
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeSeq1(Ris::CmdLineCmd* aCmd)
+{
+   Some::gExampleTwoThread->mRunSeq1QCall();
+}
 
 //******************************************************************************
 //******************************************************************************
@@ -82,9 +103,9 @@ void CmdLineExec::executeGo5(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeParms(Ris::CmdLineCmd* aCmd)
 {
-   Some::gExamParms.reset();
-   Some::gExamParms.readSection("default");
-   Some::gExamParms.show();
+   Some::gExampleParms.reset();
+   Some::gExampleParms.readSection("default");
+   Some::gExampleParms.show();
 }
 
 //******************************************************************************

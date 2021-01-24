@@ -5,8 +5,8 @@
 #include "risCmdLineConsole.h"
 #include "CmdLineExec.h"
 
-#include "someExamTimerThread.h"
-#include "someExamQCallThread.h"
+#include "someExampleTwoThread.h"
+#include "someExampleQCallThread.h"
 
 //******************************************************************************
 //******************************************************************************
@@ -26,11 +26,11 @@ int main(int argc,char** argv)
    //***************************************************************************
    // Launch program threads.
 
-   Some::gExamQCallThread = new Some::ExamQCallThread;
-   Some::gExamQCallThread->launchThread();
+   Some::gExampleQCallThread = new Some::ExampleQCallThread;
+   Some::gExampleQCallThread->launchThread();
 
-   Some::gExamTimerThread = new Some::ExamTimerThread;
-   Some::gExamTimerThread->launchThread();
+   Some::gExampleTwoThread = new Some::ExampleTwoThread;
+   Some::gExampleTwoThread->launchThreads();
 
    //***************************************************************************
    //***************************************************************************
@@ -38,8 +38,8 @@ int main(int argc,char** argv)
    // Show program threads.
 
    Ris::Threads::showCurrentThreadInfo();
-   if (Some::gExamTimerThread)    Some::gExamTimerThread->showThreadInfo();
-   if (Some::gExamQCallThread)    Some::gExamQCallThread->showThreadInfo();
+   if (Some::gExampleTwoThread)   Some::gExampleTwoThread->showThreadInfo();
+   if (Some::gExampleQCallThread) Some::gExampleQCallThread->showThreadInfo();
 
    //***************************************************************************
    //***************************************************************************
@@ -55,24 +55,24 @@ int main(int argc,char** argv)
    //***************************************************************************
    // Shutdown program threads.
 
-   if (Some::gExamTimerThread)     Some::gExamTimerThread->shutdownThread();
-   if (Some::gExamQCallThread)     Some::gExamQCallThread->shutdownThread();
+   if (Some::gExampleTwoThread)   Some::gExampleTwoThread->shutdownThreads();
+   if (Some::gExampleQCallThread) Some::gExampleQCallThread->shutdownThread();
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Delete program threads.
 
-   if (Some::gExamTimerThread)
+   if (Some::gExampleTwoThread)
    {
-      delete Some::gExamTimerThread;
-      Some::gExamTimerThread = 0;
+      delete Some::gExampleTwoThread;
+      Some::gExampleTwoThread = 0;
    }
 
-   if (Some::gExamQCallThread)
+   if (Some::gExampleQCallThread)
    {
-      delete Some::gExamQCallThread;
-      Some::gExamQCallThread = 0;
+      delete Some::gExampleQCallThread;
+      Some::gExampleQCallThread = 0;
    }
 
    //***************************************************************************

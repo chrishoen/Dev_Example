@@ -6,13 +6,13 @@ include(MyCodeMacros.cmake)
 include(MyGlobalImports.cmake)
 include(MyLocalImports.cmake)
 
-project ("Dev_NP_TTA_CProc")
+project ("Dev_Example")
 my_init_global_import_variables()
 
 add_subdirectory ("CommonLib")
-add_subdirectory ("ExamThread1")
-add_subdirectory ("ExamThread2")
-add_subdirectory ("ExamThread3")
+add_subdirectory ("ExampleThread1")
+add_subdirectory ("ExampleThread2")
+add_subdirectory ("ExampleThread3")
 add_subdirectory ("Test")
 return()
 

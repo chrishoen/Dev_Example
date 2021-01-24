@@ -8,10 +8,10 @@
 #include "stdafx.h"
 
 #include "cmnPriorities.h"
-#include "someExamParms.h"
+#include "someExampleParms.h"
 
-#define  _SOMEEXAMTWOTHREAD_CPP_
-#include "someExamTwoThread.h"
+#define  _SOMEEXAMPLETWOTHREAD_CPP_
+#include "someExampleTwoThread.h"
 
 namespace Some
 {
@@ -21,36 +21,36 @@ namespace Some
 //******************************************************************************
 // Constructor. True is tta, false is da.
 
-ExamTwoThread::ExamTwoThread()
+ExampleTwoThread::ExampleTwoThread()
    : mResponseNotify(&mNotify, cResponseNotifyCode)
 {
    using namespace std::placeholders;
 
    // Set base class thread variables.
-   BaseClass::mShortThread->setThreadName("ExamShort");
-   BaseClass::mLongThread->setThreadName("ExamLong");
+   BaseClass::mShortThread->setThreadName("ExampleShort");
+   BaseClass::mLongThread->setThreadName("ExampleLong");
 
    BaseClass::mShortThread->setThreadPriority(Cmn::gPriorities.mShort);
-   BaseClass::mShortThread->setThreadPrintLevel(gExamParms.mPrintLevel);
+   BaseClass::mShortThread->setThreadPrintLevel(gExampleParms.mPrintLevel);
 
    BaseClass::mLongThread->setThreadPriority(Cmn::gPriorities.mLong);
-   BaseClass::mShortThread->setThreadPrintLevel(gExamParms.mPrintLevel);
+   BaseClass::mShortThread->setThreadPrintLevel(gExampleParms.mPrintLevel);
 
    // Set base class call pointers.
-   BaseClass::mShortThread->mThreadInitCallPointer = std::bind(&ExamTwoThread::threadInitFunction, this);
-   BaseClass::mShortThread->mThreadExitCallPointer = std::bind(&ExamTwoThread::threadExitFunction, this);
-   BaseClass::mShortThread->mThreadExecuteOnTimerCallPointer = std::bind(&ExamTwoThread::executeOnTimer, this, _1);
+   BaseClass::mShortThread->mThreadInitCallPointer = std::bind(&ExampleTwoThread::threadInitFunction, this);
+   BaseClass::mShortThread->mThreadExitCallPointer = std::bind(&ExampleTwoThread::threadExitFunction, this);
+   BaseClass::mShortThread->mThreadExecuteOnTimerCallPointer = std::bind(&ExampleTwoThread::executeOnTimer, this, _1);
 
    // Set qcalls.
-   mRunSeq1QCall.bind(this->mLongThread, this, &ExamTwoThread::executeRunSeq1);
-   mRxResponseQCall.bind(this->mShortThread, this, &ExamTwoThread::executeRxResponse);
-   mAbortQCall.bind(this->mShortThread, this, &ExamTwoThread::executeAbort);
+   mRunSeq1QCall.bind(this->mLongThread, this, &ExampleTwoThread::executeRunSeq1);
+   mRxResponseQCall.bind(this->mShortThread, this, &ExampleTwoThread::executeRxResponse);
+   mAbortQCall.bind(this->mShortThread, this, &ExampleTwoThread::executeAbort);
 
    // Set member variables.
    resetVars();
 }
 
-void ExamTwoThread::resetVars()
+void ExampleTwoThread::resetVars()
 {
    mSeqExitCode = 0;
    mTxCount = 0;
@@ -64,7 +64,7 @@ void ExamTwoThread::resetVars()
 // Thread init function. This is called by the base class immediately 
 // before the thread starts running.
 
-void ExamTwoThread::threadInitFunction()
+void ExampleTwoThread::threadInitFunction()
 {
    // Launch the sequence qcall.
    mRunSeq1QCall();
@@ -76,7 +76,7 @@ void ExamTwoThread::threadInitFunction()
 // Thread exit function. This is called by the base class immediately 
 // after  the thread starts running.
 
-void ExamTwoThread::threadExitFunction()
+void ExampleTwoThread::threadExitFunction()
 {
 }
 
@@ -85,7 +85,7 @@ void ExamTwoThread::threadExitFunction()
 //******************************************************************************
 // Thread shutdown function. This shuts down the two threads.
 
-void ExamTwoThread::shutdownThreads()
+void ExampleTwoThread::shutdownThreads()
 {
    // Abort the long thread.
    BaseClass::mNotify.abort();
@@ -101,7 +101,7 @@ void ExamTwoThread::shutdownThreads()
 // The qcall function. Post to the waitable to abort the long thread
 // qcall. Execute in the context of the short thread.
 
-void ExamTwoThread::executeAbort()
+void ExampleTwoThread::executeAbort()
 {
    Prn::print(0, "ABORT>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 

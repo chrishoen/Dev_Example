@@ -46,7 +46,7 @@ namespace Some
 // structure. If so, then this class is the root.
 // 
 
-class ExamParms : public Ris::BaseCmdLineParms
+class ExampleParms : public Ris::BaseCmdLineParms
 {
 public:
 
@@ -94,7 +94,7 @@ public:
 
    // Constructor,
    typedef Ris::BaseCmdLineParms BaseClass;
-   ExamParms();
+   ExampleParms();
    void reset();
    void show();
 
@@ -113,10 +113,10 @@ public:
 //******************************************************************************
 // Global instance.
 
-#ifdef       _SOMEEXAMPARMS_CPP_
-   ExamParms gExamParms;
+#ifdef       _SOMEEXAMPLEPARMS_CPP_
+   ExampleParms gExampleParms;
 #else
-   extern ExamParms gExamParms;
+   extern ExampleParms gExampleParms;
 #endif
 
 //******************************************************************************

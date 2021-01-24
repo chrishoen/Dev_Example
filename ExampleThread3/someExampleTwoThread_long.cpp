@@ -8,10 +8,10 @@ Detestion:
 
 #include "stdafx.h"
 
-#include "someExamParms.h"
-#include "someExamQCallThread.h"
+#include "someExampleParms.h"
+#include "someExampleQCallThread.h"
 
-#include "someExamTwoThread.h"
+#include "someExampleTwoThread.h"
 
 namespace Some
 {
@@ -25,9 +25,9 @@ namespace Some
 // thread. The purpose of this is to provide long thread execution context
 // for message processing.
 
-void ExamTwoThread::executeRunSeq1()
+void ExampleTwoThread::executeRunSeq1()
 {
-   Prn::print(0, "ExamTwoThread::executeRunSeq1 BEGIN");
+   Prn::print(0, "ExampleTwoThread::executeRunSeq1 BEGIN");
 
    //***************************************************************************
    //***************************************************************************
@@ -35,7 +35,7 @@ void ExamTwoThread::executeRunSeq1()
    // Do this first.
 
    // Initialize the synchronization objects.
-   mSeqWaitable.initialize(gExamParms.mTimerPeriod);
+   mSeqWaitable.initialize(gExampleParms.mTimerPeriod);
    mNotify.reset();
 
    // Reset variables. 
@@ -81,14 +81,14 @@ void ExamTwoThread::executeRunSeq1()
             mNotify.setMaskOne("Response", cResponseNotifyCode);
 
             // Invoke the qcall thread request qcall.
-            gExamQCallThread->mRxRequestQCall(mTxCount++);
+            gExampleQCallThread->mRxRequestQCall(mTxCount++);
 
          }
          catch (int aException)
          {
             if (aException == Ris::Threads::Notify::cTimeoutException)
             {
-               Prn::print(0, "EXCEPTION ExamTwoThread::doProcess TIMEOUT %d", aException);
+               Prn::print(0, "EXCEPTION ExampleTwoThread::doProcess TIMEOUT %d", aException);
 
                // Rx timeout.
                tTimeoutFlag = true;
@@ -98,14 +98,14 @@ void ExamTwoThread::executeRunSeq1()
             }
             else if (aException == cSeqExitError)
             {
-               Prn::print(0, "EXCEPTION ExamTwoThread::doProcess ERROR %d", aException);
+               Prn::print(0, "EXCEPTION ExampleTwoThread::doProcess ERROR %d", aException);
 
                // There was a processing error.
                tProcErrorFlag = true;
             }
             else
             {
-               Prn::print(0, "EXCEPTION ExamTwoThread::doProcess %d %s", aException, mNotify.mException);
+               Prn::print(0, "EXCEPTION ExampleTwoThread::doProcess %d %s", aException, mNotify.mException);
 
                // There was a processing error.
                tProcErrorFlag = true;
@@ -136,18 +136,18 @@ void ExamTwoThread::executeRunSeq1()
    {
       if (aException == 668)
       {
-         Prn::print(0, "EXCEPTION ExamTwoThread::executeRunSeq1 ABORT %d %s", aException, mNotify.mException);
+         Prn::print(0, "EXCEPTION ExampleTwoThread::executeRunSeq1 ABORT %d %s", aException, mNotify.mException);
          mSeqExitCode = cSeqExitAborted;
       }
       else
       {
-         Prn::print(0, "EXCEPTION ExamTwoThread::executeRunSeq1 %d", aException);
+         Prn::print(0, "EXCEPTION ExampleTwoThread::executeRunSeq1 %d", aException);
          mSeqExitCode = cSeqExitError;
       }
    }
    catch (...)
    {
-      Prn::print(0, "EXCEPTION ExamTwoThread::executeRunSeq1 UNKNOWN");
+      Prn::print(0, "EXCEPTION ExampleTwoThread::executeRunSeq1 UNKNOWN");
       mSeqExitCode = cSeqExitError;
    }
 
@@ -155,7 +155,7 @@ void ExamTwoThread::executeRunSeq1()
    mSeqWaitable.finalize();
    mNotify.clearFlags();
 
-   Prn::print(0, "ExamTwoThread::executeRunSeq1 END");
+   Prn::print(0, "ExampleTwoThread::executeRunSeq1 END");
 }
 
 //******************************************************************************
