@@ -62,6 +62,20 @@ public:
    //***************************************************************************
    // Members.
 
+   // Main thread timer period.
+   int mTimerPeriod;
+
+   // Delays.
+   int mDelay1;
+
+   // Thread services print level.
+   int mPrintLevel;
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Members.
+
    // If true then enable print view and initialize it with the
    // given ip address. Print view routes debug prints from the
    // backend threads to print view consoles on a host.

@@ -31,11 +31,10 @@ public:
    // Members.
 
    Ris::Threads::Priority mTsPrint;
-   Ris::Threads::Priority mSerialString;
-   Ris::Threads::Priority mCommLong;
-   Ris::Threads::Priority mCommShort;
-   Ris::Threads::Priority mHLCTimer;
-   Ris::Threads::Priority mMainTimer;
+   Ris::Threads::Priority mTimer;
+   Ris::Threads::Priority mQCall;
+   Ris::Threads::Priority mLong;
+   Ris::Threads::Priority mShort;
 
    //***************************************************************************
    //***************************************************************************

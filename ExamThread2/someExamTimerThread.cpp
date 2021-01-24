@@ -7,7 +7,8 @@ Description:
 //******************************************************************************
 #include "stdafx.h"
 
-#include "risThreadsPriorities.h"
+#include "cmnPriorities.h"
+#include "someExamParms.h"
 #include "someExamQCallThread.h"
 
 #define  _SOMEXAMTIMERTHREAD_CPP_
@@ -25,9 +26,9 @@ ExamTimerThread::ExamTimerThread()
 {
    // Set base class variables.
    BaseClass::setThreadName("ExamTimer");
-   BaseClass::setThreadPrintLevel(0);
-   BaseClass::setThreadPriority(Ris::Threads::gPriorities.mTimerTest);
-   BaseClass::mTimerPeriod = 1000;
+   BaseClass::setThreadPrintLevel(gExamParms.mPrintLevel);
+   BaseClass::setThreadPriority(Cmn::gPriorities.mTimer);
+   BaseClass::mTimerPeriod = gExamParms.mTimerPeriod;
 }
 
 //******************************************************************************

@@ -6,6 +6,7 @@
 //******************************************************************************
 #include "stdafx.h"
 
+#include "cmnPriorities.h"
 #include "someExamParms.h"
 
 #define  _SOMEEXAMQCALLTHREAD_CPP_
@@ -23,9 +24,9 @@ ExamQCallThread::ExamQCallThread()
 {
    // Set base class variables.
    BaseClass::setThreadName("ExamQCall");
-   BaseClass::setThreadPrintLevel(0);
-   BaseClass::setThreadPriority(Ris::Threads::gPriorities.mTimerTest);
-   BaseClass::mTimerPeriod = 1000;
+   BaseClass::setThreadPrintLevel(gExamParms.mPrintLevel);
+   BaseClass::setThreadPriority(Cmn::gPriorities.mQCall);
+   BaseClass::mTimerPeriod = gExamParms.mTimerPeriod;
 
    // Initialize qcalls.
    mExample1QCall.bind(this, &ExamQCallThread::executeExample1);
