@@ -12,6 +12,7 @@ my_init_global_import_variables()
 add_subdirectory ("CommonLib")
 add_subdirectory ("ExamThread1")
 add_subdirectory ("ExamThread2")
+add_subdirectory ("ExamThread3")
 add_subdirectory ("Test")
 return()
 
