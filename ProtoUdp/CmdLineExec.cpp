@@ -128,6 +128,7 @@ void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo4(Ris::CmdLineCmd* aCmd)
 {
+   Prn::print(Prn::ThreadRun1, "GO4");
 }
 
 //******************************************************************************

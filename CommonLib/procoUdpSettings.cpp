@@ -63,6 +63,7 @@ void UdpSettings::show()
    printf("\n");
    printf("UdpSettings************************************************ %s\n", mTargetSection);
 
+   printf("FilePath                %s\n",   BaseClass::mFilePath);
    printf("MyAppNumber             %16d\n", mMyAppNumber);
 
    printf("MyUdpPort               %16d\n",mMyUdpPort);
