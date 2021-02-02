@@ -8,6 +8,8 @@ Description:
 
 #include "stdafx.h"
 
+#include <windows.h>
+
 #define  _CMNPRIORITIES_CPP_
 #include "cmnPriorities.h"
 
@@ -21,10 +23,10 @@ namespace Cmn
 
 Priorities::Priorities()
 {
-   mTimer         = Ris::Threads::Priority(-1, 70);
-   mQCall         = Ris::Threads::Priority(-1, 70);
-   mLong          = Ris::Threads::Priority(-1, 60);
-   mShort         = Ris::Threads::Priority(-1, 70);
+   mTimer    = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
+   mQCall    = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
+   mLong     = Ris::Threads::Priority(-1, THREAD_PRIORITY_HIGHEST);
+   mShort    = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
 }
 
 //******************************************************************************

@@ -12,8 +12,6 @@ function(my_find_src_files _a_src_files _target)
       list(FILTER _src_files EXCLUDE REGEX ".*_win.cpp$")
    endif()
 
-#   list(APPEND _src_files "stdafx.h")
-
    set(${_a_src_files} ${_src_files} PARENT_SCOPE)
 
    message(STATUS "***********************************************************" ${_target})
@@ -75,6 +73,7 @@ function(my_add_compile_options _target)
 #     target_compile_options(${_target} PRIVATE "-w")
 #     target_compile_options(${_target} PRIVATE "-Werror")
 #     target_compile_options(${_target} PRIVATE "-Wfatal-errors")
+      target_compile_options(${_target} PRIVATE "-Wno-unused-result")
       target_compile_options(${_target} PRIVATE "-Wno-stringop-overflow")
       target_compile_options(${_target} PRIVATE "-Wno-deprecated-declarations")
       target_compile_options(${_target} PRIVATE "-Wno-delete-incomplete")
@@ -82,7 +81,6 @@ function(my_add_compile_options _target)
       target_compile_options(${_target} PRIVATE "-Wno-write-strings")
       target_compile_options(${_target} PRIVATE "-Wno-psabi")
 #     target_compile_options(${_target} PRIVATE "-Wno-pragma-once-outside-header")
-  
 
       target_compile_definitions(${_target} PRIVATE "-DNDEBUG")
    endif()

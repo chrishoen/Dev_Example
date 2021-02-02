@@ -12,8 +12,15 @@ my_inc_import_RisLib(ExampleThread2)
 my_lib_import_RisLib(ExampleThread2)
 my_lib_import_CommonLib(ExampleThread2)
 
-add_custom_command(
-   TARGET  ExampleThread2
-   POST_BUILD
-   COMMAND rsync -azv --chmod=ugo=rwx ExampleThread2 rsync://debian@devtgt/prime/bin
-   WORKING_DIRECTORY C:/Users/$ENV{username}/CMakeBuilds/Dev_Example/ExampleThread2)
+
+if(MSVC)
+   install(TARGETS ExampleThread2 DESTINATION "C:/aaa_prime/Example")
+elseif(NOT CMAKE_SYSTEM_VERSION EQUAL 101)
+   install(TARGETS ExampleThread2 DESTINATION "/opt/prime/bin")
+else()
+   add_custom_command(
+      TARGET  ExampleThread2
+      POST_BUILD
+      COMMAND rsync -azv --chmod=ugo=rwx ExampleThread2 rsync://debian@devtgt/prime/bin
+      WORKING_DIRECTORY C:/Users/$ENV{username}/CMakeBuilds/Dev_Example/ExampleThread2)
+endif()

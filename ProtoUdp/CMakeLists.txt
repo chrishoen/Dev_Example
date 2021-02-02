@@ -14,8 +14,15 @@ my_inc_import_CommonLib(ProtoUdp)
 my_lib_import_CommonLib(ProtoUdp)
 my_lib_import_RisLib(ProtoUdp)
 
-add_custom_command(
-   TARGET  ProtoUdp
-   POST_BUILD
-   COMMAND rsync -azv --chmod=ugo=rwx ProtoUdp rsync://debian@devtgt/prime/bin
-   WORKING_DIRECTORY C:/Users/$ENV{username}/CMakeBuilds/Dev_Example/ProtoUdp)
+
+if(MSVC)
+   install(TARGETS ProtoUdp DESTINATION "C:/aaa_prime/Example")
+elseif(NOT CMAKE_SYSTEM_VERSION EQUAL 101)
+   install(TARGETS ProtoUdp DESTINATION "/opt/prime/bin")
+else()
+   add_custom_command(
+      TARGET  ProtoUdp
+      POST_BUILD
+      COMMAND rsync -azv --chmod=ugo=rwx ProtoUdp rsync://debian@devtgt/prime/bin
+      WORKING_DIRECTORY C:/Users/$ENV{username}/CMakeBuilds/Dev_Example/ProtoUdp)
+endif()

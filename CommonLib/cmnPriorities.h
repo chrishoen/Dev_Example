@@ -30,7 +30,6 @@ public:
    //***************************************************************************
    // Members.
 
-   Ris::Threads::Priority mTsPrint;
    Ris::Threads::Priority mTimer;
    Ris::Threads::Priority mQCall;
    Ris::Threads::Priority mLong;

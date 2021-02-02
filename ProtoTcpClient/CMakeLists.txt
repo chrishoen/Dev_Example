@@ -14,8 +14,15 @@ my_inc_import_CommonLib(ProtoTcpClient)
 my_lib_import_CommonLib(ProtoTcpClient)
 my_lib_import_RisLib(ProtoTcpClient)
 
-add_custom_command(
-   TARGET  ProtoTcpClient
-   POST_BUILD
-   COMMAND rsync -azv --chmod=ugo=rwx ProtoTcpClient rsync://debian@devtgt/prime/bin
-   WORKING_DIRECTORY C:/Users/$ENV{username}/CMakeBuilds/Dev_Example/ProtoTcpClient)
+
+if(MSVC)
+   install(TARGETS ProtoTcpClient DESTINATION "C:/aaa_prime/Example")
+elseif(NOT CMAKE_SYSTEM_VERSION EQUAL 101)
+   install(TARGETS ProtoTcpClient DESTINATION "/opt/prime/bin")
+else()
+   add_custom_command(
+      TARGET  ProtoTcpClient
+      POST_BUILD
+      COMMAND rsync -azv --chmod=ugo=rwx ProtoTcpClient rsync://debian@devtgt/prime/bin
+      WORKING_DIRECTORY C:/Users/$ENV{username}/CMakeBuilds/Dev_Example/ProtoTcpClient)
+endif()
