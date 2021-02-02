@@ -19,6 +19,10 @@ add_subdirectory ("ProtoUdp")
 return()
 
 add_subdirectory ("CommonLib")
+add_subdirectory ("ProtoUdp")
+return()
+
+add_subdirectory ("CommonLib")
 add_subdirectory ("ExampleThread1")
 add_subdirectory ("ExampleThread2")
 add_subdirectory ("ExampleThread3")
