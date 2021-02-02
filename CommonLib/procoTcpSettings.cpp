@@ -31,7 +31,14 @@ TcpSettings::TcpSettings()
 void TcpSettings::reset()
 {
    BaseClass::reset();
-   BaseClass::setFileName_RelAlphaFiles("RisLib/ProtoComm_TcpSettings.txt");
+   if (Ris::portableIsWindows())
+   {
+      BaseClass::setFilePath("c:/aaa_prime/Example/ProtoComm_TcpSettings.txt");
+   }
+   else
+   {
+      BaseClass::setFilePath("/opt/prime/files/ProtoComm_TcpSettings.txt");
+   }
 
    mMyAppNumber = 0;
    mPrintLevel = 0;

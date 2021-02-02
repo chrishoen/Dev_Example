@@ -29,7 +29,14 @@ ExampleParms::ExampleParms()
 void ExampleParms::reset()
 {
    BaseClass::reset();
-   BaseClass::setFilePath("/opt/prime/files/Example_Parms.txt");
+   if (Ris::portableIsWindows())
+   {
+      BaseClass::setFilePath("c:/aaa_prime/files/Example_Parms.txt");
+   }
+   else
+   {
+      BaseClass::setFilePath("/opt/prime/files/Example_Parms.txt");
+   }
 
    mPrintViewEnable = false;
    mPrintViewIPAddress[0] = 0;

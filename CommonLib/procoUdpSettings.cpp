@@ -31,7 +31,14 @@ UdpSettings::UdpSettings()
 void UdpSettings::reset()
 {
    BaseClass::reset();
-   BaseClass::setFileName_RelAlphaFiles("RisLib/ProtoComm_UdpSettings.txt");
+   if (Ris::portableIsWindows())
+   {
+      BaseClass::setFilePath("c:/aaa_prime/Example/ProtoComm_UdpSettings.txt");
+   }
+   else
+   {
+      BaseClass::setFilePath("/opt/prime/files/ProtoComm_UdpSettings.txt");
+   }
 
    mMyAppNumber = 0;
    mPrintLevel = 0;
