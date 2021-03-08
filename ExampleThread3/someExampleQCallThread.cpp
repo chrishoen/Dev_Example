@@ -25,7 +25,6 @@ ExampleQCallThread::ExampleQCallThread()
 {
    // Set base class variables.
    BaseClass::setThreadName("ExampleQCall");
-   BaseClass::setThreadPrintLevel(gExampleParms.mPrintLevel);
    BaseClass::setThreadPriority(Cmn::gPriorities.mQCall);
 
    // Initialize qcalls.

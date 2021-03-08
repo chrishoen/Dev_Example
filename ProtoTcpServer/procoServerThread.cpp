@@ -25,7 +25,6 @@ ServerThread::ServerThread()
    // Set base class thread variables.
    BaseClass::setThreadName("Server");
    BaseClass::setThreadPriorityHigh();
-   BaseClass::setThreadPrintLevel(0);
    BaseClass::mTimerPeriod = gTcpSettings.mThreadTimerPeriod;
 
    // Initialize qcalls.
@@ -61,7 +60,6 @@ void ServerThread::threadInitFunction()
    tSettings.mMaxSessions = gTcpSettings.mTcpMaxSessions;
    tSettings.mServerSessionQCall = mSessionQCall;
    tSettings.mServerRxMsgQCall = mRxMsgQCall;
-   tSettings.mPrintLevel = 0;
 
    // Create the child thread with the settings.
    mTcpMsgServerThread = new Ris::Net::TcpMsgServerThread(tSettings);

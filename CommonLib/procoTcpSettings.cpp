@@ -41,7 +41,6 @@ void TcpSettings::reset()
    }
 
    mMyAppNumber = 0;
-   mPrintLevel = 0;
 
    mTcpServerIPAddress[0]=0;
    mTcpServerPort = 0;
@@ -70,7 +69,6 @@ void TcpSettings::show()
    printf("\n");
    printf("ThreadTimerPeriod       %16d\n", mThreadTimerPeriod);
    printf("NumWords                %16d\n", mNumWords);
-   printf("PrintLevel              %16d\n", mPrintLevel);
 
    printf("TcpSettings************************************************\n");
    printf("\n");
@@ -95,7 +93,6 @@ void TcpSettings::execute(Ris::CmdLineCmd* aCmd)
 
    if (aCmd->isCmd("ThreadTimerPeriod"))   mThreadTimerPeriod = aCmd->argInt(1);
    if (aCmd->isCmd("NumWords"))            mNumWords = aCmd->argInt(1);
-   if (aCmd->isCmd("PrintLevel"))          mPrintLevel = aCmd->argInt(1);
 }
 
 //******************************************************************************

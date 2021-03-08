@@ -1,6 +1,5 @@
 #include "stdafx.h"
 
-#include "tsThreadServices.h"
 #include "risThreadsProcess.h"
 #include "procoUdpSettings.h"
 
@@ -63,11 +62,6 @@ void main_initialize(int argc,char** argv)
    char tProgramName[100];
    sprintf(tProgramName, "ProtoUdp%d", ProtoComm::gUdpSettings.mMyAppNumber);
 
-   TS::reset();
-   TS::setProgramName(tProgramName);
-   TS::setProgramPrintLevel(2);
-   TS::initialize();
-
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
@@ -90,9 +84,6 @@ void main_finalize()
 
    // Exit process.
    Ris::Threads::exitProcess();
-
-   // Finalize thread services.
-   TS::finalize();
 }
 
 //******************************************************************************

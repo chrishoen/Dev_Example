@@ -25,7 +25,6 @@ ExampleTimerThread::ExampleTimerThread()
 {
    // Set base class variables.
    BaseClass::setThreadName("ExampleTimer");
-   BaseClass::setThreadPrintLevel(gExampleParms.mPrintLevel);
    BaseClass::setThreadPriority(Cmn::gPriorities.mTimer);
    BaseClass::mTimerPeriod = gExampleParms.mTimerPeriod;
 }

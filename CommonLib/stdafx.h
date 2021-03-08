@@ -13,7 +13,6 @@
 #include <fstream>
 #include <algorithm>
 
-#include "tsThreadServices.h"
 #include "my_functions.h"
 #include "prnPrint.h"
 #include "risPortableCalls.h"
