@@ -44,9 +44,8 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
-   float tY = aCmd->argDouble(1);
-   int tN = (int)round(tY / 0.156666666666666666666);
-   Prn::print(0, "%d", tN);
+   Prn::print(0, "Go1 0");
+   Prn::print(Prn::View11, "Go1 View11");
 }
 
 //******************************************************************************

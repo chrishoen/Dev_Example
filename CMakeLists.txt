@@ -9,6 +9,9 @@ include(MyLocalImports.cmake)
 project ("Dev_Example")
 my_init_global_import_variables()
 
+add_subdirectory ("Test")
+return()
+
 add_subdirectory ("CommonLib")
 add_subdirectory ("ProtoUdp")
 return()
@@ -20,9 +23,6 @@ add_subdirectory ("ExampleThread3")
 add_subdirectory ("ProtoTcpClient")
 add_subdirectory ("ProtoTcpServer")
 add_subdirectory ("ProtoUdp")
-return()
-
-add_subdirectory ("Test")
 return()
 
 add_subdirectory ("CommonLib")
