@@ -64,7 +64,7 @@ char* my_net_string_from_address(char* aBuffer, unsigned aAddress)
 }
 
 // Return true if a string represents a valid ip address.
-bool my_is_ipaddress(const char* aIPAddress)
+bool my_net_is_ipaddress(const char* aIPAddress)
 {
    int a0, a1, a2, a3 = 0;
    int tRet;
@@ -75,6 +75,35 @@ bool my_is_ipaddress(const char* aIPAddress)
    if (a2 < 0 || a2 > 255) return false;
    if (a3 < 0 || a3 > 255) return false;
    return true;
+}
+
+// Return a host ordered address from an ip address string.
+unsigned my_net_address_from_string(char* aIPAddress)
+{
+   union MyPacked
+   {
+      unsigned mUnsigned;
+      unsigned char mBytes[4];
+   };
+
+   MyPacked tPacked;
+   tPacked.mUnsigned = 0xffffffff;
+
+   int a0, a1, a2, a3 = 0;
+   int tRet;
+   tRet = sscanf(aIPAddress, "%d.%d.%d.%d", &a0, &a1, &a2, &a3);
+   if (tRet != 4) return 0xfffffffe;
+   if (a0 < 0 || a0 > 255) return 0xfffffffe;
+   if (a1 < 0 || a1 > 255) return 0xfffffffe;
+   if (a2 < 0 || a2 > 255) return 0xfffffffe;
+   if (a3 < 0 || a3 > 255) return 0xfffffffe;
+
+   tPacked.mBytes[0] = a3;
+   tPacked.mBytes[1] = a2;
+   tPacked.mBytes[2] = a1;
+   tPacked.mBytes[3] = a0;
+
+   return tPacked.mUnsigned;
 }
 
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
@@ -93,7 +122,7 @@ void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 {
-   Prn::print(0, "%d", my_is_ipaddress(aCmd->argString(1)));
+   Prn::print(0, "%d", my_net_is_ipaddress(aCmd->argString(1)));
 }
 
 //******************************************************************************
@@ -102,7 +131,7 @@ void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
 {
-   Prn::print(0, "%d", 0 == '\0');
+   Prn::print(0, "Address %08x", my_net_address_from_string(aCmd->argString(1)));
 }
 
 //******************************************************************************
