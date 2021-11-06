@@ -6,7 +6,7 @@ include(MyCodeMacros.cmake)
 include(MyGlobalImports.cmake)
 include(MyLocalImports.cmake)
 
-project ("Dev_Printer")
+project ("Dev_Example")
 my_init_global_import_variables()
 
 add_subdirectory ("CommonLib")

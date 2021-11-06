@@ -19,8 +19,6 @@ function(my_init_global_import_variables)
       set (MyRisLibImportPath  "/opt/prime/lib/libRisLib.so" PARENT_SCOPE)
       set (MyDspLibIncludePath "/opt/prime/include/DspLib" PARENT_SCOPE)
       set (MyDspLibImportPath  "/opt/prime/lib/libDspLib.so" PARENT_SCOPE)
-      set (MyPThreadImportPath  "/usr/lib/x86_64-linux-gnu/libpthread.so" PARENT_SCOPE)
-      set (MyRTImportPath  "/usr/lib/x86_64-linux-gnu/librt.so" PARENT_SCOPE)
    endif()
 
 endfunction()
@@ -37,11 +35,40 @@ function(my_lib_import_RisLib _target)
       target_link_libraries(RisLib INTERFACE ws2_32)
       target_link_libraries(RisLib INTERFACE winmm)
       target_link_libraries(${_target} RisLib)
+   else()
+      add_library(RisLib SHARED IMPORTED)
+      set_target_properties(RisLib PROPERTIES IMPORTED_LOCATION ${MyRisLibImportPath})
+      target_link_libraries(${_target} RisLib)
+   endif()
+
+endfunction()
+
+function(my_inc_import_RisLib _target)
+
+   target_include_directories(${_target} PUBLIC ${MyRisLibIncludePath})
+
+endfunction()
+
+
+#*******************************************************************************
+#*******************************************************************************
+#*******************************************************************************
+
+function(my_lib_import_RisLib22 _target)
+
+   if (MSVC)
+      add_library(RisLib STATIC IMPORTED)
+      set_target_properties(RisLib PROPERTIES IMPORTED_LOCATION ${MyRisLibImportPath})
+      target_link_libraries(RisLib INTERFACE ws2_32)
+      target_link_libraries(RisLib INTERFACE winmm)
+      target_link_libraries(${_target} RisLib)
    elseif (CMAKE_SYSTEM_VERSION EQUAL 101)
       add_library(RisLib SHARED IMPORTED)
       set_target_properties(RisLib PROPERTIES IMPORTED_LOCATION ${MyRisLibImportPath})
       target_link_libraries(${_target} RisLib)
    else()
+      set (MyPThreadImportPath  "/usr/lib/x86_64-linux-gnu/libpthread.so" PARENT_SCOPE)
+      set (MyRTImportPath  "/usr/lib/x86_64-linux-gnu/librt.so" PARENT_SCOPE)
       add_library(RisLib SHARED IMPORTED)
       add_library(PThreadLib SHARED IMPORTED)
       add_library(RTLib SHARED IMPORTED)
@@ -54,13 +81,6 @@ function(my_lib_import_RisLib _target)
    endif()
 
 endfunction()
-
-function(my_inc_import_RisLib _target)
-
-   target_include_directories(${_target} PUBLIC ${MyRisLibIncludePath})
-
-endfunction()
-
 
 #*******************************************************************************
 #*******************************************************************************
