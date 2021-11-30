@@ -39,6 +39,8 @@ function(my_lib_import_RisLib _target)
       add_library(RisLib SHARED IMPORTED)
       set_target_properties(RisLib PROPERTIES IMPORTED_LOCATION ${MyRisLibImportPath})
       target_link_libraries(${_target} RisLib)
+      target_link_libraries(${_target} pthread)
+      target_link_libraries(${_target} rt)
    endif()
 
 endfunction()
@@ -49,38 +51,6 @@ function(my_inc_import_RisLib _target)
 
 endfunction()
 
-
-#*******************************************************************************
-#*******************************************************************************
-#*******************************************************************************
-
-function(my_lib_import_RisLib22 _target)
-
-   if (MSVC)
-      add_library(RisLib STATIC IMPORTED)
-      set_target_properties(RisLib PROPERTIES IMPORTED_LOCATION ${MyRisLibImportPath})
-      target_link_libraries(RisLib INTERFACE ws2_32)
-      target_link_libraries(RisLib INTERFACE winmm)
-      target_link_libraries(${_target} RisLib)
-   elseif (CMAKE_SYSTEM_VERSION EQUAL 101)
-      add_library(RisLib SHARED IMPORTED)
-      set_target_properties(RisLib PROPERTIES IMPORTED_LOCATION ${MyRisLibImportPath})
-      target_link_libraries(${_target} RisLib)
-   else()
-      set (MyPThreadImportPath  "/usr/lib/x86_64-linux-gnu/libpthread.so" PARENT_SCOPE)
-      set (MyRTImportPath  "/usr/lib/x86_64-linux-gnu/librt.so" PARENT_SCOPE)
-      add_library(RisLib SHARED IMPORTED)
-      add_library(PThreadLib SHARED IMPORTED)
-      add_library(RTLib SHARED IMPORTED)
-      set_target_properties(RisLib PROPERTIES IMPORTED_LOCATION ${MyRisLibImportPath})
-      set_target_properties(PThreadLib PROPERTIES IMPORTED_LOCATION ${MyPThreadImportPath})
-      set_target_properties(RTLib PROPERTIES IMPORTED_LOCATION ${MyRTImportPath})
-      target_link_libraries(${_target} RisLib)
-      target_link_libraries(${_target} PThreadLib)
-      target_link_libraries(${_target} RTLib)
-   endif()
-
-endfunction()
 
 #*******************************************************************************
 #*******************************************************************************
@@ -104,3 +74,4 @@ endfunction()
 #*******************************************************************************
 #*******************************************************************************
 #*******************************************************************************
+
