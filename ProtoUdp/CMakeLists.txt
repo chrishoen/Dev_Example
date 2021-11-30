@@ -7,22 +7,16 @@ add_executable (ProtoUdp ${src_files})
 my_add_compile_options (ProtoUdp)
 my_add_pch (ProtoUdp)
 
-
 my_inc_import_RisLib(ProtoUdp)
 my_inc_import_CommonLib(ProtoUdp)
 
 my_lib_import_CommonLib(ProtoUdp)
 my_lib_import_RisLib(ProtoUdp)
 
-
 if(MSVC)
    install(TARGETS ProtoUdp DESTINATION "C:/aaa_prime/Example")
 elseif(NOT CMAKE_SYSTEM_VERSION EQUAL 101)
    install(TARGETS ProtoUdp DESTINATION "/opt/prime/bin")
 else()
-   add_custom_command(
-      TARGET  ProtoUdp
-      POST_BUILD
-      COMMAND rsync -azv --chmod=ugo=rwx ProtoUdp rsync://debian@devtgt/prime/bin
-      WORKING_DIRECTORY C:/Users/$ENV{username}/CMakeBuilds/Dev_Example/ProtoUdp)
+   my_post_build_bin(ProtoUdp)
 endif()
