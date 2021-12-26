@@ -11,6 +11,9 @@ project ("Dev_Example")
 my_init_global_import_variables()
 my_init_post_build_variables()
 
+add_subdirectory ("Test")
+return()
+
 add_subdirectory ("CommonLib")
 add_subdirectory ("ExampleThread1")
 add_subdirectory ("ExampleThread2")
