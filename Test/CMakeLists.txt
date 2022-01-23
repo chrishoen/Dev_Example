@@ -10,8 +10,14 @@ my_add_pch (Test)
 my_inc_import_RisLib(Test)
 my_lib_import_RisLib(Test)
 
-if(NOT CMAKE_SYSTEM_VERSION EQUAL 101)
+if (MSVC)
+   install(TARGETS Test DESTINATION "C:/aaa_prime/Example")
+elseif (MYMODE STREQUAL ubuntu OR MYMODE STREQUAL wsl) 
    install(TARGETS Test DESTINATION "/opt/prime/bin")
-else()
-   my_post_build_bin(Test)
+elseif (MYMODE STREQUAL beagle)
+   install(CODE "execute_process(COMMAND_ECHO STDOUT
+      COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/Test pi@rpx:/opt/prime/bin)")
+elseif (MYMODE STREQUAL steno)
+   install(CODE "execute_process(COMMAND_ECHO STDOUT
+      COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/Test root@stenotgt:/home/root/stenograph/bin)")
 endif()
