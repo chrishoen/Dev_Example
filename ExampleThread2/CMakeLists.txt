@@ -12,10 +12,14 @@ my_inc_import_RisLib(ExampleThread2)
 my_lib_import_RisLib(ExampleThread2)
 my_lib_import_CommonLib(ExampleThread2)
 
-if(MSVC)
+
+
+if (MSVC)
    install(TARGETS ExampleThread2 DESTINATION "C:/aaa_prime/Example")
-elseif(NOT CMAKE_SYSTEM_VERSION EQUAL 101)
+elseif (MYMODE STREQUAL ubuntu OR MYMODE STREQUAL wsl) 
    install(TARGETS ExampleThread2 DESTINATION "/opt/prime/bin")
-else()
-   my_post_build_bin(ExampleThread2)
+elseif (MYMODE STREQUAL beagle)
+   install(CODE "execute_process(COMMAND_ECHO STDOUT
+      COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/ExampleThread2 pi@rpx:/opt/prime/bin)")
 endif()
+

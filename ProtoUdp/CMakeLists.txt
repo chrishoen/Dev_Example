@@ -13,10 +13,14 @@ my_inc_import_CommonLib(ProtoUdp)
 my_lib_import_CommonLib(ProtoUdp)
 my_lib_import_RisLib(ProtoUdp)
 
-if(MSVC)
+
+
+if (MSVC)
    install(TARGETS ProtoUdp DESTINATION "C:/aaa_prime/Example")
-elseif(NOT CMAKE_SYSTEM_VERSION EQUAL 101)
+elseif (MYMODE STREQUAL ubuntu OR MYMODE STREQUAL wsl) 
    install(TARGETS ProtoUdp DESTINATION "/opt/prime/bin")
-else()
-   my_post_build_bin(ProtoUdp)
+elseif (MYMODE STREQUAL beagle)
+   install(CODE "execute_process(COMMAND_ECHO STDOUT
+      COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/ProtoUdp pi@rpx:/opt/prime/bin)")
 endif()
+

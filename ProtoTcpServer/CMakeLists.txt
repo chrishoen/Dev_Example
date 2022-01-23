@@ -13,10 +13,14 @@ my_inc_import_CommonLib(ProtoTcpServer)
 my_lib_import_CommonLib(ProtoTcpServer)
 my_lib_import_RisLib(ProtoTcpServer)
 
-if(MSVC)
+
+
+if (MSVC)
    install(TARGETS ProtoTcpServer DESTINATION "C:/aaa_prime/Example")
-elseif(NOT CMAKE_SYSTEM_VERSION EQUAL 101)
+elseif (MYMODE STREQUAL ubuntu OR MYMODE STREQUAL wsl) 
    install(TARGETS ProtoTcpServer DESTINATION "/opt/prime/bin")
-else()
-   my_post_build_bin(ProtoTcpServer)
+elseif (MYMODE STREQUAL beagle)
+   install(CODE "execute_process(COMMAND_ECHO STDOUT
+      COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/ProtoTcpServer pi@rpx:/opt/prime/bin)")
 endif()
+

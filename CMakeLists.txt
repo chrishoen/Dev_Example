@@ -10,9 +10,6 @@ include(MySpecial.cmake)
 project ("Dev_Example")
 my_special1() 
 
-add_subdirectory ("Test")
-return()
-
 add_subdirectory ("CommonLib")
 add_subdirectory ("ExampleThread1")
 add_subdirectory ("ExampleThread2")
@@ -25,5 +22,9 @@ return()
 
 add_subdirectory ("CommonLib")
 add_subdirectory ("ExampleThread1")
+return()
+
+
+add_subdirectory ("Test")
 return()
 
