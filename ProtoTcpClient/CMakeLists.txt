@@ -20,5 +20,5 @@ elseif (MYMODE STREQUAL ubuntu OR MYMODE STREQUAL wsl)
    install(TARGETS ProtoTcpClient DESTINATION "/opt/prime/bin")
 elseif (MYMODE STREQUAL beagle)
    install(CODE "execute_process(COMMAND_ECHO STDOUT
-      COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/ProtoTcpClient pi@rpx:/opt/prime/bin)")
+      COMMAND c:/windows/system32/openssh/scp ${CMAKE_CURRENT_BINARY_DIR}/ProtoTcpClient pi@rpx:/opt/prime/bin)")
 endif()
