@@ -92,7 +92,7 @@ public:
    // Constructor,
    typedef Ris::BaseCmdLineParms BaseClass;
    ExampleParms();
-   void reset();
+   void reset() override;
    void show();
 
    // Base class override: Execute a command from the command file to set a 

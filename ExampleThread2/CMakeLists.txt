@@ -1,25 +1,22 @@
-﻿cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required(VERSION 3.10)
+set (project "ExampleThread2")
+project(${project} CXX)
+my_find_src_files (src_files ${project})
+add_executable (${project} ${src_files})
+my_add_compile_options (${project})
+my_add_pch (${project})
 
-project (ExampleThread2 CXX)
-my_find_src_files (src_files ExampleThread2)
-add_executable (ExampleThread2 ${src_files})
-my_add_compile_options (ExampleThread2)
-my_add_pch (ExampleThread2)
+my_inc_import_RisLib(${project})
+my_inc_import_CommonLib(${project})
 
-my_inc_import_CommonLib(ExampleThread2)
-my_inc_import_RisLib(ExampleThread2)
-
-my_lib_import_RisLib(ExampleThread2)
-my_lib_import_CommonLib(ExampleThread2)
-
-
+my_lib_import_CommonLib(${project})
+my_lib_import_RisLib(${project})
 
 if (MSVC)
-   install(TARGETS ExampleThread2 DESTINATION "C:/aaa_prime/Example")
-elseif (MYMODE STREQUAL ubuntu OR MYMODE STREQUAL wsl) 
-   install(TARGETS ExampleThread2 DESTINATION "/opt/prime/bin")
-elseif (MYMODE STREQUAL beagle)
+   install(TARGETS ${project} DESTINATION "C:/aaa_prime/Example")
+elseif (MYMODE MATCHES "ubuntu" OR MYMODE MATCHES "wsl") 
+   install(TARGETS ${project} DESTINATION "/opt/prime/bin")
+elseif (MYMODE MATCHES "beagle")
    install(CODE "execute_process(COMMAND_ECHO STDOUT
-      COMMAND c:/windows/system32/openssh/scp ${CMAKE_CURRENT_BINARY_DIR}/ExampleThread2 pi@rpx:/opt/prime/bin)")
+      COMMAND c:/windows/system32/openssh/scp ${CMAKE_CURRENT_BINARY_DIR}/${project} pi@rpx:/opt/prime/bin)")
 endif()
-

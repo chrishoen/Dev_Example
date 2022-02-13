@@ -17,23 +17,17 @@ void main_initialize(int argc,char** argv)
 
    Ris::Threads::enterProcessHigh();
 
-   // Initialize print.
+   // Initialize print facility
    Prn::resetPrint();
-   Prn::useConsole(1);
    Prn::initializePrint();
 
-   // Initialize print filters.
-   Prn::setFilter(Prn::ThreadInit1, true);
-   Prn::setFilter(Prn::ThreadRun1, true);
-   Prn::setFilter(Prn::ThreadRun2, false);
-   Prn::setFilter(Prn::ThreadRun3, false);
-   Prn::setFilter(Prn::ThreadRun4, false);
-   Prn::setFilter(Prn::View11, true, 1);
-   Prn::setFilter(Prn::View12, false, 1);
+   // Initialize print filters
+   Prn::setFilter(Prn::Show1, true);
+   Prn::setFilter(Prn::Show2, false);
+   Prn::setFilter(Prn::Show3, false);
+   Prn::setFilter(Prn::Show4, false);
 
    Prn::print(0, "Test*******************************************BEGIN");
-   Prn::print(Prn::View11, "Test*******************************************BEGIN");
-
 }
 
 //******************************************************************************
@@ -52,6 +46,3 @@ void main_finalize()
    Ris::Threads::exitProcess();
 }
 
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
