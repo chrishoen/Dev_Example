@@ -11,7 +11,7 @@ my_lib_import_RisLib(${project})
 
 if (MSVC)
    install(TARGETS ${project} DESTINATION "C:/aaa_prime/Example")
-elseif (MYMODE MATCHES "ubuntu" OR MYMODE MATCHES "wsl") 
+elseif (MYMODE MATCHES "cpdev1" OR MYMODE MATCHES "wsl") 
    install(TARGETS ${project} DESTINATION "/opt/prime/bin")
 elseif (MYMODE MATCHES "beagle")
    install(CODE "execute_process(COMMAND_ECHO STDOUT
