@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <limits.h>
+#include <memory>
 
 #include "risProgramTime.h"
 #include "risBitUtils.h"
@@ -47,30 +48,23 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 //******************************************************************************
 //******************************************************************************
 
-typedef union PackedS
+std::unique_ptr<std::string> get_string1(const char* aFileName)
 {
-   unsigned char mUint8;
-   unsigned short mUint16;
-   unsigned int mUint32;
-   int mInt32;
-} PackedT;
+   auto tString = std::make_unique<std::string>("/tmp/");
+   *tString += aFileName;
+   return std::move(tString);
+}
+
+void show_string1(const char* aString)
+{
+   std::unique_ptr<std::string> tString = get_string1(aString);
+   Prn::print(0, "sizeof          %d", sizeof(tString));
+   Prn::print(0, "show_string1    %s", tString->c_str());
+}
 
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
-   PackedT tP; tP.mInt32 = 0;
-   tP.mUint8 = 0xff;
-   Prn::print(0, "mUint8     %x", tP.mInt32);
-
-   tP.mUint8 += 1;
-   Prn::print(0, "mUint8     %x", tP.mInt32);
-
-   tP.mUint8 += 1;
-   Prn::print(0, "mUint8     %x", tP.mInt32);
-
-   tP.mUint8 = 0;
-   tP.mUint8 -= 1;
-
-   Prn::print(0, "mUint8     %x", tP.mInt32);
+   show_string1("myfile.txt");
 }
 
 //******************************************************************************
@@ -104,10 +98,6 @@ void CmdLineExec::executeGo4(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo5(Ris::CmdLineCmd* aCmd)
 {
-   printf("printf\n");
-   Prn::print(0, "Prn::print 0");
-   Prn::print(Prn::Show1, "Prn::print Prn::Show1");
-   Prn::print(Prn::Show2, "Prn::print Prn::Show");
 }
 
 //******************************************************************************
@@ -116,12 +106,5 @@ void CmdLineExec::executeGo5(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo6(Ris::CmdLineCmd* aCmd)
 {
-   Prn::print(0, "Ris::portableGetBinDir() %s", Ris::portableGetBinDir());
-   Prn::print(0, "Ris::portableGetBinDir() %s", Ris::portableGetBinDir());
-   double tTime = Ris::getProgramTime();
-   unsigned int tTimeMS = Ris::getCpuTimeUIntMS();
-
-   Prn::print(0, "Ris::getProgramTime           %10.6f", tTime);
-   Prn::print(0, "Ris::getCpuTimeUIntMs         %10d", tTimeMS);
 }
 
