@@ -30,9 +30,9 @@ ExampleTwoThread::ExampleTwoThread()
    BaseClass::mShortThread->setThreadName("ExampleShort");
    BaseClass::mLongThread->setThreadName("ExampleLong");
 
-   BaseClass::mShortThread->setThreadPriority(Cmn::gPriorities.mShort);
+   BaseClass::mShortThread->setThreadPriority(Cmn::gPriorities.mMasterShort);
 
-   BaseClass::mLongThread->setThreadPriority(Cmn::gPriorities.mLong);
+   BaseClass::mLongThread->setThreadPriority(Cmn::gPriorities.mMasterLong);
 
    // Set base class call pointers.
    BaseClass::mShortThread->mThreadInitCallPointer = std::bind(&ExampleTwoThread::threadInitFunction, this);

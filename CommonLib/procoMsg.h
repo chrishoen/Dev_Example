@@ -26,6 +26,7 @@ encapsulates the header.
 //******************************************************************************
 //******************************************************************************
 #include "risByteContent.h"
+#include "risByteBlob.h"
 #include "risByteMsgMonkey.h"
 #include "procoMsgBase.h"
 
@@ -46,7 +47,7 @@ public:
    static const int   cEchoRequestMsg    = 3;
    static const int   cEchoResponseMsg   = 4;
    static const int   cDataMsg           = 5;
-
+   static const int   cByteBlobMsg       = 6;
 };
 
 //******************************************************************************
@@ -75,6 +76,7 @@ public:
    // Methods.
 
    TestMsg();
+   void show(int aPF = 0);
    void copyToFrom (Ris::ByteBuffer* aBuffer);
 };
 
@@ -99,6 +101,7 @@ public:
    // Methods.
 
    FirstMessageMsg();
+   void show(int aPF = 0);
    void copyToFrom (Ris::ByteBuffer* aBuffer);
 };
 
@@ -120,7 +123,7 @@ public:
    int    mCode3;
    int    mCode4;
 
-   static const int cMaxWords=10000;
+   static const int cMaxWords=1000;
    int  mNumWords;
    int  mWords[cMaxWords];
 
@@ -130,6 +133,8 @@ public:
    // Methods.
 
    EchoRequestMsg();
+   void initialize(int aNumWords);
+   void show(int aPF = 0);
    void copyToFrom (Ris::ByteBuffer* aBuffer);
 };
 
@@ -161,6 +166,8 @@ public:
    // Methods.
 
    EchoResponseMsg();
+   void initialize(int aNumWords);
+   void show(int aPF = 0);
    void copyToFrom(Ris::ByteBuffer* aBuffer);
 };
 
@@ -188,12 +195,20 @@ public:
    // Methods.
 
    DataRecord();
+   void show(int aPF = 0);
    void copyToFrom (Ris::ByteBuffer* aBuffer);
 };
 
 class DataMsg : public BaseMsg
 {
 public:
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Constants.
+
+   static const int cMaxStringSize = 9;
 
    //***************************************************************************
    //***************************************************************************
@@ -212,8 +227,8 @@ public:
    double              mDouble;
    bool                mBool;
 
-   char                mString1[100];
-   char                mString2[100];
+   char                mString1[cMaxStringSize];
+   char                mString2[cMaxStringSize];
 
    DataRecord          mDataRecord;
 
@@ -223,6 +238,35 @@ public:
    // Methods.
 
    DataMsg();
+   void initialize();
+   void show(int aPF = 0);
+   void copyToFrom(Ris::ByteBuffer* aBuffer);
+};
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+class ByteBlobMsg : public BaseMsg
+{
+public:
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Members.
+
+   Ris::ByteBlob<1000> mBytes;
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods.
+
+   ByteBlobMsg();
+   void initialize();
+   void initialize2();
+   void show(int aPF = 0);
    void copyToFrom(Ris::ByteBuffer* aBuffer);
 };
 

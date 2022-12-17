@@ -48,7 +48,6 @@ namespace MsgDefT
 {
    // Use this for a buffer size for these messages.
    static const int cMsgBufferSize = 100000;
-
 }//namespace
 
 //******************************************************************************
@@ -166,6 +165,56 @@ public:
    {
       mMessageType = 0;
    }
+   virtual ~BaseMsg() {}
+   virtual void show(int aPF = 0){}
+};
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// The following rules are for shared memory, regions that are shared between
+//  different processes(who therefore have different address spaces) :
+//
+//  1) No constructors.
+//  2) No pointers.
+//  3) No dynamic memory, this means no std::vector, ...
+//  4) No vtables, this means no virtual functions.
+//  5) Be careful with your loadsand stores.
+//
+// This is a class for message metrics. An instance is updated by the
+// message monkey during messages trafficing. It is shared memory safe.
+
+class MsgMetrics : public Ris::BaseMsgMetrics
+{
+public:
+   typedef Ris::BaseMsgMetrics Baseclass;
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Members.
+
+   // Specific message metrics.
+   int   mTestMsgCount;
+   int   mFirstMessageMsgCount;
+   int   mEchoRequestMsgCount;
+   int   mEchoResponseMsgCount;
+   int   mDataMsgCount;
+   int   mByteBlobMsgCount;
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods.
+
+   // No constructor.
+   void resetAllVars();
+
+   // Update the metrics with a message and a length.
+   void updateAllVars(Ris::ByteContent* aMsg, int aMsgLength);
 };
 
 //******************************************************************************
@@ -184,19 +233,33 @@ public:
 class MsgMonkey : public Ris::BaseMsgMonkey
 {
 public:
+   typedef Ris::BaseMsgMonkey Baseclass; 
+
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Members.
 
+   // Source Id that is placed in transmit message headers.
    int mSourceId;
+
+   // Message metrics.
+   MsgMetrics* mTxMsgMetrics;
+   MsgMetrics* mRxMsgMetrics;
+
+   // Message metrics instances. Pointers to these are supplied to
+   // the base class in its constructor.
+   MsgMetrics mStoreTxMsgMetrics;
+   MsgMetrics mStoreRxMsgMetrics;
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Methods.
 
+   // Constructor.
    MsgMonkey();
+   ~MsgMonkey();
    void configure(int aSourceId);
 
    //***************************************************************************
@@ -211,50 +274,18 @@ public:
    int getMaxBufferSize() override {return MsgDefT::cMsgBufferSize;}
 
    // Extract message header parameters from a buffer and validate them
-   // Returns true if the header is valid.
+   // Return true if the header is valid.
    bool extractMessageHeaderParms(Ris::ByteBuffer* aBuffer) override;
 
    // Preprocess a message before it is sent.
    void processBeforeSend(Ris::ByteContent* aMsg) override;
-};
 
-//*********************************************************************************
-//*********************************************************************************
-//*********************************************************************************
-//*********************************************************************************
-//*********************************************************************************
-//*********************************************************************************
-// This is a message monkey creator. It defines a method that creates a new
-// message monkey. It is used by transmitters and receivers to create new
-// instances of message monkeys.
+   // Reset the metrics.
+   void resetMsgMetrics() override;
 
-class MsgMonkeyCreator : public  Ris::BaseMsgMonkeyCreator
-{
-public:
-   //******************************************************************************
-   //******************************************************************************
-   //******************************************************************************
-   // Members.
-
-   int  mSourceId;
-
-   //******************************************************************************
-   //******************************************************************************
-   //******************************************************************************
-   // Methods.
-
-   // Constructor.
-   MsgMonkeyCreator();
-   void configure(int aSourceId);
-
-   //******************************************************************************
-   //******************************************************************************
-   //******************************************************************************
-   // Methods.
-
-   // Base class overload, creates a new message monkey and sets some of its 
-   // member variables.
-   Ris::BaseMsgMonkey* createMonkey();
+   // Update the metrics with a message and a length.
+   void updateTxMsgMetrics(Ris::ByteContent* aMsg, int aMsgLength) override;
+   void updateRxMsgMetrics(Ris::ByteContent* aMsg, int aMsgLength) override;
 };
 
 //*********************************************************************************

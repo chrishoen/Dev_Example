@@ -18,6 +18,9 @@ namespace ProtoComm
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
 
 Header::Header()
 {
@@ -168,7 +171,7 @@ void Header::headerReCopyToFrom  (Ris::ByteBuffer* aBuffer,BaseMsg* aParent)
       // Restore buffer parameters
       // to the initial position
       aBuffer->setPosition (mInitialPosition);
-      aBuffer->setLength   (mInitialPosition);
+      aBuffer->setLength   (mInitialLength);
 
       // Copy the adjusted header into the buffer'
       // at the original position
@@ -177,7 +180,7 @@ void Header::headerReCopyToFrom  (Ris::ByteBuffer* aBuffer,BaseMsg* aParent)
       // Restore buffer parameters
       // to the final position
       aBuffer->setPosition (tFinalPosition);
-      aBuffer->setLength   (tFinalPosition);
+      aBuffer->setLength   (tFinalLength);
    }
    else
    {
@@ -187,21 +190,86 @@ void Header::headerReCopyToFrom  (Ris::ByteBuffer* aBuffer,BaseMsg* aParent)
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// No constructor.
+
+void MsgMetrics::resetAllVars()
+{
+   // Reset the base class metrics.
+   Baseclass::resetBaseVars();
+
+   // Reset specific message metrics.
+   mTestMsgCount = 0;
+   mFirstMessageMsgCount = 0;
+   mEchoRequestMsgCount = 0;
+   mEchoResponseMsgCount = 0;
+   mDataMsgCount = 0;
+   mByteBlobMsgCount = 0;
+}
+
+// Update the metrics with a message and a length.
+void MsgMetrics::updateAllVars(Ris::ByteContent* aMsg, int aMsgLength)
+{
+   // Update the base class metrics.
+   Baseclass::updateBaseVars(aMsg, aMsgLength);
+
+   // Update specific message metrics.
+   BaseMsg* tMsg = (BaseMsg*)aMsg;
+
+   switch (tMsg->mMessageType)
+   {
+   case MsgIdT::cTestMsg: mTestMsgCount++; break;
+   case MsgIdT::cFirstMessageMsg: mFirstMessageMsgCount++; break;
+   case MsgIdT::cEchoRequestMsg: mEchoRequestMsgCount++; break;
+   case MsgIdT::cEchoResponseMsg: mEchoResponseMsgCount++; break;
+   case MsgIdT::cDataMsg: mDataMsgCount++; break;
+   case MsgIdT::cByteBlobMsg: mByteBlobMsgCount++; break;
+   default: break;
+   }
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Constructor.
 
 MsgMonkey::MsgMonkey()
-   : Ris::BaseMsgMonkey(ProtoComm::createMsg)
+   : Ris::BaseMsgMonkey(
+      ProtoComm::createMsg,
+      &mStoreTxMsgMetrics,
+      &mStoreRxMsgMetrics)
 {
-   mSourceId=0;
+   // Set member variables.
+   mSourceId = 0;
+
+   // Reset the metrics.
+   mStoreTxMsgMetrics.resetAllVars();
+   mStoreRxMsgMetrics.resetAllVars();
+
+   // Set the pointers.
+   mTxMsgMetrics = &mStoreTxMsgMetrics;
+   mRxMsgMetrics = &mStoreRxMsgMetrics;
+}
+
+MsgMonkey::~MsgMonkey()
+{
 }
 
 void  MsgMonkey::configure(int aSourceId)
 {
-   mSourceId=aSourceId;
+   mSourceId = aSourceId;
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// Extract message header parameters from a buffer and validate them
+// Return true if the header is valid.
 
 bool MsgMonkey::extractMessageHeaderParms(Ris::ByteBuffer* aBuffer)
 {
@@ -233,6 +301,7 @@ bool MsgMonkey::extractMessageHeaderParms(Ris::ByteBuffer* aBuffer)
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// Preprocess a message before it is sent.
 
 void MsgMonkey::processBeforeSend(Ris::ByteContent* aMsg)
 {
@@ -247,26 +316,23 @@ void MsgMonkey::processBeforeSend(Ris::ByteContent* aMsg)
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// MsgMonkey creator
+// Metrics.
 
-MsgMonkeyCreator::MsgMonkeyCreator()
+// Reset the metrics.
+void MsgMonkey::resetMsgMetrics()
 {
-   mSourceId = 0;
+   mStoreTxMsgMetrics.resetAllVars();
+   mStoreRxMsgMetrics.resetAllVars();
 }
 
-void MsgMonkeyCreator::configure(int aSourceId)
+// Update the metrics with a message and a length.
+void MsgMonkey::updateTxMsgMetrics(Ris::ByteContent* aMsg, int aMsgLength)
 {
-   mSourceId = aSourceId;
+   mStoreTxMsgMetrics.updateAllVars(aMsg, aMsgLength);
 }
-
-Ris::BaseMsgMonkey* MsgMonkeyCreator::createMonkey()
+void MsgMonkey::updateRxMsgMetrics(Ris::ByteContent* aMsg, int aMsgLength)
 {
-   // New message monkey
-   MsgMonkey* tMsgMonkey = new MsgMonkey();
-   // Configure 
-   tMsgMonkey->configure(mSourceId);
-   // Return base message monkey pointer
-   return (Ris::BaseMsgMonkey*)tMsgMonkey;
+   mStoreRxMsgMetrics.updateAllVars(aMsg, aMsgLength);
 }
 
 //******************************************************************************

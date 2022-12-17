@@ -15,7 +15,7 @@ Parameters class whose values are read from a command file.
 //******************************************************************************
 //******************************************************************************
 
-namespace ProtoComm
+namespace Some
 {
 
 //******************************************************************************
@@ -47,7 +47,7 @@ namespace ProtoComm
 // structure. If so, then this class is the root.
 // 
 
-class UdpSettings : public Ris::BaseCmdLineParms
+class SerialParms : public Ris::BaseCmdLineParms
 {
 public:
 
@@ -56,30 +56,24 @@ public:
    //***************************************************************************
    // Constants.
 
-   static const int cMaxStringSize = 30;
+   static const int cMaxStringSize = 64;
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Members. Read from the parameters file.
 
-   // Application settings.
-   int  mMyAppNumber;
+   // Serial port setup.
+   char mSerialPortDevice[cMaxStringSize];
+   char mSerialPortSetup[cMaxStringSize];
+   int  mSerialRxTimeout;
 
-   // Receive on this address and port.
-   char mMyUdpAddress[cMaxStringSize];
-   int  mMyUdpPort;
+   // Serial string port termination modes.
+   int mTxTermMode;
+   int mRxTermMode;
 
-   // Transmit to this address and port.
-   char mOtherUdpAddress[cMaxStringSize];
-   int  mOtherUdpPort;
-
-   // If true then use the last receive from ip address as the
-   // next transmit ip address.
-   bool mUdpWrapFlag;
-
-   // If true then broadcast udp sends.
-   bool mUdpBroadcast;
+   // If true then use checksums.
+   bool mCheckSumFlag;
 
    //***************************************************************************
    //***************************************************************************
@@ -91,6 +85,11 @@ public:
 
    // Echo message number of words.
    int mNumWords;
+
+   // Transfer mode variables.
+   bool mReadAllFlag;
+   bool mWriteAllFlag;
+   int mRxReqNumBytes;
 
    //***************************************************************************
    //***************************************************************************
@@ -104,8 +103,8 @@ public:
 
    // Constructor,
    typedef Ris::BaseCmdLineParms BaseClass;
-   UdpSettings();
-   void reset();
+   SerialParms();
+   void reset() override;
    void show();
 
    // Base class override: Execute a command from the command file to set a 
@@ -123,10 +122,10 @@ public:
 //******************************************************************************
 // Global instance.
 
-#ifdef _PROCOUDPSETTINGS_CPP_
-   UdpSettings gUdpSettings;
+#ifdef _SOMESERIALPARMS_CPP_
+   SerialParms gSerialParms;
 #else
-   extern UdpSettings gUdpSettings;
+   extern SerialParms gSerialParms;
 #endif
 
 //******************************************************************************

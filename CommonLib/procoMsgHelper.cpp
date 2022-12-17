@@ -16,14 +16,14 @@ void MsgHelper::initialize(TestMsg* aMsg)
    aMsg->mCode4 = 104;
 }
 
-void MsgHelper::show(TestMsg* aMsg)
+void MsgHelper::show(int aPF, TestMsg* aMsg)
 {
-   Prn::print(Prn::ThreadRun1, "TestMsg");
-   Prn::print(Prn::ThreadRun1, "Code1      %d", aMsg->mCode1);
-   Prn::print(Prn::ThreadRun1, "Code2      %d", aMsg->mCode2);
-   Prn::print(Prn::ThreadRun1, "Code3      %d", aMsg->mCode3);
-   Prn::print(Prn::ThreadRun1, "Code4      %d", aMsg->mCode4);
-   Prn::print(Prn::ThreadRun1, "");
+   Prn::print(aPF, "TestMsg");
+   Prn::print(aPF, "Code1      %d", aMsg->mCode1);
+   Prn::print(aPF, "Code2      %d", aMsg->mCode2);
+   Prn::print(aPF, "Code3      %d", aMsg->mCode3);
+   Prn::print(aPF, "Code4      %d", aMsg->mCode4);
+   Prn::print(aPF, "");
 }
 
 //****************************************************************************
@@ -35,11 +35,11 @@ void MsgHelper::initialize(FirstMessageMsg* aMsg)
    aMsg->mCode1 = 201;
 }
 
-void MsgHelper::show(FirstMessageMsg* aMsg)
+void MsgHelper::show(int aPF, FirstMessageMsg* aMsg)
 {
-   Prn::print(Prn::ThreadRun1, "FirstMsg");
-   Prn::print(Prn::ThreadRun1, "Code1      %d", aMsg->mCode1);
-   Prn::print(Prn::ThreadRun1, "");
+   Prn::print(aPF, "FirstMsg");
+   Prn::print(aPF, "Code1      %d", aMsg->mCode1);
+   Prn::print(aPF, "");
 }
 
 //****************************************************************************
@@ -55,18 +55,19 @@ void MsgHelper::initialize(EchoRequestMsg* aMsg,int aNumWords)
    aMsg->mNumWords = aNumWords;
 }
 
-void MsgHelper::show(EchoRequestMsg* aMsg)
+void MsgHelper::show(int aPF, EchoRequestMsg* aMsg)
 {
-   Prn::print(Prn::ThreadRun1, "EchoRequestMsg");
-   Prn::print(Prn::ThreadRun1, "Code1      %d", aMsg->mCode1);
-   Prn::print(Prn::ThreadRun1, "");
+   Prn::print(aPF, "EchoRequestMsg");
+   Prn::print(aPF, "Code1      %d", aMsg->mCode1);
+   Prn::print(aPF, "NumWords   %d", aMsg->mNumWords);
+   Prn::print(aPF, "");
 }
 
 //****************************************************************************
 //****************************************************************************
 //****************************************************************************
 
-void MsgHelper::initialize(EchoResponseMsg* aMsg)
+void MsgHelper::initialize(EchoResponseMsg* aMsg, int aNumWords)
 {
    aMsg->mCode1 = 401;
    aMsg->mCode2 = 402;
@@ -74,11 +75,12 @@ void MsgHelper::initialize(EchoResponseMsg* aMsg)
    aMsg->mCode4 = 404;
 }
 
-void MsgHelper::show(EchoResponseMsg* aMsg)
+void MsgHelper::show(int aPF, EchoResponseMsg* aMsg)
 {
-   Prn::print(Prn::ThreadRun1, "EchoResponseMsg");
-   Prn::print(Prn::ThreadRun1, "Code1      %d", aMsg->mCode1);
-   Prn::print(Prn::ThreadRun1, "");
+   Prn::print(aPF, "EchoResponseMsg");
+   Prn::print(aPF, "Code1      %d", aMsg->mCode1);
+   Prn::print(aPF, "NumWords   %d", aMsg->mNumWords);
+   Prn::print(aPF, "");
 }
 
 //****************************************************************************
@@ -93,14 +95,14 @@ void MsgHelper::initialize(DataRecord* aMsg)
    aMsg->mCode4 = 504;
 }
 
-void MsgHelper::show(DataRecord* aMsg)
+void MsgHelper::show(int aPF, DataRecord* aMsg)
 {
-   Prn::print(Prn::ThreadRun1, "DataRecord");
-   Prn::print(Prn::ThreadRun1, "Code1      %d", aMsg->mCode1);
-   Prn::print(Prn::ThreadRun1, "Code2      %d", aMsg->mCode2);
-   Prn::print(Prn::ThreadRun1, "Code3      %d", aMsg->mCode3);
-   Prn::print(Prn::ThreadRun1, "Code4      %d", aMsg->mCode4);
-   Prn::print(Prn::ThreadRun1, "");
+   Prn::print(aPF, "DataRecord");
+   Prn::print(aPF, "Code1      %d", aMsg->mCode1);
+   Prn::print(aPF, "Code2      %d", aMsg->mCode2);
+   Prn::print(aPF, "Code3      %d", aMsg->mCode3);
+   Prn::print(aPF, "Code4      %d", aMsg->mCode4);
+   Prn::print(aPF, "");
 }
 
 //****************************************************************************
@@ -122,30 +124,57 @@ void MsgHelper::initialize(DataMsg* aMsg)
    aMsg->mBool   = false;
 
 
-   strcpy(aMsg->mString1,"String1");
-   strcpy(aMsg->mString2,"String2");
+   strcpy(aMsg->mString1,"ABCDEFGH");
+   strcpy(aMsg->mString2,"abcdefgh");
 
    initialize(&aMsg->mDataRecord);
 }
 
-void MsgHelper::show(DataMsg* aMsg)
+void MsgHelper::show(int aPF, DataMsg* aMsg)
 {
-   Prn::print(Prn::ThreadRun1, "DataMsg");
-   Prn::print(Prn::ThreadRun1, "UShort     %X",    aMsg->mUShort);
-   Prn::print(Prn::ThreadRun1, "UInt       %X",    aMsg->mUInt);
-   Prn::print(Prn::ThreadRun1, "UInt64     %llX",  aMsg->mUInt64);
-   Prn::print(Prn::ThreadRun1, "Char       %d",    aMsg->mChar);
-   Prn::print(Prn::ThreadRun1, "Short      %d",    aMsg->mShort);
-   Prn::print(Prn::ThreadRun1, "Int        %d",    aMsg->mInt);
-   Prn::print(Prn::ThreadRun1, "Int64      %lld",  aMsg->mInt64);
-   Prn::print(Prn::ThreadRun1, "Float      %f",    aMsg->mFloat);
-   Prn::print(Prn::ThreadRun1, "Double     %f",    aMsg->mDouble);
-   Prn::print(Prn::ThreadRun1, "Bool       %d",    aMsg->mBool);
+   Prn::print(aPF, "DataMsg");
+   Prn::print(aPF, "UShort     %X",    aMsg->mUShort);
+   Prn::print(aPF, "UInt       %X",    aMsg->mUInt);
+   Prn::print(aPF, "UInt64     %llX",  aMsg->mUInt64);
+   Prn::print(aPF, "Char       %d",    aMsg->mChar);
+   Prn::print(aPF, "Short      %d",    aMsg->mShort);
+   Prn::print(aPF, "Int        %d",    aMsg->mInt);
+   Prn::print(aPF, "Int64      %lld",  aMsg->mInt64);
+   Prn::print(aPF, "Float      %f",    aMsg->mFloat);
+   Prn::print(aPF, "Double     %f",    aMsg->mDouble);
+   Prn::print(aPF, "Bool       %d",    aMsg->mBool);
 
-   Prn::print(Prn::ThreadRun1, "String1    %s",    aMsg->mString1);
-   Prn::print(Prn::ThreadRun1, "String2    %s",    aMsg->mString2);
+   Prn::print(aPF, "String1    %s",    aMsg->mString1);
+   Prn::print(aPF, "String2    %s",    aMsg->mString2);
 
-   show(&aMsg->mDataRecord);
+   show(aPF, &aMsg->mDataRecord);
+}
+
+//****************************************************************************
+//****************************************************************************
+//****************************************************************************
+
+void MsgHelper::initialize(ByteBlobMsg* aMsg)
+{
+   int tInt = 0x10111213;
+   aMsg->mBytes.mCopySize = 4;
+   memcpy(aMsg->mBytes.mBytes, &tInt, 4);
+}
+
+void MsgHelper::initialize2(ByteBlobMsg* aMsg)
+{
+   aMsg->mBytes.mCopySize = 1000;
+   memset(aMsg->mBytes.mBytes, 0x77, 1000);
+}
+
+void MsgHelper::show(int aPF, ByteBlobMsg* aMsg)
+{
+   int tInt = 0;
+   memcpy(&tInt, aMsg->mBytes.mBytes, 4);
+
+   Prn::print(aPF, "ByteBlobMsg");
+   Prn::print(aPF, "CopySize   %d", aMsg->mBytes.mCopySize);
+   Prn::print(aPF, "Bytes      %08x", tInt);
 }
 
 //****************************************************************************

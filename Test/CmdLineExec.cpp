@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdio.h>
-#include "string.h"
+#include <limits.h>
 
 #include "risProgramTime.h"
 #include "risBitUtils.h"
@@ -47,18 +47,30 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 //******************************************************************************
 //******************************************************************************
 
+typedef union PackedS
+{
+   unsigned char mUint8;
+   unsigned short mUint16;
+   unsigned int mUint32;
+   int mInt32;
+} PackedT;
+
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
-   aCmd->setArgDefault(1, 0);
-   aCmd->setArgDefault(2, true);
-   unsigned tValue = 0x0000ffff;
-   Prn::print(0, "%08x", tValue);
+   PackedT tP; tP.mInt32 = 0;
+   tP.mUint8 = 0xff;
+   Prn::print(0, "mUint8     %x", tP.mInt32);
 
-   int tBitNum = aCmd->argInt(1);
-   bool tBitValue = aCmd->argBool(2);
-   Ris::setBit(&tValue, tBitNum, tBitValue);
+   tP.mUint8 += 1;
+   Prn::print(0, "mUint8     %x", tP.mInt32);
 
-   Prn::print(0, "%08x", tValue);
+   tP.mUint8 += 1;
+   Prn::print(0, "mUint8     %x", tP.mInt32);
+
+   tP.mUint8 = 0;
+   tP.mUint8 -= 1;
+
+   Prn::print(0, "mUint8     %x", tP.mInt32);
 }
 
 //******************************************************************************
@@ -67,16 +79,7 @@ void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 {
-   aCmd->setArgDefault(1, 0);
-   unsigned tValue = 0;
-   tValue = 0x00000000;
-   tValue = 0x0000ffff;
-   Prn::print(0, "%08x", tValue);
 
-   int tBitNum = aCmd->argInt(1);
-   bool tBitValue = Ris::getBit(tValue, tBitNum);
-
-   Prn::print(0, "%d", tBitValue);
 }
 
 //******************************************************************************
@@ -85,19 +88,6 @@ void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
 {
-   aCmd->setArgDefault(1, 0);
-   aCmd->setArgDefault(2, true);
-   unsigned tValue1 = 0;
-   unsigned tValue2 = 0;
-   tValue1 = 0x00000000;
-   tValue1 = 0x0000ffff;
-   Prn::print(0, "%08x", tValue1);
-
-   int tBitNum = aCmd->argInt(1);
-   bool tBitValue = aCmd->argBool(2);
-   tValue2 = Ris::setBit(tValue1, tBitNum, tBitValue);
-
-   Prn::print(0, "%08x", tValue2);
 }
 
 //******************************************************************************
@@ -106,16 +96,6 @@ void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo4(Ris::CmdLineCmd* aCmd)
 {
-   aCmd->setArgDefault(1, 0);
-   aCmd->setArgDefault(2, true);
-   unsigned char tValue = 0x0f;
-   Prn::print(0, "%02x", tValue);
-
-   int tBitNum = aCmd->argInt(1);
-   bool tBitValue = aCmd->argBool(2);
-   Ris::setBit(&tValue, tBitNum, tBitValue);
-
-   Prn::print(0, "%02x", tValue);
 }
 
 //******************************************************************************
@@ -136,8 +116,8 @@ void CmdLineExec::executeGo5(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo6(Ris::CmdLineCmd* aCmd)
 {
-   Prn::print(0, "Ris::portableGetCurrentDir() %s", Ris::portableGetCurrentDir());
-   Prn::print(0, "Ris::portableGetProgramDir() %s", Ris::portableGetProgramDir());
+   Prn::print(0, "Ris::portableGetBinDir() %s", Ris::portableGetBinDir());
+   Prn::print(0, "Ris::portableGetBinDir() %s", Ris::portableGetBinDir());
    double tTime = Ris::getProgramTime();
    unsigned int tTimeMS = Ris::getCpuTimeUIntMS();
 

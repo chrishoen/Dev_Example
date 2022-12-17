@@ -6,10 +6,10 @@
 
 #include "risCmdLineFile.h"
 #include "risPortableCalls.h"
+#include "risSerialSettings.h"
 
-
-#define  _PROCOTCPSETTINGS_CPP_
-#include "procoTcpSettings.h"
+#define  _PROCOSERIALPARMS_CPP_
+#include "procoSerialParms.h"
 
 //******************************************************************************
 //******************************************************************************
@@ -23,24 +23,29 @@ namespace ProtoComm
 //******************************************************************************
 // Constructor.
 
-TcpSettings::TcpSettings()
+SerialParms::SerialParms()
 {
    reset();
 }
 
-void TcpSettings::reset()
+void SerialParms::reset()
 {
    BaseClass::reset();
-   BaseClass::setFilePath("files/ProtoComm_TcpSettings.txt");
+   if (Ris::portableIsWindows())
+   {
+      BaseClass::setFilePath("c:/aaa_prime/files/Serial_Parms.txt");
+   }
+   else
+   {
+      BaseClass::setFilePath_RelativeToBaseDir("files/Serial_Parms.txt");
+   }
 
-   mMyAppNumber = 0;
-
-   strcpy(mTcpServerAddress, "0.0.0.0");
-   mTcpServerPort = 0;
-   mTcpMaxSessions = 0;
-
+   mSerialPortDevice[0] = 0;
+   mSerialPortSetup[0] = 0;
+   mSerialRxTimeout = 0;
+   mTxTermMode = 0;
+   mRxTermMode = 0;
    mThreadTimerPeriod = 0;
-   mNumWords = 0;
 }
 
 //******************************************************************************
@@ -48,22 +53,23 @@ void TcpSettings::reset()
 //******************************************************************************
 // Show.
 
-void TcpSettings::show()
+void SerialParms::show()
 {
    printf("\n");
-   printf("TcpSettings************************************************ %s\n", mTargetSection);
+   printf("SerialParms************************************************ %s\n", mTargetSection);
 
-   printf("MyAppNumber             %16d\n",       mMyAppNumber);
-
-   printf("TcpServerAddress        %16s\n",       mTcpServerAddress);
-   printf("TcpServerPort           %16d\n",       mTcpServerPort);
-   printf("TcpMaxSessions          %16d\n",       mTcpMaxSessions);
+   printf("SerialPortDevice        %-12s\n", mSerialPortDevice);
+   printf("SerialPortSetup         %-12s\n", mSerialPortSetup);
+   printf("SerialRxTimeout         %-12d\n", mSerialRxTimeout);
 
    printf("\n");
-   printf("ThreadTimerPeriod       %16d\n", mThreadTimerPeriod);
-   printf("NumWords                %16d\n", mNumWords);
+   printf("TxTermMode              %-12s\n", Ris::string_from_int_SerialSettingsTermMode(mTxTermMode));
+   printf("RxTermMode              %-12s\n", Ris::string_from_int_SerialSettingsTermMode(mRxTermMode));
 
-   printf("TcpSettings************************************************\n");
+   printf("\n");
+   printf("ThreadTimerPeriod       %-12d\n", mThreadTimerPeriod);
+
+   printf("SerialParms************************************************\n");
    printf("\n");
 }
 
@@ -74,18 +80,16 @@ void TcpSettings::show()
 // member variable.  Only process commands for the target section.This is
 // called by the associated command file object for each command in the file.
 
-void TcpSettings::execute(Ris::CmdLineCmd* aCmd)
+void SerialParms::execute(Ris::CmdLineCmd* aCmd)
 {
    if (!isTargetSection(aCmd)) return;
 
-   if (aCmd->isCmd("MyAppNumber"))   mMyAppNumber = aCmd->argInt(1);
-
-   if (aCmd->isCmd("TcpServerAddress"))    aCmd->copyArgString(1, mTcpServerAddress,cMaxStringSize);
-   if (aCmd->isCmd("TcpServerPort"))       mTcpServerPort = aCmd->argInt(1);
-   if (aCmd->isCmd("TcpMaxSessions"))      mTcpMaxSessions = aCmd->argInt(1);
-
-   if (aCmd->isCmd("ThreadTimerPeriod"))   mThreadTimerPeriod = aCmd->argInt(1);
-   if (aCmd->isCmd("NumWords"))            mNumWords = aCmd->argInt(1);
+   if (aCmd->isCmd("SerialPortDevice"))  aCmd->copyArgString(1, mSerialPortDevice, cMaxStringSize);
+   if (aCmd->isCmd("SerialPortSetup"))   aCmd->copyArgString(1, mSerialPortSetup, cMaxStringSize);
+   if (aCmd->isCmd("SerialRxTimeout"))   mSerialRxTimeout = aCmd->argInt(1);
+   if (aCmd->isCmd("TxTermMode"))        mTxTermMode = Ris::int_from_string_SerialSettingsTermMode(aCmd->argString(1));
+   if (aCmd->isCmd("RxTermMode"))        mRxTermMode = Ris::int_from_string_SerialSettingsTermMode(aCmd->argString(1));
+   if (aCmd->isCmd("ThreadTimerPeriod")) mThreadTimerPeriod = aCmd->argInt(1);
 }
 
 //******************************************************************************
@@ -94,7 +98,7 @@ void TcpSettings::execute(Ris::CmdLineCmd* aCmd)
 // Calculate expanded member variables. This is called after the entire
 // section of the command file has been processed.
 
-void TcpSettings::expand()
+void SerialParms::expand()
 {
 }
 

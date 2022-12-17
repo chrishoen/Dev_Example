@@ -1,7 +1,6 @@
 #pragma once
 
 /*==============================================================================
-Prototype communications message classes.
 Parameters class whose values are read from a command file. 
 ==============================================================================*/
 
@@ -15,7 +14,7 @@ Parameters class whose values are read from a command file.
 //******************************************************************************
 //******************************************************************************
 
-namespace ProtoComm
+namespace Some
 {
 
 //******************************************************************************
@@ -47,7 +46,7 @@ namespace ProtoComm
 // structure. If so, then this class is the root.
 // 
 
-class UdpSettings : public Ris::BaseCmdLineParms
+class PeriodicParms : public Ris::BaseCmdLineParms
 {
 public:
 
@@ -56,41 +55,34 @@ public:
    //***************************************************************************
    // Constants.
 
-   static const int cMaxStringSize = 30;
+   static const int cMaxStringSize = 100;
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Members. Read from the parameters file.
-
-   // Application settings.
-   int  mMyAppNumber;
-
-   // Receive on this address and port.
-   char mMyUdpAddress[cMaxStringSize];
-   int  mMyUdpPort;
-
-   // Transmit to this address and port.
-   char mOtherUdpAddress[cMaxStringSize];
-   int  mOtherUdpPort;
-
-   // If true then use the last receive from ip address as the
-   // next transmit ip address.
-   bool mUdpWrapFlag;
-
-   // If true then broadcast udp sends.
-   bool mUdpBroadcast;
+   // Members.
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Members. Read from the parameters file.
+   // Members.
 
-   // Message thread timer period.
-   int mThreadTimerPeriod;
+   // Test mode 1,2.
+   int  mTestMode;
 
-   // Echo message number of words.
-   int mNumWords;
+   // Processor variables.
+   int  mTestThreadProcessor;
+   int  mTestThreadPriority;
+   bool mPollProcessor;
+
+   // Timer thread variables.
+   int  mMonitorThreadPeriod;
+   int  mStatPeriod;
+   int  mPeriodUs;
+
+   // Random thread variables.
+   int  mIntervalMeanMs;
+   int  mIntervalRandomUs;
 
    //***************************************************************************
    //***************************************************************************
@@ -100,11 +92,11 @@ public:
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Methods.
+   // Infrastucture.
 
    // Constructor,
    typedef Ris::BaseCmdLineParms BaseClass;
-   UdpSettings();
+   PeriodicParms();
    void reset();
    void show();
 
@@ -123,10 +115,10 @@ public:
 //******************************************************************************
 // Global instance.
 
-#ifdef _PROCOUDPSETTINGS_CPP_
-   UdpSettings gUdpSettings;
+#ifdef _SOMEPERIODICPARMS_CPP_
+   PeriodicParms gPeriodicParms;
 #else
-   extern UdpSettings gUdpSettings;
+   extern PeriodicParms gPeriodicParms;
 #endif
 
 //******************************************************************************

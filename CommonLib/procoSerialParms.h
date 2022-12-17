@@ -47,7 +47,7 @@ namespace ProtoComm
 // structure. If so, then this class is the root.
 // 
 
-class UdpSettings : public Ris::BaseCmdLineParms
+class SerialParms : public Ris::BaseCmdLineParms
 {
 public:
 
@@ -61,36 +61,19 @@ public:
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Members. Read from the parameters file.
+   // Members. Read from paramaters file.
 
-   // Application settings.
-   int  mMyAppNumber;
+   // Serial setup and port.
+   char mSerialPortDevice[cMaxStringSize];
+   char mSerialPortSetup[cMaxStringSize];
+   int  mSerialRxTimeout;
 
-   // Receive on this address and port.
-   char mMyUdpAddress[cMaxStringSize];
-   int  mMyUdpPort;
-
-   // Transmit to this address and port.
-   char mOtherUdpAddress[cMaxStringSize];
-   int  mOtherUdpPort;
-
-   // If true then use the last receive from ip address as the
-   // next transmit ip address.
-   bool mUdpWrapFlag;
-
-   // If true then broadcast udp sends.
-   bool mUdpBroadcast;
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Members. Read from the parameters file.
+   // Serial string port termination modes.
+   int mTxTermMode;
+   int mRxTermMode;
 
    // Message thread timer period.
    int mThreadTimerPeriod;
-
-   // Echo message number of words.
-   int mNumWords;
 
    //***************************************************************************
    //***************************************************************************
@@ -104,7 +87,7 @@ public:
 
    // Constructor,
    typedef Ris::BaseCmdLineParms BaseClass;
-   UdpSettings();
+   SerialParms();
    void reset();
    void show();
 
@@ -123,10 +106,10 @@ public:
 //******************************************************************************
 // Global instance.
 
-#ifdef _PROCOUDPSETTINGS_CPP_
-   UdpSettings gUdpSettings;
+#ifdef _PROCOSERIALPARMS_CPP_
+   SerialParms gSerialParms;
 #else
-   extern UdpSettings gUdpSettings;
+   extern SerialParms gSerialParms;
 #endif
 
 //******************************************************************************
