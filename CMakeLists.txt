@@ -13,6 +13,9 @@ project ("Dev_Example")
 my_print_cmake_vars()
 
 
+add_subdirectory ("Pointer")
+return()
+
 add_subdirectory ("CommonLib")
 add_subdirectory ("ExampleThread1")
 add_subdirectory ("ExampleThread2")
