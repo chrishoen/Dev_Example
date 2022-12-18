@@ -52,7 +52,8 @@ std::unique_ptr<std::string> get_string1(const char* aFileName)
 {
    auto tString = std::make_unique<std::string>("/tmp/");
    *tString += aFileName;
-   return std::move(tString);
+// return std::move(tString);
+   return tString;
 }
 
 void show_string1(const char* aString)
