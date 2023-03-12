@@ -13,7 +13,7 @@ project ("Dev_Example")
 my_print_cmake_vars()
 
 
-add_subdirectory ("Pointer")
+add_subdirectory ("Test")
 return()
 
 add_subdirectory ("CommonLib")
