@@ -47,30 +47,21 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 //******************************************************************************
 //******************************************************************************
 
-typedef union PackedS
+inline void delay(int aLoop)
 {
-   unsigned char mUint8;
-   unsigned short mUint16;
-   unsigned int mUint32;
-   int mInt32;
-} PackedT;
-
+    volatile int gDummy = 0;
+    for (int i = 0; i < aLoop; i++) gDummy++;
+}
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
-   PackedT tP; tP.mInt32 = 0;
-   tP.mUint8 = 0xff;
-   Prn::print(0, "mUint8     %x", tP.mInt32);
+    aCmd->setArgDefault(1, 0);
+    int tDelay = aCmd->argInt(1);
 
-   tP.mUint8 += 1;
-   Prn::print(0, "mUint8     %x", tP.mInt32);
+    double tT1 = Ris::getProgramTimeUS();
+    delay(tDelay);
+    double tDiff = Ris::getProgramTimeUS() - tT1;
 
-   tP.mUint8 += 1;
-   Prn::print(0, "mUint8     %x", tP.mInt32);
-
-   tP.mUint8 = 0;
-   tP.mUint8 -= 1;
-
-   Prn::print(0, "mUint8     %x", tP.mInt32);
+    Prn::print(0, "tDiff  %.8f", tDiff);
 }
 
 //******************************************************************************

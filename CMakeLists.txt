@@ -13,11 +13,11 @@ project ("Dev_Example")
 my_print_cmake_vars()
 
 
-add_subdirectory ("CommonLib")
-add_subdirectory ("ProtoUdpString")
+add_subdirectory ("Test")
 return()
 
-add_subdirectory ("Test")
+add_subdirectory ("CommonLib")
+add_subdirectory ("ProtoUdpString")
 return()
 
 add_subdirectory ("CommonLib")
