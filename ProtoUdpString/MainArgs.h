@@ -1,27 +1,20 @@
 #pragma once
 
 /*==============================================================================
-This file provides a set of variables that are used to define thread
-priorities and processor number for threads in these programs.
+main program arguments.
 ==============================================================================*/
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 
-#include "risThreadsPriorities.h"
-
-namespace Cmn
-{
-
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// This class provides a set of variables that are used to define thread
-// priorities and thread single processor numbers for threads in these
-// programs.
+// This parses main program arguments into some member variables.
+// 
 
-class Priorities
+class MainArgs
 {
 public:
 
@@ -30,12 +23,8 @@ public:
    //***************************************************************************
    // Members.
 
-   Ris::Threads::Priority mTsPrint;
-   Ris::Threads::Priority mMasterLong;
-   Ris::Threads::Priority mMasterShort;
-   Ris::Threads::Priority mSlave;
-   Ris::Threads::Priority mTimer;
-   Ris::Threads::Priority mTest;
+   // Peer identifier.
+   int mPeerIdent;
 
    //***************************************************************************
    //***************************************************************************
@@ -43,22 +32,28 @@ public:
    // Methods.
 
    // Constructor.
-   Priorities();
+   MainArgs();
+   void reset();
+
+   // Parse the main program arguments into member variables.
+   void initialize(int argc, char** argv);
+
+   // Helpers.
+   void show();
+   void help();
 };
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Global singular instance.
+// Global instance.
 
-#ifdef _CMNPRIORITIES_CPP_
-          Priorities gPriorities;
+#ifdef _MAINARGS_CPP_
+   MainArgs gMainArgs;
 #else
-   extern Priorities gPriorities;
+   extern MainArgs gMainArgs;
 #endif
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-}//namespace
-

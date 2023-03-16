@@ -1,41 +1,49 @@
 #pragma once
 
 /*==============================================================================
-This file provides a set of variables that are used to define thread
-priorities and processor number for threads in these programs.
+Program monitor timer thread.
 ==============================================================================*/
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 
-#include "risThreadsPriorities.h"
+#include "risThreadsTimerThread.h"
+#include "risMonitor.h"
 
-namespace Cmn
+namespace ProtoComm
 {
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// This is a timer thread that monitors program status and prints it.
 
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-// This class provides a set of variables that are used to define thread
-// priorities and thread single processor numbers for threads in these
-// programs.
-
-class Priorities
+class MonitorThread : public Ris::Threads::BaseTimerThread
 {
 public:
+   typedef Ris::Threads::BaseTimerThread BaseClass;
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Members.
 
-   Ris::Threads::Priority mTsPrint;
-   Ris::Threads::Priority mMasterLong;
-   Ris::Threads::Priority mMasterShort;
-   Ris::Threads::Priority mSlave;
-   Ris::Threads::Priority mTimer;
-   Ris::Threads::Priority mTest;
+   // If true then process status.
+   bool mTPFlag;
+
+   // Select show mode.
+   int mShowCode;
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Members. Monitor variables.
+
+   // Message counts.
+   Ris::Monitor<int> mMon_TxStringCount;
+   Ris::Monitor<long long> mMon_TxByteCount;
+   Ris::Monitor<int> mMon_RxStringCount;
+   Ris::Monitor<long long> mMon_RxByteCount;
 
    //***************************************************************************
    //***************************************************************************
@@ -43,22 +51,35 @@ public:
    // Methods.
 
    // Constructor.
-   Priorities();
+   MonitorThread();
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods. Thread base class overloads.
+
+   // Update status variables.
+   void update();
+
+   // Execute periodically. This is called by the base class timer. It 
+   // updates monitor variables and shows them as program status.
+   void executeOnTimer(int aTimeCount) override;
 };
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Global singular instance.
+// Global instance.
 
-#ifdef _CMNPRIORITIES_CPP_
-          Priorities gPriorities;
+#ifdef _PROCOMONITORTHREAD_CPP_
+           MonitorThread* gMonitorThread;
 #else
-   extern Priorities gPriorities;
+   extern  MonitorThread* gMonitorThread;
 #endif
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 }//namespace
+
 

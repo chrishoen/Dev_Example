@@ -42,7 +42,6 @@ Priorities::Priorities()
    mSlave             = Ris::Threads::Priority(-1, THREAD_PRIORITY_ABOVE_NORMAL);
    mTimer             = Ris::Threads::Priority(-1, THREAD_PRIORITY_HIGHEST);
    mTest              = Ris::Threads::Priority(-1, THREAD_PRIORITY_ABOVE_NORMAL);
-   mQCall             = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
 }
 
 //******************************************************************************

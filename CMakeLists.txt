@@ -17,20 +17,15 @@ add_subdirectory ("Test")
 return()
 
 add_subdirectory ("CommonLib")
-add_subdirectory ("ExampleThread1")
-add_subdirectory ("ExampleThread2")
-add_subdirectory ("ExampleThread3")
+add_subdirectory ("ProtoUdpString")
 return()
 
 add_subdirectory ("CommonLib")
 add_subdirectory ("ExampleThread1")
 add_subdirectory ("ExampleThread2")
 add_subdirectory ("ExampleThread3")
-add_subdirectory ("ProtoTcpClient")
-add_subdirectory ("ProtoTcpServer")
-add_subdirectory ("ProtoUdp")
-add_subdirectory ("Test")
 return()
+
 
 
 add_subdirectory ("Test")
