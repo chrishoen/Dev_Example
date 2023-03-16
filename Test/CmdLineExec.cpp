@@ -68,8 +68,26 @@ void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 //******************************************************************************
 //******************************************************************************
 
+void my_soft_delay_us(int aDelayUs)
+{
+    double tT1 = Ris::getProgramTimeUS();
+    while (1)
+    {
+        double tDiff = Ris::getProgramTimeUS() - tT1;
+        if (tDiff >= aDelayUs) break;
+    }
+}
+
 void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 {
+    aCmd->setArgDefault(1, 0);
+    int tDelay = aCmd->argInt(1);
+
+    double tT1 = Ris::getProgramTimeUS();
+    my_soft_delay_us(tDelay);
+    double tDiff = Ris::getProgramTimeUS() - tT1;
+
+    Prn::print(0, "tDiff  %.8f", tDiff);
 
 }
 
