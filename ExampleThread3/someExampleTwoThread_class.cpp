@@ -22,7 +22,6 @@ namespace Some
 // Constructor. True is tta, false is da.
 
 ExampleTwoThread::ExampleTwoThread()
-   : mResponseNotify(&mNotify, cResponseNotifyCode)
 {
    using namespace std::placeholders;
 
@@ -64,8 +63,6 @@ void ExampleTwoThread::resetVars()
 
 void ExampleTwoThread::threadInitFunction()
 {
-   // Launch the sequence qcall.
-   mRunSeq1QCall();
 }
 
 //******************************************************************************

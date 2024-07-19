@@ -1,40 +1,34 @@
+
 #include "stdafx.h"
 
 #include "risThreadsProcess.h"
-#include "risThreadsThreads.h"
+#include "risBaseDir.h"
 #include "someExampleParms.h"
+#include "MainInit.h"
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Initialize program resources.
+// Initialize.
 
-void main_initialize(int argc,char** argv)
+void main_initialize()
 {
-   printf("ExampleThread3 Program********************************************BEGIN\n");
-   printf("ExampleThread3 Program********************************************BEGIN\n");
-   printf("ExampleThread3 Program********************************************BEGIN\n\n");
+   printf("ProtoUdpMsg Program**********************************************BEGIN\n");
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Enter process.
+   // Process configuration.
 
-   // Set program process for high priority.
-   Ris::Threads::enterProcessHigh();
+   // Set the program current working directory up one level from the 
+   // program bin directory.
+   Ris::portableChdirUpFromBin();
 
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
+   // Set the base directory to the current working directory.
+   Ris::setBaseDirectoryToCurrent();
 
-   // Read parameters files.
-   Some::gExampleParms.reset();
-   Some::gExampleParms.readSection("default");
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Initialize program resources.
+   // Set the process priority class.
+   ////Ris::Threads::enterProcessHigh();
 
    //***************************************************************************
    //***************************************************************************
@@ -43,50 +37,35 @@ void main_initialize(int argc,char** argv)
 
    // Initialize print.
    Prn::resetPrint();
-   if (Some::gExampleParms.mPrintViewEnable)
-   {
-      // Initialize print.
-      Prn::resetPrint(Some::gExampleParms.mPrintViewIPAddress);
-      Prn::useConsole(1);
-      Prn::useConsole(2);
-      Prn::initializePrint();
+   Prn::initializePrint();
 
-      // Initialize print filters.
-      Prn::setFilter(Prn::View11, true, 1);
-      Prn::setFilter(Prn::View12, false, 1);
-      Prn::setFilter(Prn::View21, true, 2);
-      Prn::setFilter(Prn::View22, false, 2);
-   }
+   // Initialize print filters.
+   Prn::setFilter(Prn::Show1, true);
+   Prn::setFilter(Prn::Show2, false);
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Initialize program resources.
+   // Read parameters files.
 
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   Prn::print(Prn::View11, "ExampleThread3 Program********************************************BEGIN");
+   Some::gExampleParms.reset();
+   Some::gExampleParms.readSection("default");
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Finalize program resourcs.
+// Finalize.
 
 void main_finalize()
 {
-   Prn::print(Prn::View11, "ExampleThread3 Program********************************************END");
-   printf("\n");
-   printf("ExampleThread3 Program********************************************END\n");
-   printf("ExampleThread3 Program********************************************END\n");
-   printf("ExampleThread3 Program********************************************END\n");
-
    // Finalize print facility.
    Prn::finalizePrint();
 
-   // Exit process.
-   Ris::Threads::exitProcess();
+   // Exit process
+   ////Ris::Threads::exitProcess();
+
+   printf("ProtoUdpMsg Program**********************************************BEGIN\n");
 }
 
 //******************************************************************************

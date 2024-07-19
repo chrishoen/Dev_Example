@@ -29,7 +29,7 @@ void ExampleTwoThread::executeResponse(int aCount)
    Prn::print(Prn::View21, "ExampleTwoThread::executeResponse %d", aCount);
 
    // Notify the long thread that a response was received.
-   mNotify.notify(cResponseNotifyCode);
+   mNotify.notify();
 }
 
 //******************************************************************************

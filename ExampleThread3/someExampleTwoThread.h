@@ -74,7 +74,7 @@ public:
    // Members.
 
    // Notifications.
-   Ris::Threads::NotifyWrapper mResponseNotify;
+   Ris::Threads::Notify mResponseNotify;
 
    // Waitable timer.
    Ris::Threads::Waitable mSeqWaitable;

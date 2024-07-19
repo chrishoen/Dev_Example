@@ -38,10 +38,8 @@ void ExampleParms::reset()
       BaseClass::setFilePath("/opt/prime/files/Example_Parms.txt");
    }
 
-   mPrintViewEnable = false;
-   mPrintViewIPAddress[0] = 0;
-
    mTimerPeriod = 0;
+   mTimeout1 = 0;
    mDelay1 = 0;
 }
 
@@ -56,12 +54,9 @@ void ExampleParms::show()
    printf("ExampleParms************************************************ %s\n", mTargetSection);
 
    printf("\n");
-   printf("TimerPeriod                %12d\n", mTimerPeriod);
-   printf("Delay1                     %12d\n", mDelay1);
-
-   printf("\n");
-   printf("PrintViewEnable            %-12s\n", my_string_from_bool(mPrintViewEnable));
-   printf("PrintViewIPAddress         %-12s\n", mPrintViewIPAddress);
+   printf("TimerPeriod                %-12d\n", mTimerPeriod);
+   printf("Timeout1                   %-12d\n", mTimeout1);
+   printf("Delay1                     %-12d\n", mDelay1);
 }
 
 //******************************************************************************
@@ -76,10 +71,8 @@ void ExampleParms::execute(Ris::CmdLineCmd* aCmd)
    if (!isTargetSection(aCmd)) return;
 
    if (aCmd->isCmd("TimerPeriod"))        mTimerPeriod = aCmd->argInt(1);
+   if (aCmd->isCmd("Timeout1"))           mTimeout1 = aCmd->argInt(1);
    if (aCmd->isCmd("Delay1"))             mDelay1 = aCmd->argInt(1);
-
-   if (aCmd->isCmd("PrintViewEnable"))    mPrintViewEnable = aCmd->argBool(1);
-   if (aCmd->isCmd("PrintViewIPAddress")) aCmd->copyArgString(1, mPrintViewIPAddress, cMaxStringSize);
 }
 
 //******************************************************************************

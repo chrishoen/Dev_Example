@@ -34,126 +34,66 @@ void ExampleTwoThread::executeRunSeq1()
    //***************************************************************************
    // Do this first.
 
-   // Initialize the synchronization objects.
-   mSeqWaitable.initialize(gExampleParms.mTimerPeriod);
-   mNotify.reset();
-
    // Reset variables. 
    resetVars();
 
-   try
+   // Initialize the synchronization objects.
+   mSeqWaitable.initialize(gExampleParms.mTimerPeriod);
+
+   // Seq to transmit and receive messages.
+   while (true)
    {
-      // Seq to transmit and receive messages.
-      while (true)
+      //*********************************************************************
+      //*********************************************************************
+      //*********************************************************************
+      // Wait for timer.
+
+      // Wait for timer or abort.
+      mSeqWaitable.waitForTimerOrSemaphore();
+
+      // Test for an abort.
+      if (mSeqWaitable.wasSemaphore())
       {
-         //*********************************************************************
-         //*********************************************************************
-         //*********************************************************************
-         // Wait.
-
-         // If true then there was a serial timeout.
-         bool tTimeoutFlag = false;
-
-         // If true then there was a processing error.
-         bool tProcErrorFlag = false;
-
-         // Wait for timer or abort.
-         mSeqWaitable.waitForTimerOrSemaphore();
-
-         // Test for an abort
-         if (mSeqWaitable.wasSemaphore()) throw 668;
-
-         //*********************************************************************
-         //*********************************************************************
-         //*********************************************************************
-         // Send a request to the slave, wait for the response and process it.
-
-         try
-         {
-            // Default. This will be set by the specific subfunction.
-            mSeqExitCode = cSeqExitNormal;
-
-            // Test for a notification exception.
-            // This can throw an execption if there's an abort.
-            mNotify.testException();
-
-            // Set the thread notification mask.
-            mNotify.setMaskOne("Response", cResponseNotifyCode);
-
-            // Invoke the qcall thread request qcall.
-            gExampleQCallThread->mRequestQCall(mTxCount++);
-
-         }
-         catch (int aException)
-         {
-            if (aException == Ris::Threads::Notify::cTimeoutException)
-            {
-               Prn::print(0, "EXCEPTION ExampleTwoThread::doProcess TIMEOUT %d", aException);
-
-               // Rx timeout.
-               tTimeoutFlag = true;
-
-               // There was a processing error.
-               tProcErrorFlag = true;
-            }
-            else if (aException == cSeqExitError)
-            {
-               Prn::print(0, "EXCEPTION ExampleTwoThread::doProcess ERROR %d", aException);
-
-               // There was a processing error.
-               tProcErrorFlag = true;
-            }
-            else
-            {
-               Prn::print(0, "EXCEPTION ExampleTwoThread::doProcess %d %s", aException, mNotify.mException);
-
-               // There was a processing error.
-               tProcErrorFlag = true;
-            }
-         }
-
-         //*********************************************************************
-         //*********************************************************************
-         //*********************************************************************
-         // Check errors.
-         
-         if (tProcErrorFlag)
-         {
-         }
-
-         //*********************************************************************
-         //*********************************************************************
-         //*********************************************************************
-         // Events.
-
-         // Test for a timeout.
-         if (tTimeoutFlag)
-         {
-         }
+         Prn::print(0, "ExampleTwoThread::executeRunSeq1 abort1");
+         break;
       }
-   }
-   catch (int aException)
-   {
-      if (aException == 668)
+
+      //*********************************************************************
+      //*********************************************************************
+      //*********************************************************************
+      // Send a request to the slave, wait for the response and process it.
+
+      // Restart the notification.
+      mNotify.restart(false);
+
+      // Invoke the qcall thread request qcall. The qcall thread will
+      // invoke the short thread response qcall after a delay.
+      Prn::print(0, "ExampleTwoThread::executeRunSeq1 send request");
+      gExampleQCallThread->mRequestQCall(mTxCount++);
+
+      // Wait for response notification or abort from the short thread.
+      mResponseNotify.wait(gExampleParms.mTimeout1);
+
+      // Test for timeout.
+      if (mResponseNotify.mTimeoutFlag)
       {
-         Prn::print(0, "EXCEPTION ExampleTwoThread::executeRunSeq1 ABORT %d %s", aException, mNotify.mException);
-         mSeqExitCode = cSeqExitAborted;
+         Prn::print(0, "ExampleTwoThread::executeRunSeq1 timeout");
+         break;
       }
-      else
+
+      // Test for abort.
+      if (mResponseNotify.mAbortFlag)
       {
-         Prn::print(0, "EXCEPTION ExampleTwoThread::executeRunSeq1 %d", aException);
-         mSeqExitCode = cSeqExitError;
+         Prn::print(0, "ExampleTwoThread::executeRunSeq1 abort2");
+         break;
       }
-   }
-   catch (...)
-   {
-      Prn::print(0, "EXCEPTION ExampleTwoThread::executeRunSeq1 UNKNOWN");
-      mSeqExitCode = cSeqExitError;
+
+      // Process the response.
+      Prn::print(0, "ExampleTwoThread::executeRunSeq1 received response");
    }
 
    // Finalize the synchronization objects.
    mSeqWaitable.finalize();
-   mNotify.clearFlags();
 
    Prn::print(0, "ExampleTwoThread::executeRunSeq1 END");
 }
