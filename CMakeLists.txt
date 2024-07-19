@@ -10,6 +10,7 @@ include("${MY_MACRO_DIR}/MyPrecompiledHeader.cmake")
 include("${MY_MACRO_DIR}/MySpecial.cmake")
 
 project ("Dev_Example")
+my_append_compile_flags()
 my_print_cmake_vars()
 
 

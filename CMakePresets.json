@@ -34,9 +34,37 @@
       }
     },
     {
+      "name": "prime-ubu",
+      "displayName": "prime-ubu",
+      "description": "Target ubuntu, with gcc, install to /opt/prime.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "installDir": "${sourceDir}/out/install/${presetName}",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "/usr/bin/gcc",
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+        "MYMODE": {
+          "type": "STRING",
+          "value": "prime-ubu"
+        }
+
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
+          "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}"
+        }
+      }
+    },
+    {
       "name": "prime-arm7",
       "displayName": "prime-arm7",
-      "description": "Target debian arm7 for beaglebone or rpi, install to /opt/prime",
+      "description": "Target debian arm7 for beaglebone, install to /opt/prime",
       "inherits": "base",
       "toolchainFile": "${sourceDir}\\beaglebone-toolchain.cmake",
       "cacheVariables": {
@@ -55,33 +83,6 @@
       }
     },
     {
-      "name": "prime-arm8",
-      "displayName": "prime-arm8",
-      "description": "Target the varisite board, install to /opt/prime.",
-      "generator": "Ninja",
-      "toolchainFile": "${sourceDir}\\imx8mm-toolchain.cmake",
-      "binaryDir": "$env{PWD}/out/build/${presetName}",
-      "installDir": "$env{PWD}/out/install/${presetName}",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "MYMODE": {
-          "type": "STRING",
-          "value": "prime-arm8"
-        }
-
-      },
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Linux"
-      },
-      "vendor": {
-        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
-          "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}"
-        }
-      }
-    },
-    {
       "name": "prime-rpi",
       "displayName": "prime-rpi",
       "description": "Target the raspberrypi4, install to /opt/prime.",
@@ -94,34 +95,6 @@
         "MYMODE": {
           "type": "STRING",
           "value": "prime-rpi"
-        }
-
-      },
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Linux"
-      },
-      "vendor": {
-        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
-          "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}"
-        }
-      }
-    },
-    {
-      "name": "prime-gcc",
-      "displayName": "prime-gcc",
-      "description": "Target ubuntu, with gcc, install to /opt/prime.",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/out/build/${presetName}",
-      "installDir": "${sourceDir}/out/install/${presetName}",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_C_COMPILER": "/usr/bin/gcc",
-        "CMAKE_CXX_COMPILER": "/usr/bin/g++",
-        "MYMODE": {
-          "type": "STRING",
-          "value": "prime-ubu"
         }
 
       },

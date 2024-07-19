@@ -88,14 +88,6 @@ function(my_append_compile_flags_gcc)
 endfunction()
 
 #*******************************************
-function(my_append_compile_flags_clang)
-
-    add_compile_options(-Wno-deprecated-volatile)
-    add_compile_options(-Wno-delete-incomplete)
-
-endfunction()
-
-#*******************************************
 function(my_append_compile_flags_msvc_release)
 
     add_compile_options(/WX)
@@ -144,9 +136,7 @@ function(my_append_compile_flags)
          my_append_compile_flags_msvc_debug()
       endif()
    elseif (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-      my_append_compile_flags_gcc()
-   elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-      my_append_compile_flags_clang()
+#     my_append_compile_flags_gcc()
    endif()
 endfunction()
 
