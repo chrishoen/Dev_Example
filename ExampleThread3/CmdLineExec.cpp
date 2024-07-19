@@ -63,6 +63,7 @@ void CmdLineExec::executeRun1(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
+   Some::gExampleTwoThread->mResponseQCall(101);
 }
 
 //******************************************************************************

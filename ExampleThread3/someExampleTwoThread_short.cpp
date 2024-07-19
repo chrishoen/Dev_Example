@@ -26,10 +26,10 @@ void ExampleTwoThread::executeResponse(int aCount)
    // Metrics.
    mRxCount++;
 
-   Prn::print(Prn::View21, "ExampleTwoThread::executeResponse %d", aCount);
+   Prn::print(Prn::Show1, "ExampleTwoThread::executeResponse %d", aCount);
 
    // Notify the long thread that a response was received.
-   mNotify.notify();
+   BaseClass::mNotify.notify();
 }
 
 //******************************************************************************

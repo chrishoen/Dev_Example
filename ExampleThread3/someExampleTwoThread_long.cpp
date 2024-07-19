@@ -64,32 +64,32 @@ void ExampleTwoThread::executeRunSeq1()
       // Send a request to the slave, wait for the response and process it.
 
       // Restart the notification.
-      mNotify.restart(false);
+      BaseClass::mNotify.restart(false);
 
       // Invoke the qcall thread request qcall. The qcall thread will
       // invoke the short thread response qcall after a delay.
-      Prn::print(0, "ExampleTwoThread::executeRunSeq1 send request");
+      Prn::print(Prn::Show1, "ExampleTwoThread::executeRunSeq1 send request ******************");
       gExampleQCallThread->mRequestQCall(mTxCount++);
 
       // Wait for response notification or abort from the short thread.
-      mResponseNotify.wait(gExampleParms.mTimeout1);
+      BaseClass::mNotify.wait(gExampleParms.mTimeout1);
 
       // Test for timeout.
-      if (mResponseNotify.mTimeoutFlag)
+      if (mNotify.mTimeoutFlag)
       {
          Prn::print(0, "ExampleTwoThread::executeRunSeq1 timeout");
          break;
       }
 
       // Test for abort.
-      if (mResponseNotify.mAbortFlag)
+      if (BaseClass::mNotify.mAbortFlag)
       {
          Prn::print(0, "ExampleTwoThread::executeRunSeq1 abort2");
          break;
       }
 
       // Process the response.
-      Prn::print(0, "ExampleTwoThread::executeRunSeq1 received response");
+      Prn::print(Prn::Show1, "ExampleTwoThread::executeRunSeq1 received response");
    }
 
    // Finalize the synchronization objects.

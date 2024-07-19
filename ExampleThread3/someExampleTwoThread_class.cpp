@@ -28,9 +28,7 @@ ExampleTwoThread::ExampleTwoThread()
    // Set base class thread variables.
    BaseClass::mShortThread->setThreadName("ExampleShort");
    BaseClass::mLongThread->setThreadName("ExampleLong");
-
    BaseClass::mShortThread->setThreadPriority(Cmn::gPriorities.mMasterShort);
-
    BaseClass::mLongThread->setThreadPriority(Cmn::gPriorities.mMasterLong);
 
    // Set base class call pointers.
@@ -102,6 +100,7 @@ void ExampleTwoThread::executeAbort()
 
    // Abort the long thread.
    mSeqWaitable.postSemaphore();
+   BaseClass::mNotify.abort();
 }
 
 //******************************************************************************
