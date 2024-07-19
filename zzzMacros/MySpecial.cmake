@@ -2,7 +2,7 @@
 #*******************************************************************************
 #*******************************************************************************
 
-function(my_print_cmake_vars)
+function(my_show_cmake_vars)
 
    message(STATUS "my_special1***********************************************************BEGIN")
    message(STATUS "CMAKE_SYSTEM_PROCESSOR   " ${CMAKE_SYSTEM_PROCESSOR})
@@ -27,7 +27,6 @@ function(my_print_cmake_vars)
    message(STATUS "PROJECT_SOURCE_DIR       " ${PROJECT_SOURCE_DIR})
    message(STATUS "THIRD_PARTY_LIB_DIR      " ${THIRD_PARTY_LIB_DIR})
    message(STATUS "MYMODE                   " ${MYMODE})
-   message(STATUS "MYSTANDALONE             " ${MYSTANDALONE})
    message(STATUS "my_special1***********************************************************END")
 endfunction()
 

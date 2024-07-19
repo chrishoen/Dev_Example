@@ -24,7 +24,7 @@ ExampleQCallThread::ExampleQCallThread()
 {
    // Set base class variables.
    BaseClass::setThreadName("ExampleQCall");
-   BaseClass::setThreadPriority(Cmn::gPriorities.mQCall);
+   BaseClass::setThreadPriority(Cmn::gPriorities.mTest);
    BaseClass::mTimerPeriod = gExampleParms.mTimerPeriod;
 
    // Initialize qcalls.
