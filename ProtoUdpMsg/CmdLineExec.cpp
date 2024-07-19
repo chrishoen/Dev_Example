@@ -1,8 +1,11 @@
 
 #include "stdafx.h"
 
-#include "procoUdpSettings.h"
-#include "procoProcThread.h"
+#include "procoUdpParms.h"
+#include "procoMsg.h"
+#include "procoMsgHelper.h"
+
+#include "procoPeerThread.h"
 #include "procoMonitorThread.h"
 
 #include "CmdLineExec.h"
@@ -26,8 +29,10 @@ void CmdLineExec::reset()
 
 void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 {
-   if (aCmd->isCmd("TP"))        ProtoComm::gProcThread->mTPFlag = aCmd->argBool(1);
+   if (aCmd->isCmd("TP"))        ProtoComm::gPeerThread->mTPCode = aCmd->argInt(1);
    if (aCmd->isCmd("SEND"))      executeSend(aCmd);
+   if (aCmd->isCmd("ECHO"))      executeEcho(aCmd);
+   if (aCmd->isCmd("DATA"))      executeData(aCmd);
    if (aCmd->isCmd("GO1"))       executeGo1(aCmd);
    if (aCmd->isCmd("GO2"))       executeGo2(aCmd);
    if (aCmd->isCmd("GO3"))       executeGo3(aCmd);
@@ -41,23 +46,8 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::special(int aSpecial)
 {
+   ProtoComm::gPeerThread->mShowCode = aSpecial;
    ProtoComm::gMonitorThread->mShowCode = aSpecial;
-
-   if (aSpecial == 0)
-   {
-      Prn::setFilter(Prn::Show1, false);
-      Prn::setFilter(Prn::Show2, false);
-   }
-   else if (aSpecial == 1)
-   {
-      Prn::setFilter(Prn::Show1, true);
-      Prn::setFilter(Prn::Show2, false);
-   }
-   else if (aSpecial == 2)
-   {
-      Prn::setFilter(Prn::Show1, false);
-      Prn::setFilter(Prn::Show2, true);
-   }
 }
 
 //******************************************************************************
@@ -66,24 +56,74 @@ void CmdLineExec::special(int aSpecial)
 
 void CmdLineExec::executeSend (Ris::CmdLineCmd* aCmd)
 {
-   char tString[100];
-   if (aCmd->numArg() == 0)
+   aCmd->setArgDefault(1,1);
+   int tMsgType= aCmd->argInt(1);
+
+   switch (tMsgType)
    {
-      strcpy(tString, "ABCD");
+      case 1:
+      {
+         ProtoComm::TestMsg* tMsg = new ProtoComm::TestMsg;
+         MsgHelper::initialize(tMsg);
+         gPeerThread->sendMsg(tMsg);
+         break;
+      }
+      case 5:
+      {
+         ProtoComm::DataMsg* tMsg = new ProtoComm::DataMsg;
+         MsgHelper::initialize(tMsg);
+         gPeerThread->sendMsg(tMsg);
+         break;
+      }
    }
-   else
-   {
-      sprintf(tString, "%s", aCmd->argWhole());
-   }
-   gProcThread->sendString(new std::string(tString));
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 
-void CmdLineExec::executeGo1 (Ris::CmdLineCmd* aCmd)
+void CmdLineExec::executeEcho(Ris::CmdLineCmd* aCmd)
 {
+   aCmd->setArgDefault(1, 0);
+   int tNumWords = aCmd->argInt(1);
+   
+   ProtoComm::EchoRequestMsg* tMsg = new ProtoComm::EchoRequestMsg;
+   MsgHelper::initialize(tMsg,tNumWords);
+   gPeerThread->sendMsg(tMsg);
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeData(Ris::CmdLineCmd* aCmd)
+{
+   ProtoComm::DataMsg* tMsg = new ProtoComm::DataMsg;
+   MsgHelper::initialize(tMsg);
+
+   gPeerThread->sendMsg(tMsg);
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void test1(Ris::ByteContent* aMsg)
+{
+   ProtoComm::BaseMsg* tMsg = (ProtoComm::BaseMsg*)aMsg;
+   Prn::print(0, "MessageType %d", tMsg->mMessageType);
+}
+
+void test2(Ris::ByteContent* aMsg)
+{
+   test1(aMsg);
+}
+
+void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
+{
+   ProtoComm::TestMsg* tMsg = new ProtoComm::TestMsg;
+   test1(tMsg);
+   test2(tMsg);
 }
 
 //******************************************************************************
@@ -92,6 +132,9 @@ void CmdLineExec::executeGo1 (Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 {
+   ProtoComm::MsgMetrics tMsgMetrics;
+   ProtoComm::TestMsg* tMsg = new ProtoComm::TestMsg;
+   tMsgMetrics.updateAllVars(tMsg, 100);
 }
 
 //******************************************************************************
@@ -116,7 +159,7 @@ void CmdLineExec::executeGo4(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeParms(Ris::CmdLineCmd* aCmd)
 {
-   ProtoComm::gUdpSettings.show();
+   ProtoComm::gUdpParms.show();
 }
 
 //******************************************************************************

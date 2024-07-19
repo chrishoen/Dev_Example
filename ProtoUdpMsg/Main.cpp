@@ -7,7 +7,7 @@
 #include "MainInit.h"
 #include "MainArgs.h"
 
-#include "procoProcThread.h"
+#include "procoPeerThread.h"
 #include "procoMonitorThread.h"
 
 //******************************************************************************
@@ -25,9 +25,6 @@ int main(int argc,char** argv)
    gMainArgs.show();
    main_initialize();
 
-   //main_test();
-   //return 0;
-
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
@@ -35,8 +32,8 @@ int main(int argc,char** argv)
 
    if (true)
    {
-      ProtoComm::gProcThread = new ProtoComm::ProcThread;
-      ProtoComm::gProcThread->launchThread();
+      ProtoComm::gPeerThread = new ProtoComm::PeerThread;
+      ProtoComm::gPeerThread->launchThread();
    }
 
    if (true)
@@ -51,7 +48,7 @@ int main(int argc,char** argv)
    // Show program threads.
 
    Ris::Threads::showCurrentThreadInfo();
-   if (ProtoComm::gProcThread) ProtoComm::gProcThread->showThreadInfo();
+   if (ProtoComm::gPeerThread) ProtoComm::gPeerThread->showThreadInfo();
    if (ProtoComm::gMonitorThread) ProtoComm::gMonitorThread->showThreadInfo();
 
    //***************************************************************************
@@ -75,11 +72,11 @@ int main(int argc,char** argv)
       ProtoComm::gMonitorThread = 0;
    }
 
-   if (ProtoComm::gProcThread)
+   if (ProtoComm::gPeerThread)
    {
-      ProtoComm::gProcThread->shutdownThread();
-      delete ProtoComm::gProcThread;
-      ProtoComm::gProcThread = 0;
+      ProtoComm::gPeerThread->shutdownThread();
+      delete ProtoComm::gPeerThread;
+      ProtoComm::gPeerThread = 0;
    }
 
    //***************************************************************************
