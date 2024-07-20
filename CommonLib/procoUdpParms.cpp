@@ -42,8 +42,8 @@ void UdpParms::reset()
    mUdpWrapFlag = false;
    mUdpBroadcast = false;
 
+   mTraceLogEnable = false;
    mThreadTimerPeriod = 0;
-
    mNumWords = 0;
 }
 
@@ -57,18 +57,20 @@ void UdpParms::show()
    printf("\n");
    printf("UdpParms************************************************ %s\n", mTargetSection);
 
-   printf("MyAppNumber             %16d\n", mMyAppNumber);
+   printf("MyAppNumber             %-12d\n", mMyAppNumber);
 
-   printf("MyUdpAddress            %16s\n", mMyUdpAddress);
-   printf("MyUdpPort               %16d\n", mMyUdpPort);
-   printf("OtherUdpAddress         %16s\n", mOtherUdpAddress);
-   printf("OtherUdpPort            %16d\n", mOtherUdpPort);
-   printf("UdpWrapflag             %16s\n", my_string_from_bool(mUdpWrapFlag));
-   printf("UdpBroadcast            %16s\n", my_string_from_bool(mUdpBroadcast));
+   printf("MyUdpAddress            %-12s\n", mMyUdpAddress);
+   printf("MyUdpPort               %-12d\n", mMyUdpPort);
+   printf("OtherUdpAddress         %-12s\n", mOtherUdpAddress);
+   printf("OtherUdpPort            %-12d\n", mOtherUdpPort);
+   printf("UdpWrapflag             %-12s\n", my_string_from_bool(mUdpWrapFlag));
+   printf("UdpBroadcast            %-12s\n", my_string_from_bool(mUdpBroadcast));
 
    printf("\n");
-   printf("ThreadTimerPeriod       %16d\n", mThreadTimerPeriod);
-   printf("NumWords                %16d\n", mNumWords);
+   printf("TraceLogEnable          %-12s\n", my_string_from_bool(mTraceLogEnable));
+   printf("\n");
+   printf("ThreadTimerPeriod       %-12d\n", mThreadTimerPeriod);
+   printf("NumWords                %-12d\n", mNumWords);
 
    printf("UdpParms************************************************\n");
    printf("\n");
@@ -94,6 +96,7 @@ void UdpParms::execute(Ris::CmdLineCmd* aCmd)
    if (aCmd->isCmd("UdpWrapFlag"))         mUdpWrapFlag = aCmd->argBool(1);
    if (aCmd->isCmd("UdpBroadcast"))        mUdpBroadcast = aCmd->argBool(1);
 
+   if (aCmd->isCmd("TraceLogEnable"))      mTraceLogEnable = aCmd->argBool(1);
    if (aCmd->isCmd("ThreadTimerPeriod"))   mThreadTimerPeriod = aCmd->argInt(1);
    if (aCmd->isCmd("NumWords"))            mNumWords = aCmd->argInt(1);
 }

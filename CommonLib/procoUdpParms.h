@@ -86,6 +86,9 @@ public:
    //***************************************************************************
    // Members. Read from the parameters file.
 
+   // Trace variables.
+   bool mTraceLogEnable;
+
    // Message thread timer period.
    int mThreadTimerPeriod;
 

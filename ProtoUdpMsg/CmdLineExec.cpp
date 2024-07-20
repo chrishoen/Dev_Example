@@ -15,6 +15,7 @@ using namespace ProtoComm;
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// Constructor.
 
 CmdLineExec::CmdLineExec()
 {
@@ -26,6 +27,9 @@ void CmdLineExec::reset()
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// Base class override. Execute a command line command. It calls one of
+// the following specific command execution functions. This is called by
+// the owner of this object to pass command line commands to it. 
 
 void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 {
@@ -43,6 +47,9 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// Base class override. Execute special command line command.
+// A special command is one that consists of only a single digit
+// "0" .. "9" followed by an enter.
 
 void CmdLineExec::special(int aSpecial)
 {
@@ -162,6 +169,29 @@ void CmdLineExec::executeParms(Ris::CmdLineCmd* aCmd)
    ProtoComm::gUdpParms.show();
 }
 
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeHelp(Ris::CmdLineCmd* aCmd)
+{
+   Prn::print(0, "help *******************************************************");
+   Prn::print(0, "");
+   Prn::print(0, "send        -- send a test message ");
+   Prn::print(0, "tp bool     -- enable/disable periodic sends");
+   Prn::print(0, "echo        -- send echo request message");
+   Prn::print(0, "data        -- send data message");
+   Prn::print(0, "");
+   Prn::print(0, "special commands 0..9");
+   Prn::print(0, "0           -- don't show monitor");
+   Prn::print(0, "1           -- show message metrics and counts");
+   Prn::print(0, "2           -- show serial/socket message metrics");
+   Prn::print(0, "");
+   Prn::print(0, "parms       -- show program parms");
+   Prn::print(0, "e           -- exit program");
+   Prn::print(0, "");
+   Prn::print(0, "trc help    -- show trace help");
+}
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
