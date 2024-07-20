@@ -38,7 +38,7 @@ ExampleTimerThread::ExampleTimerThread()
 
 void ExampleTimerThread::executeOnTimer(int aTimeCount)
 {
-   Prn::print(Prn::View11, "ExampleTimerThread::executeOnTimer %d", aTimeCount);
+   Prn::print(Prn::View11, "ExampleTimerThread::executeOnTimer************************* %d", aTimeCount);
 
    // Invoke the example qcall thread qcall.
    gExampleQCallThread->mRequestQCall(aTimeCount);

@@ -32,7 +32,7 @@ public:
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Infrastructure.
+   // Constructor.
 
    CmdLineExec();
    void reset() override;
@@ -43,8 +43,7 @@ public:
    // Methods.
 
    // Base class override. Execute a command line command. It calls one of
-   // the following specific command execution functions. This is called by
-   // the owner of this object to pass command line commands to it. 
+   // the following specific command execution functions.
    void execute(Ris::CmdLineCmd* aCmd) override;
 
    //***************************************************************************

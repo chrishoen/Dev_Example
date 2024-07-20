@@ -63,7 +63,7 @@ void  ExampleQCallThread::threadExitFunction()
 
 void ExampleQCallThread::executeOnTimer(int aTimerCount)
 {
-   Prn::print(Prn::View21, "ExampleQCallThread::executeOnTimer  %10d", aTimerCount);
+   //Prn::print(Prn::View21, "ExampleQCallThread::executeOnTimer  %10d", aTimerCount);
 }
 
 //******************************************************************************
@@ -74,7 +74,7 @@ void ExampleQCallThread::executeOnTimer(int aTimerCount)
 
 void ExampleQCallThread::executeRequest(int aCount)
 {
-   Prn::print(Prn::View21, "ExampleQCallThread::executeRequest ************************ %10d", aCount);
+   Prn::print(Prn::View21, "ExampleQCallThread::executeRequest %10d", aCount);
 }
 
 //******************************************************************************

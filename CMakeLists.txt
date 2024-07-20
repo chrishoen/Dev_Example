@@ -15,7 +15,7 @@ my_show_cmake_vars()
 
 
 add_subdirectory ("CommonLib")
-add_subdirectory ("ExampleThread3")
+add_subdirectory ("ExampleThread2")
 return()
 
 add_subdirectory ("CommonLib")

@@ -1,6 +1,5 @@
 #include "stdafx.h"
 
-#include "risThreadsProcess.h"
 #include "risThreadsThreads.h"
 #include "someExampleParms.h"
 
@@ -16,23 +15,10 @@ void main_initialize(int argc,char** argv)
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Enter process.
-
-   // Set program process for high priority.
-   Ris::Threads::enterProcessHigh();
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
 
    // Read parameters files.
    Some::gExampleParms.reset();
    Some::gExampleParms.readSection("default");
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Initialize program resources.
 
    //***************************************************************************
    //***************************************************************************
@@ -43,7 +29,7 @@ void main_initialize(int argc,char** argv)
    Prn::resetPrint();
    if (Some::gExampleParms.mPrintViewEnable)
    {
-      // Initialize print.
+      // Initialize print with consoles.
       Prn::resetPrint(Some::gExampleParms.mPrintViewIPAddress);
       Prn::useConsole(1);
       Prn::useConsole(2);
@@ -54,6 +40,18 @@ void main_initialize(int argc,char** argv)
       Prn::setFilter(Prn::View12, false, 1);
       Prn::setFilter(Prn::View21, true, 2);
       Prn::setFilter(Prn::View22, false, 2);
+   }
+   else
+   {
+      // Initialize print.
+      Prn::resetPrint();
+      Prn::initializePrint();
+
+      // Initialize print filters.
+      Prn::setFilter(Prn::View11, true);
+      Prn::setFilter(Prn::View12, false);
+      Prn::setFilter(Prn::View21, true);
+      Prn::setFilter(Prn::View22, false);
    }
 }
 
