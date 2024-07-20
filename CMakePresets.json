@@ -34,6 +34,27 @@
       }
     },
     {
+      "name": "prime-arm7",
+      "displayName": "prime-arm7",
+      "description": "Target debian arm7 for beaglebone or rpi, install to /opt/prime",
+      "inherits": "base",
+      "toolchainFile": "${sourceDir}\\beaglebone-toolchain.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "MYMODE": {
+          "type": "STRING",
+          "value": "prime-arm7"
+        }
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [
+            "Windows"
+          ]
+        }
+      }
+    },
+    {
       "name": "prime-ubu",
       "displayName": "prime-ubu",
       "description": "Target ubuntu, with gcc, install to /opt/prime.",
@@ -58,27 +79,6 @@
       "vendor": {
         "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
           "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}"
-        }
-      }
-    },
-    {
-      "name": "prime-arm7",
-      "displayName": "prime-arm7",
-      "description": "Target debian arm7 for beaglebone, install to /opt/prime",
-      "inherits": "base",
-      "toolchainFile": "${sourceDir}\\beaglebone-toolchain.cmake",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "MYMODE": {
-          "type": "STRING",
-          "value": "prime-arm7"
-        }
-      },
-      "vendor": {
-        "microsoft.com/VisualStudioSettings/CMake/1.0": {
-          "hostOS": [
-            "Windows"
-          ]
         }
       }
     },
@@ -136,6 +136,5 @@
         }
       }
     }
-
   ]
 }

@@ -21,24 +21,28 @@ set (CMAKE_C_FLAGS "\
  " CACHE STRING "")
 
 set (CMAKE_CXX_COMPILER "${CROSS_COMPILER_PREFIX}g++" CACHE FILEPATH "")
-set (CMAKE_CXX_FLAGS "\
- -O3 \
- -DNDEBUG \
- -Wall \
- -Wextra \
- -Wno-unused-parameter \
- -Wno-unused-result \
- -Wno-unused-variable \
- -Wno-unused-function \
- -Wno-missing-field-initializers \
- -Wno-delete-incomplete \
- -fno-strict-aliasing \
- -pipe -g -feliminate-unused-debug-types \
- -fno-omit-frame-pointer \
- -D_FORTIFY_SOURCE=2 \
- --sysroot=${CMAKE_SYSROOT} \
- " CACHE STRING "")
-# -mcpu=cortex-a53+crc+crypto \
+if (false) #these are set in my_append_compile_flags()
+    set (CMAKE_CXX_FLAGS "\
+     -O3 \
+     -DNDEBUG \
+     -Wall \
+     -Wextra \
+     -Wno-unused-parameter \
+     -Wno-unused-result \
+     -Wno-unused-variable \
+     -Wno-unused-function \
+     -Wno-missing-field-initializers \
+     -Wno-delete-incomplete \
+     -Wno-stringop-overflow \
+     -Wno-array-bounds \
+     -fno-strict-aliasing \
+     -pipe -g -feliminate-unused-debug-types \
+     -fno-omit-frame-pointer \
+     -D_FORTIFY_SOURCE=2 \
+     --sysroot=${CMAKE_SYSROOT} \
+     " CACHE STRING "")
+    # -mcpu=cortex-a53+crc+crypto \
+endif()
 
 SET(CMAKE_AR ${CROSS_COMPILER_PREFIX}ar)
 SET(CMAKE_NM ${CROSS_COMPILER_PREFIX}nm)

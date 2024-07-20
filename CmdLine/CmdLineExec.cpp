@@ -58,7 +58,7 @@ void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
    // Set argument defaults. Try entering "go2".
    aCmd->setArgDefault(1, 101);
    aCmd->setArgDefault(2, 102.34);
-   aCmd->setArgDefault(3, "aaaa");
+   aCmd->setArgDefault(3, (char*)"aaaa");
 
    // Get variables from command line arguments.
    int tInteger = aCmd->argInt(1);
