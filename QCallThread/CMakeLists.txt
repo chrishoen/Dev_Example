@@ -1,5 +1,5 @@
 ﻿cmake_minimum_required(VERSION 3.10)
-set (project "ExampleThread3")
+set (project "QCallThread")
 project(${project} CXX)
 my_find_src_files (src_files ${project})
 add_executable (${project} ${src_files})

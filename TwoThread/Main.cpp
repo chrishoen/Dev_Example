@@ -11,6 +11,8 @@
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// This program contains a twothread and a qcall thread. The twothread
+// sends a request qcall to the qcall thread and waits for a response.
 
 int main(int argc,char** argv)
 {
@@ -26,11 +28,17 @@ int main(int argc,char** argv)
    //***************************************************************************
    // Launch program threads.
 
-   Some::gExampleQCallThread = new Some::ExampleQCallThread;
-   Some::gExampleQCallThread->launchThread();
+   if (true)
+   {
+      Some::gExampleQCallThread = new Some::ExampleQCallThread;
+      Some::gExampleQCallThread->launchThread();
+   }
 
-   Some::gExampleTwoThread = new Some::ExampleTwoThread;
-   Some::gExampleTwoThread->launchThreads();
+   if (true)
+   {
+      Some::gExampleTwoThread = new Some::ExampleTwoThread;
+      Some::gExampleTwoThread->launchThreads();
+   }
 
    //***************************************************************************
    //***************************************************************************
@@ -55,22 +63,16 @@ int main(int argc,char** argv)
    //***************************************************************************
    // Shutdown program threads.
 
-   if (Some::gExampleTwoThread)   Some::gExampleTwoThread->shutdownThreads();
-   if (Some::gExampleQCallThread) Some::gExampleQCallThread->shutdownThread();
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Delete program threads.
-
    if (Some::gExampleTwoThread)
    {
+      Some::gExampleTwoThread->shutdownThreads();
       delete Some::gExampleTwoThread;
       Some::gExampleTwoThread = 0;
    }
 
    if (Some::gExampleQCallThread)
    {
+      Some::gExampleQCallThread->shutdownThread();
       delete Some::gExampleQCallThread;
       Some::gExampleQCallThread = 0;
    }

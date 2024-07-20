@@ -17,9 +17,8 @@ my_show_cmake_vars()
 
 add_subdirectory ("CommonLib")
 add_subdirectory ("CmdLine")
-add_subdirectory ("ExampleThread1")
-add_subdirectory ("ExampleThread2")
-add_subdirectory ("ExampleThread3")
+add_subdirectory ("QCallThread")
+add_subdirectory ("TwoThread")
 add_subdirectory ("ProtoUdpMsg")
 return()
 
@@ -28,9 +27,6 @@ return()
 
 add_subdirectory ("CommonLib")
 add_subdirectory ("ProtoUdpMsg")
-return()
-
-add_subdirectory ("Test")
 return()
 
 add_subdirectory ("CommonLib")

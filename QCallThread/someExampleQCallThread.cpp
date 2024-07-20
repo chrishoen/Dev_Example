@@ -8,7 +8,6 @@
 
 #include "cmnPriorities.h"
 #include "someExampleParms.h"
-#include "someExampleTwoThread.h"
 
 #define  _SOMEEXAMPLEQCALLTHREAD_CPP_
 #include "someExampleQCallThread.h"
@@ -25,7 +24,8 @@ ExampleQCallThread::ExampleQCallThread()
 {
    // Set base class variables.
    BaseClass::setThreadName("ExampleQCall");
-   BaseClass::setThreadPriority(Cmn::gPriorities.mTest);
+   BaseClass::setThreadPriority(Cmn::gPriorities.mQCall);
+   BaseClass::mTimerPeriod = gExampleParms.mTimerPeriod;
 
    // Initialize qcalls.
    mRequestQCall.bind(this, &ExampleQCallThread::executeRequest);
@@ -43,7 +43,7 @@ ExampleQCallThread::~ExampleQCallThread()
 
 void ExampleQCallThread::threadInitFunction()
 {
-   Prn::print(Prn::Show1, "ExampleQCallThread::threadInitFunction");
+   Prn::print(Prn::View21, "ExampleQCallThread::threadInitFunction");
 }
 
 //******************************************************************************
@@ -53,26 +53,28 @@ void ExampleQCallThread::threadInitFunction()
 
 void  ExampleQCallThread::threadExitFunction()
 {
-   Prn::print(Prn::Show1, "ExampleQCallThread::threadExitFunction");
+   Prn::print(Prn::View21, "ExampleQCallThread::threadExitFunction");
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Receive request qcall function. It is bound to the qcall. This is
-// invoked by the example two thread to send a request to this thread.
-// It sends a delayed response back to the two thread.
+// Execute periodically. This is called by the base class timer.
+
+void ExampleQCallThread::executeOnTimer(int aTimerCount)
+{
+   //Prn::print(Prn::View21, "ExampleQCallThread::executeOnTimer  %10d", aTimerCount);
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// QCall registered to the mUdpMsgThread child thread. It is invoked when
+// a message is received. It process the received messages.
 
 void ExampleQCallThread::executeRequest(int aCount)
 {
-   Prn::print(Prn::Show1, "ExampleQCallThread::executeRequest %10d", aCount);
-
-   // Sleep.
-   BaseClass::threadSleep(gExampleParms.mDelay1);
-
-   // Send a response back to the example two thread.
-   Prn::print(Prn::Show1, "ExampleQCallThread::executeRequest send response");
-   gExampleTwoThread->mResponseQCall(aCount);
+   Prn::print(Prn::View21, "ExampleQCallThread::executeRequest %10d", aCount);
 }
 
 //******************************************************************************

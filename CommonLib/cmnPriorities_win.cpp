@@ -36,12 +36,11 @@ static const int tInt7 = THREAD_PRIORITY_IDLE;
 
 Priorities::Priorities()
 {
-   mTsPrint           = Ris::Threads::Priority(-1, THREAD_PRIORITY_BELOW_NORMAL);
    mMasterLong        = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
    mMasterShort       = Ris::Threads::Priority(-1, THREAD_PRIORITY_HIGHEST);
    mSlave             = Ris::Threads::Priority(-1, THREAD_PRIORITY_ABOVE_NORMAL);
-   mTimer             = Ris::Threads::Priority(-1, THREAD_PRIORITY_HIGHEST);
-   mTest              = Ris::Threads::Priority(-1, THREAD_PRIORITY_ABOVE_NORMAL);
+   mTimer             = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
+   mQCall             = Ris::Threads::Priority(-1, THREAD_PRIORITY_ABOVE_NORMAL);
 }
 
 //******************************************************************************
