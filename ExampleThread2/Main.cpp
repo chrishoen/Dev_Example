@@ -11,13 +11,15 @@
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// This is an example program that has a timer thread that sends a qcall
+// to a qcall thread.
 
 int main(int argc,char** argv)
 {
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Begin program.
+   // Initialize program resources.
 
    main_initialize(argc, argv);
 
@@ -26,11 +28,17 @@ int main(int argc,char** argv)
    //***************************************************************************
    // Launch program threads.
 
-   Some::gExampleQCallThread = new Some::ExampleQCallThread;
-   Some::gExampleQCallThread->launchThread();
+   if (true)
+   {
+      Some::gExampleQCallThread = new Some::ExampleQCallThread;
+      Some::gExampleQCallThread->launchThread();
+   }
 
-   Some::gExampleTimerThread = new Some::ExampleTimerThread;
-   Some::gExampleTimerThread->launchThread();
+   if (true)
+   {
+      Some::gExampleTimerThread = new Some::ExampleTimerThread;
+      Some::gExampleTimerThread->launchThread();
+   }
 
    //***************************************************************************
    //***************************************************************************
@@ -38,8 +46,8 @@ int main(int argc,char** argv)
    // Show program threads.
 
    Ris::Threads::showCurrentThreadInfo();
-   if (Some::gExampleTimerThread)    Some::gExampleTimerThread->showThreadInfo();
-   if (Some::gExampleQCallThread)    Some::gExampleQCallThread->showThreadInfo();
+   if (Some::gExampleTimerThread) Some::gExampleTimerThread->showThreadInfo();
+   if (Some::gExampleQCallThread) Some::gExampleQCallThread->showThreadInfo();
 
    //***************************************************************************
    //***************************************************************************
@@ -55,22 +63,16 @@ int main(int argc,char** argv)
    //***************************************************************************
    // Shutdown program threads.
 
-   if (Some::gExampleTimerThread)     Some::gExampleTimerThread->shutdownThread();
-   if (Some::gExampleQCallThread)     Some::gExampleQCallThread->shutdownThread();
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Delete program threads.
-
    if (Some::gExampleTimerThread)
    {
+      Some::gExampleTimerThread->shutdownThread();
       delete Some::gExampleTimerThread;
       Some::gExampleTimerThread = 0;
    }
 
    if (Some::gExampleQCallThread)
    {
+      Some::gExampleQCallThread->shutdownThread();
       delete Some::gExampleQCallThread;
       Some::gExampleQCallThread = 0;
    }
@@ -78,7 +80,7 @@ int main(int argc,char** argv)
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // End program.
+   // Finalize program resources.
 
    main_finalize();
    return 0;
