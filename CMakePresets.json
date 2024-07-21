@@ -34,8 +34,8 @@
       }
     },
     {
-      "name": "prime-arm7",
-      "displayName": "prime-arm7",
+      "name": "prime-beagle",
+      "displayName": "prime-beagle",
       "description": "Target debian arm7 for beaglebone or rpi, install to /opt/prime",
       "inherits": "base",
       "toolchainFile": "${sourceDir}\\toolchain-beagle.cmake",
@@ -43,7 +43,7 @@
         "CMAKE_BUILD_TYPE": "Release",
         "MYMODE": {
           "type": "STRING",
-          "value": "prime-arm7"
+          "value": "prime-beagle"
         }
       },
       "vendor": {

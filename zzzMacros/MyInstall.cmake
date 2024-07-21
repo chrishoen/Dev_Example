@@ -2,7 +2,7 @@
 
 if (MSVC)
    install(TARGETS ${project} DESTINATION "C:/aaa_prime/RisLib")
-elseif (MYMODE STREQUAL "prime-arm7")
+elseif (MYMODE STREQUAL "prime-beagle")
    install(CODE "execute_process(COMMAND_ECHO STDOUT
       COMMAND c:/windows/system32/openssh/scp ${CMAKE_CURRENT_BINARY_DIR}/${project} debian@bbx:/opt/prime/bin)")
 elseif(MYMODE STREQUAL "prime-ubu")
