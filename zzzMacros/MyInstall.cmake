@@ -9,7 +9,7 @@ elseif(MYMODE STREQUAL "prime-ubu")
    install(TARGETS ${project} DESTINATION "/opt/prime/bin")
 #  install(CODE "execute_process(COMMAND_ECHO STDOUT
 #     COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/${project} cpdev1:/opt/prime/bin)")
-elseif (MYMODE STREQUAL "prime-rpi")
+elseif (MYMODE STREQUAL "prime-rpi-ubu")
    install(CODE "execute_process(COMMAND_ECHO STDOUT
       COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/${project} rpx1:/opt/prime/bin)")
 #   install(CODE "execute_process(COMMAND_ECHO STDOUT

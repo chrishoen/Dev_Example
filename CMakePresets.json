@@ -38,7 +38,7 @@
       "displayName": "prime-beagle",
       "description": "Target debian arm7 for beaglebone or rpi, install to /opt/prime",
       "inherits": "base",
-      "toolchainFile": "${sourceDir}\\toolchain-beagle.cmake",
+      "toolchainFile": "${sourceDir}\\toolchain-beagle-win.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "MYMODE": {
@@ -83,18 +83,18 @@
       }
     },
     {
-      "name": "prime-rpi",
-      "displayName": "prime-rpi",
+      "name": "prime-rpi-ubu",
+      "displayName": "prime-rpi-ubu",
       "description": "Target the raspberrypi4, install to /opt/prime.",
       "generator": "Ninja",
-      "toolchainFile": "${sourceDir}\\toolchain-rpi.cmake",
+      "toolchainFile": "${sourceDir}\\toolchain-rpi-ubu.cmake",
       "binaryDir": "${sourceDir}/out/build/${presetName}",
       "installDir": "${sourceDir}/out/install/${presetName}",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "MYMODE": {
           "type": "STRING",
-          "value": "prime-rpi"
+          "value": "prime-rpi-ubu"
         }
 
       },
