@@ -14,7 +14,7 @@ elseif (MYMODE STREQUAL "prime-rpi-ubu")
       COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/${project} rpx1:/opt/prime/bin)")
 #   install(CODE "execute_process(COMMAND_ECHO STDOUT
 #      COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/${project} rpx4:/opt/prime/bin)")
-elseif (MYMODE STREQUAL "writer")
+elseif (MYMODE STREQUAL "prime-writer-ubu")
    install(CODE "execute_process(COMMAND_ECHO STDOUT
       COMMAND scp ${CMAKE_CURRENT_BINARY_DIR}/${project} writer:/opt/prime/bin)")
 endif()

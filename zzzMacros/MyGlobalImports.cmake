@@ -12,7 +12,7 @@ function(my_lib_import_RisLib _target)
       set (MyRisLibImportPath  "/opt/toolchain/mylib/lib/ubu/libRisLib.a")
    elseif (MYMODE STREQUAL "prime-rpi-ubu")
       set (MyRisLibImportPath  "/opt/toolchain/mylib/lib/rpi/libRisLib.a")
-   elseif (MYMODE STREQUAL "writer")
+   elseif (MYMODE STREQUAL "prime-writer-ubu")
       set (MyRisLibImportPath  "/opt/toolchain/mylib/lib/mx93/libRisLib.a")
    endif()
 

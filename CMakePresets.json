@@ -131,8 +131,8 @@
       }
     },
     {
-      "name": "writer",
-      "displayName": "writer",
+      "name": "prime-writer-ubu",
+      "displayName": "prime-writer-ubu",
       "description": "Target the varisite mx93, install to /opt/prime.",
       "generator": "Ninja",
       "toolchainFile": "${sourceDir}\\toolchain-mx93.cmake",
@@ -142,7 +142,7 @@
         "CMAKE_BUILD_TYPE": "Release",
         "MYMODE": {
           "type": "STRING",
-          "value": "writer"
+          "value": "prime-writer-ubu"
         }
 
       },
