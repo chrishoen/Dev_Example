@@ -15,6 +15,9 @@ my_show_cmake_vars()
 
 
 
+add_subdirectory ("HelloWorld")
+return()
+
 add_subdirectory ("CommonLib")
 add_subdirectory ("CmdLine")
 add_subdirectory ("QCallThread")
