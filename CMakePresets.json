@@ -38,7 +38,7 @@
       "displayName": "prime-arm7",
       "description": "Target debian arm7 for beaglebone or rpi, install to /opt/prime",
       "inherits": "base",
-      "toolchainFile": "${sourceDir}\\beaglebone-toolchain.cmake",
+      "toolchainFile": "${sourceDir}\\toolchain-beagle.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "MYMODE": {
@@ -87,7 +87,7 @@
       "displayName": "prime-rpi",
       "description": "Target the raspberrypi4, install to /opt/prime.",
       "generator": "Ninja",
-      "toolchainFile": "${sourceDir}\\rpi-toolchain.cmake",
+      "toolchainFile": "${sourceDir}\\toolchain-rpi.cmake",
       "binaryDir": "${sourceDir}/out/build/${presetName}",
       "installDir": "${sourceDir}/out/install/${presetName}",
       "cacheVariables": {
@@ -114,7 +114,7 @@
       "displayName": "writer",
       "description": "Target the varisite mx93, install to /opt/prime.",
       "generator": "Ninja",
-      "toolchainFile": "${sourceDir}\\mx93-toolchain.cmake",
+      "toolchainFile": "${sourceDir}\\toolchain-mx93.cmake",
       "binaryDir": "${sourceDir}/out/build/${presetName}",
       "installDir": "${sourceDir}/out/install/${presetName}",
       "cacheVariables": {
