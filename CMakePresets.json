@@ -135,7 +135,7 @@
       "displayName": "prime-writer-ubu",
       "description": "Target the varisite mx93, install to /opt/prime.",
       "generator": "Ninja",
-      "toolchainFile": "${sourceDir}\\toolchain-mx93.cmake",
+      "toolchainFile": "${sourceDir}\\toolchain-mx93-ubu.cmake",
       "binaryDir": "${sourceDir}/out/build/${presetName}",
       "installDir": "${sourceDir}/out/install/${presetName}",
       "cacheVariables": {
