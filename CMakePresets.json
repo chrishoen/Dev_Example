@@ -34,16 +34,37 @@
       }
     },
     {
-      "name": "prime-beagle",
-      "displayName": "prime-beagle",
-      "description": "Target debian arm7 for beaglebone or rpi, install to /opt/prime",
+      "name": "prime-beagle-win",
+      "displayName": "prime-beagle-win",
+      "description": "Target debian arm7 for beaglebone, install to /opt/prime",
       "inherits": "base",
       "toolchainFile": "${sourceDir}\\toolchain-beagle-win.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "MYMODE": {
           "type": "STRING",
-          "value": "prime-beagle"
+          "value": "prime-beagle-win"
+        }
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [
+            "Windows"
+          ]
+        }
+      }
+    },
+    {
+      "name": "prime-rpi-win",
+      "displayName": "prime-rpi-win",
+      "description": "Target the raspberrypi4, install to /opt/prime",
+      "inherits": "base",
+      "toolchainFile": "${sourceDir}\\toolchain-rpi-win.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "MYMODE": {
+          "type": "STRING",
+          "value": "prime-rpi-win"
         }
       },
       "vendor": {
