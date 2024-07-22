@@ -4,7 +4,7 @@ SET (CMAKE_CXX_STANDARD_REQUIRED on)
 set (CMAKE_SYSTEM_NAME Linux)
 set (CMAKE_SYSTEM_PROCESSOR aarch64)
 
-set (SDK_DIR "/opt/toolchain/mx93")
+set (SDK_DIR "/opt/mydev/toolchain-mx93")
 set (CROSS_COMPILER_PREFIX "${SDK_DIR}/sysroots/x86_64-fslbsp-linux/usr/bin/aarch64-fsl-linux/aarch64-fsl-linux-")
 set (CMAKE_SYSROOT "${SDK_DIR}/sysroots/armv8a-fsl-linux/" CACHE STRING "")
 

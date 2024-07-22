@@ -4,7 +4,7 @@ SET (CMAKE_CXX_STANDARD_REQUIRED on)
 set (CMAKE_SYSTEM_NAME Linux)
 set (CMAKE_SYSTEM_PROCESSOR aarch64)
 
-set (CROSS_DIR "/opt/toolchain/cross-pi-gcc-10.3.0-64")
+set (CROSS_DIR "/opt/mydev/cross-pi-gcc-10.3.0-64")
 set (ARCH_DIR "${CROSS_DIR}/aarch64-linux-gnu")
 set (CMAKE_SYSROOT "${ARCH_DIR}/libc" CACHE STRING "")
 
