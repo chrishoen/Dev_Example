@@ -278,6 +278,9 @@ endfunction()
 #*******************************************************************************
 
 function(my_add_pch _target)
-   #message(STATUS "my_add_pch new******************************** " ${_target})
+   if (MYMODE STREQUAL "steno-arm" OR MYMODE STREQUAL "prime-rpi-win")
+      return()
+   endif()
+
    target_precompile_headers(${_target} PRIVATE "stdafx.h")
 endfunction()

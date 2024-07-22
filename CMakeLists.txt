@@ -16,6 +16,13 @@ my_show_cmake_vars()
 
 
 add_subdirectory ("CommonLib")
+add_subdirectory ("CmdLine")
+add_subdirectory ("QCallThread")
+add_subdirectory ("TwoThread")
+add_subdirectory ("ProtoUdpMsg")
+return()
+
+add_subdirectory ("CommonLib")
 return()
 
 add_subdirectory ("HelloWorld")
@@ -24,12 +31,6 @@ return()
 add_subdirectory ("ProtoUdpMsg")
 return()
 
-add_subdirectory ("CommonLib")
-add_subdirectory ("CmdLine")
-add_subdirectory ("QCallThread")
-add_subdirectory ("TwoThread")
-add_subdirectory ("ProtoUdpMsg")
-return()
 
 add_subdirectory ("CmdLine")
 return()
