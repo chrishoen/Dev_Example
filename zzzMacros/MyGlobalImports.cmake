@@ -10,6 +10,8 @@ function(my_lib_import_RisLib _target)
       set (MyRisLibImportPath  "C:/MyDev/lib/beagle/libRisLib.a")
    elseif (MYMODE STREQUAL "prime-rpi-win")
       set (MyRisLibImportPath  "C:/MyDev/lib/rpi/libRisLib.a")
+   elseif (MYMODE STREQUAL "prime-mx93-win")
+      set (MyRisLibImportPath  "C:/MyDev/lib/mx93/libRisLib.a")
    elseif (MYMODE STREQUAL "prime-ubu")
       set (MyRisLibImportPath  "/opt/mydev/lib/ubu/libRisLib.a")
    elseif (MYMODE STREQUAL "prime-rpi-ubu")
@@ -55,7 +57,8 @@ function(my_inc_import_RisLib _target)
    if (
        MSVC OR 
        MYMODE STREQUAL "prime-beagle-win" OR
-       MYMODE STREQUAL "prime-rpi-win"
+       MYMODE STREQUAL "prime-rpi-win" OR
+       MYMODE STREQUAL "prime-mx93-win"
    )
       set (MyRisLibIncludePath "C:/MyDev/include/RisLib")
    else()
