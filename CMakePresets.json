@@ -82,7 +82,7 @@
       "inherits": "base",
       "toolchainFile": "${sourceDir}\\toolchain-mx93-win.cmake",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_BUILD_TYPE": "Debug",
         "MYMODE": {
           "type": "STRING",
           "value": "prime-mx93-win"
