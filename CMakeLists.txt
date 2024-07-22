@@ -15,10 +15,12 @@ my_show_cmake_vars()
 
 
 
+add_subdirectory ("CommonLib")
+return()
+
 add_subdirectory ("HelloWorld")
 return()
 
-add_subdirectory ("CommonLib")
 add_subdirectory ("ProtoUdpMsg")
 return()
 
