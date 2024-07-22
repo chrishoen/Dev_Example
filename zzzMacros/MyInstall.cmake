@@ -8,6 +8,9 @@ elseif (MYMODE STREQUAL "prime-beagle-win")
 elseif (MYMODE STREQUAL "prime-rpi-win")
    install(CODE "execute_process(COMMAND_ECHO STDOUT
       COMMAND c:/windows/system32/openssh/scp ${CMAKE_CURRENT_BINARY_DIR}/${project} rpx1:/opt/prime/bin)")
+elseif (MYMODE STREQUAL "prime-mx93-win")
+   install(CODE "execute_process(COMMAND_ECHO STDOUT
+      COMMAND c:/windows/system32/openssh/scp ${CMAKE_CURRENT_BINARY_DIR}/${project} writer:/opt/prime/bin)")
 elseif(MYMODE STREQUAL "prime-ubu")
    install(TARGETS ${project} DESTINATION "/opt/prime/bin")
 #  install(CODE "execute_process(COMMAND_ECHO STDOUT
