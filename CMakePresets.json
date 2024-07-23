@@ -76,16 +76,16 @@
       }
     },
     {
-      "name": "prime-mx93-win",
-      "displayName": "prime-mx93-win",
+      "name": "prime-writer-win",
+      "displayName": "prime-writer-win",
       "description": "Target the varisite dev kit, install to /opt/prime",
       "inherits": "base",
       "toolchainFile": "${sourceDir}\\toolchain-mx93-win.cmake",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_BUILD_TYPE": "Release",
         "MYMODE": {
           "type": "STRING",
-          "value": "prime-mx93-win"
+          "value": "prime-writer-win"
         }
       },
       "vendor": {

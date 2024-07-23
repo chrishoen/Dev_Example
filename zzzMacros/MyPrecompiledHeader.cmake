@@ -278,7 +278,7 @@ endfunction()
 #*******************************************************************************
 
 function(my_add_pch _target)
-   if (MYMODE STREQUAL "steno-arm" OR MYMODE STREQUAL "prime-rpi-win")
+   if (MYMODE STREQUAL "prime-rpi-win" OR MYMODE STREQUAL "prime-writer-win")
       return()
    endif()
 

@@ -3,9 +3,9 @@ SET(CMAKE_SYSTEM_NAME Linux)
 
 # specify the cross compiler
 SET(CMAKE_C_COMPILER
-C:/MyDev/toolchain-beagle/bin/arm-linux-gnueabihf-gcc.exe)
+C:/MyDev/toolchain-rpi/bin/aarch64-linux-gnu-gcc.exe)
 SET(CMAKE_CXX_COMPILER
-C:/MyDev/toolchain-beagle/bin/arm-linux-gnueabihf-g++.exe)
+C:/MyDev/toolchain-rpi/bin/aarch64-linux-gnu-g++.exe)
 # where is the target environment
 SET(CMAKE_FIND_ROOT_PATH
 C:/MyDev/toolchain-beagle)
