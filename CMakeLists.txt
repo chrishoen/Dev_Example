@@ -16,6 +16,9 @@ my_show_cmake_vars()
 
 
 
+add_subdirectory ("Test")
+return()
+
 add_subdirectory ("HelloWorld")
 return()
 

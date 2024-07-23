@@ -49,7 +49,7 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 
 inline void delay(int aLoop)
 {
-    volatile int gDummy = 0;
+    int gDummy = 0;
     for (int i = 0; i < aLoop; i++) gDummy++;
 }
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
